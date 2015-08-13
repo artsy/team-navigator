@@ -28,9 +28,14 @@ app.get('/', function(req, res, next) {
     .done();
 });
 
-app.get('/:id', function(req, res) {
+app.get('/:id', function(req, res, next) {
   getMember(req.params.id)
-    .then(res.send.bind(res))
+    .then(function(member) {
+      res.render('show', {
+        member: member,
+        crop: crop
+      });
+    })
     .catch(next)
     .done();
 });

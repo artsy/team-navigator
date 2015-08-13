@@ -1,2 +1,28 @@
+extends layout
+
 block body
-  h1= member.name
+  .full-member
+    h1
+      = member.name
+
+    .headshot(
+      style='background-image: url(' + crop(member.headshot, {}) + ');'
+    )
+
+    hr
+
+    center
+      if member.title
+        p: em= member.title
+
+      if member.role_text
+        p= member.role_text
+
+      if member.city || member.country
+        p Based in #{[member.city, member.country].join(', ')}
+
+      if member.floor
+        p Can be found on the #{member.floor}<sup>th</sup> floor
+
+      if member.reports_to
+        p Reports to #{member.reports_to}

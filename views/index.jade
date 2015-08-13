@@ -16,7 +16,7 @@ block body
 
       .team-members
         for member in members
-          .member(data-name=member.name)
+          .member( data-name= member.name )
             .headshot(
               style='background-image: url(' + crop(member.headshot, {}) + ');'
             )

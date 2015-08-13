@@ -18,6 +18,13 @@ a {
   color: black;
 }
 
+hr {
+  margin: 20px 0;
+  height: 1px;
+  background-color: #ccc;
+  border: none;
+}
+
 .team {
   margin: 100px;
 }
@@ -51,3 +58,8 @@ a {
 .hidden {
   display: none;
 }
+
+.full-member {
+  margin: 20px;
+}
+
