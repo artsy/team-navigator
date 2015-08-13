@@ -20,7 +20,7 @@ block body
 
         .team-members
           for member in subteam.members
-            .member( data-name= member.name )
+            .member( data-name= member.name, data-subteam= member.subteam )
               a.headshot(
                 style='background-image: url(' + crop(member.headshot, {}) + ');'
                 href= member.email.replace('@', '')
