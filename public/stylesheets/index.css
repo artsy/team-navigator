@@ -11,6 +11,7 @@ h1 {
   font-weight: normal;
   font-size: 37px;
   line-height: 1.2;
+  text-align: center;
 }
 
 a {
@@ -31,6 +32,7 @@ a {
 }
 
 .headshot {
+  margin: 10px auto;
   border-radius: 50%;
   height: 200px;
   width: 200px;
