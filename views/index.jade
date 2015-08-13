@@ -6,7 +6,7 @@ html
     script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js')
     script(type='text/javascript', src='/javascripts/index.js')
   body
-    input(type="search" id="search" size="30" autofocus="yes" placeholder="Search" oninput="searchTextUpdated();")
+    input(type="search" id="search" size="30" autofocus="yes" placeholder="Search" oninput="searchTextUpdated(this);")
     for members, team in teams
       .team
         h1.team-name
