@@ -16,9 +16,8 @@ html
                 style='background-image: url(' + crop(member.headshot, {}) + ');'
               )
               .member-name
-                a(
-                  href='mailto:#{member.email}artsymail.com'
-                )= member.name
+                a( href='mailto:#{member.email}artsymail.com' )
+                  = member.name
 
                 if member.subteam
                   .member-subteam
