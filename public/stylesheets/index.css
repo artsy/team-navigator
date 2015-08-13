@@ -47,3 +47,7 @@ a {
 .member-name {
   margin: 10px 0;
 }
+
+.hidden {
+  display: none;
+}
