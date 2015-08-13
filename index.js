@@ -12,7 +12,7 @@ app.get('/', function(req, res) {
   res.send('Hello world.');
 });
 
-app.get('/team.json', function(req, res) {
+app.get('/api/members', function(req, res) {
   request(csv, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       toJSON(body, function(err, data) {
