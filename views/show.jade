@@ -5,6 +5,9 @@ block body
     h1
       = member.name
 
+    center: p: a( href='mailto:#{member.email}artsymail.com' )
+      | #{member.email}artsymail.com
+
     .headshot(
       style='background-image: url(' + crop(member.headshot, {}) + ');'
     )

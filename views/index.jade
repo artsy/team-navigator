@@ -26,8 +26,11 @@ block body
                 href= member.email.replace('@', '')
               )
               .member-name
-                a( href='mailto:#{member.email}artsymail.com' )
+                a( href= member.email.replace('@', '') )
                   = member.name
+                br
+                a( href='mailto:#{member.email}artsymail.com' )
+                  | #{member.email}artsymail.com
 
                 if member.title
                   .member-title: em
