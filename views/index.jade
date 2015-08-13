@@ -9,7 +9,7 @@ block body
     oninput='searchTextUpdated(this);'
   )
 
-  for members, team in teams
+  .teams: for members, team in teams
     .team
       h1.team-name
         = team

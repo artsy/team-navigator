@@ -25,9 +25,18 @@ hr {
   border: none;
 }
 
-.team {
-  margin: 100px;
+#search {
+  display: block;
+  margin: 10px auto;
 }
+
+.teams {
+  margin: 50px 0;
+}
+
+.team { margin: 100px; }
+  .team:first-child { margin-top: 0; }
+  .team:last-child { margin-bottom: 0; }
 
 .team-members {
   text-align: center;
