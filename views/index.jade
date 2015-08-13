@@ -19,6 +19,10 @@ html
                 a( href='mailto:#{member.email}artsymail.com' )
                   = member.name
 
+                if member.title
+                  .member-title: em
+                    = member.title
+
                 if member.subteam
                   .member-subteam
                     | (#{member.subteam})
