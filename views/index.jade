@@ -17,8 +17,9 @@ block body
       .team-members
         for member in members
           .member( data-name= member.name )
-            .headshot(
+            a.headshot(
               style='background-image: url(' + crop(member.headshot, {}) + ');'
+              href= member.email.replace('@', '')
             )
             .member-name
               a( href='mailto:#{member.email}artsymail.com' )

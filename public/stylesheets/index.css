@@ -41,9 +41,11 @@ hr {
 .member {
   display: inline-block;
   margin: 20px;
+  width: 220px;
 }
 
 .headshot {
+  display: block;
   margin: 10px auto;
   border-radius: 50%;
   height: 200px;
