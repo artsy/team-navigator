@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "csvtojson": "^0.4.2",
+    "express": "^4.13.3",
     "lodash": "^3.10.1",
     "q": "^1.4.1",
     "request": "^2.60.0"
