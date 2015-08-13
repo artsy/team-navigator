@@ -2,8 +2,7 @@ function searchTextUpdated(searchField) {
   var searchText = searchField.value;
 
 
-  $('.member').each(function(index) {
-    // console.log($(this).attr('data-name'));
+  $('.member, .team').each(function(index) {
     $(this).removeClass('hidden');
   });
 
@@ -13,7 +12,9 @@ function searchTextUpdated(searchField) {
     $(this).addClass('hidden');
   });
 
-  // TODO: hide empty teams
-
-  console.log("");
+  $('.team').filter(function(index) {
+    return $(this).children('.team-members').children(':not(.hidden)').length == 0
+  }).each(function(index) {
+    $(this).addClass('hidden');
+  });
 }
