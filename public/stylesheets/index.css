@@ -1,0 +1,38 @@
+body {
+  background-color: white;
+  color: black;
+  font-family: 'Adobe Garamond W08', 'Times New Roman', 'Times', serif;
+  font-smoothing: antialiased;
+  font-size: 17px;
+  line-height: 1.5
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 37px;
+  line-height: 1.2;
+}
+
+.team {
+  margin: 100px;
+}
+
+.team-members {
+  text-align: center;
+}
+
+.member {
+  display: inline-block;
+  margin: 20px;
+}
+
+.headshot {
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  background-color: #ccc;
+}
+
+.member-name {
+  margin: 10px 0;
+}

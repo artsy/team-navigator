@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var path = require('path')
 var express = require('express');
 var getTeam = require('./lib/get_team');
 var crop = require('./lib/crop');
@@ -6,6 +7,7 @@ var crop = require('./lib/crop');
 var app = express();
 
 app.set('view engine', 'jade');
+app.use(express.static(path.resolve(__dirname, './public')));
 
 app.get('/', function(req, res) {
   getTeam().then(function(members) {

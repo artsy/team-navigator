@@ -1,15 +1,19 @@
 html
   head
     title Team
+    link( type='text/css', rel='stylesheet', href='//fast.fonts.net/cssapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.css' )
+    link( type='text/css', rel='stylesheet', href='/stylesheets/index.css' )
   body
-    for members, name in teams
-      h1= name
+    for members, team in teams
+      .team
+        h1.team-name
+          = team
 
-      for member in members
-
-        if member.headshot
-          span
-            img( src= crop(member.headshot, {}) )
-            = member.name
-
-      hr
+        .team-members
+          for member in members
+            .member
+              .headshot(
+                style='background-image: url("' + crop(member.headshot, {}) + '");'
+              )
+              .member-name
+                = member.name
