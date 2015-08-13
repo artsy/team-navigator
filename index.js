@@ -1,24 +1,22 @@
 var _ = require('lodash');
-var Q = require('q');
 var express = require('express');
-var request = require('request');
-var toJSON = require('./to_json');
+var getTeam = require('./lib/get_team');
 
 var app = express();
 
-var csv = process.env.CSV;
+app.set('view engine', 'jade');
 
 app.get('/', function(req, res) {
-  res.send('Hello world.');
+  getTeam().then(function(members) {
+    res.render('index', {
+      members: members
+    })
+  });
 });
 
 app.get('/api/members', function(req, res) {
-  request(csv, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      toJSON(body, function(err, data) {
-        res.send(data);
-      });
-    }
+  getTeam().then(function(members) {
+    res.send(members);
   });
 });
 

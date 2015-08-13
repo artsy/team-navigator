@@ -11,6 +11,7 @@
   "dependencies": {
     "csvtojson": "^0.4.2",
     "express": "^4.13.3",
+    "jade": "^1.11.0",
     "lodash": "^3.10.1",
     "q": "^1.4.1",
     "request": "^2.60.0"
