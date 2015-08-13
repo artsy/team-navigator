@@ -2,6 +2,14 @@ html
   head
     title Team
   body
-    for member in members
-      h2= member.name
+    for members, name in teams
+      h1= name
 
+      for member in members
+
+        if member.headshot
+          span
+            img( src= crop(member.headshot, {}) )
+            = member.name
+
+      hr

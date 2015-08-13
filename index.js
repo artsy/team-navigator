@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var express = require('express');
 var getTeam = require('./lib/get_team');
+var crop = require('./lib/crop');
 
 var app = express();
 
@@ -8,9 +9,11 @@ app.set('view engine', 'jade');
 
 app.get('/', function(req, res) {
   getTeam().then(function(members) {
+    var teams = _.groupBy(members, 'team');
     res.render('index', {
-      members: members
-    })
+      teams: teams,
+      crop: crop
+    });
   });
 });
 
