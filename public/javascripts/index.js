@@ -8,10 +8,12 @@ function searchTextUpdated(searchField) {
   });
 
   $('.member').filter(function(index) {
-    return $(this).attr('data-name').indexOf(searchText) == -1;
+    return $(this).attr('data-name').toLowerCase().indexOf(searchText.toLowerCase()) == -1;
   }).each(function(index) {
     $(this).addClass('hidden');
   });
+
+  // TODO: hide empty teams
 
   console.log("");
 }
