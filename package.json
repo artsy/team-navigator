@@ -1,0 +1,17 @@
+{
+  "name": "team-navigator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^0.4.2",
+    "lodash": "^3.10.1",
+    "q": "^1.4.1",
+    "request": "^2.60.0"
+  }
+}
