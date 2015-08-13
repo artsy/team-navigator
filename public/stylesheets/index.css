@@ -14,6 +14,15 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-family: 'ITC Avant Garde Gothic W04', 'Helvetica', 'sans-serif';
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 17px;
+  line-height: 1.33;
+  text-align: center;
+}
+
 a {
   color: black;
 }
@@ -73,4 +82,3 @@ hr {
 .full-member {
   margin: 20px;
 }
-

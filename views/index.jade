@@ -9,30 +9,34 @@ block body
     oninput='searchTextUpdated(this);'
   )
 
-  .teams: for members, team in teams
+  .teams: for team in teams
     .team
       h1.team-name
-        = team
+        = team.team
 
-      .team-members
-        for member in members
-          .member( data-name= member.name )
-            a.headshot(
-              style='background-image: url(' + crop(member.headshot, {}) + ');'
-              href= member.email.replace('@', '')
-            )
-            .member-name
-              a( href='mailto:#{member.email}artsymail.com' )
-                = member.name
+      for subteam in team.subteams
+        if subteam.subteam
+          h2.subteam-name= subteam.subteam
 
-              if member.title
-                .member-title: em
-                  = member.title
+        .team-members
+          for member in subteam.members
+            .member( data-name= member.name )
+              a.headshot(
+                style='background-image: url(' + crop(member.headshot, {}) + ');'
+                href= member.email.replace('@', '')
+              )
+              .member-name
+                a( href='mailto:#{member.email}artsymail.com' )
+                  = member.name
 
-              if member.subteam
-                .member-subteam
-                  | (#{member.subteam})
+                if member.title
+                  .member-title: em
+                    = member.title
 
-              if member.product_team
-                .member-product_team
-                  | (#{member.product_team})
+                if member.subteam
+                  .member-subteam
+                    | (#{member.subteam})
+
+                if member.product_team
+                  .member-product_team
+                    | (#{member.product_team})

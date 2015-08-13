@@ -5,6 +5,8 @@ var getTeam = require('./lib/get_team');
 var getMember = require('./lib/get_member');
 var crop = require('./lib/crop');
 
+var teamify = require('./lib/teamify');
+
 var app = express();
 
 app.set('view engine', 'jade');
@@ -15,12 +17,8 @@ app.get('/', function(req, res, next) {
 
   getTeam()
     .then(function(members) {
-      var teams = mapObj(_.groupBy(members, 'team'), function(members, key) {
-        return [key, _.sortBy(members, 'team_rank')];
-      });
-
       res.render('index', {
-        teams: teams,
+        teams: teamify(members),
         crop: crop
       });
     })
