@@ -3,11 +3,7 @@ html
     title Team
     link( type='text/css', rel='stylesheet', href='//fast.fonts.net/cssapi/f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.css' )
     link( type='text/css', rel='stylesheet', href='/stylesheets/index.css' )
-    script(type='text/javascript').
-      function searchTextUpdated() {
-        var searchField = document.getElementById('search')
-        console.log(searchField.value);
-      }
+    script(type='text/javascript', src='/javascripts/index.js')
   body
     input(type="search" id="search" size="30" autofocus="yes" placeholder="Search" oninput="searchTextUpdated();")
     for members, team in teams
