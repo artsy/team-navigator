@@ -11,7 +11,10 @@ app.use(express.static(path.resolve(__dirname, './public')));
 
 app.get('/', function(req, res) {
   getTeam().then(function(members) {
-    var teams = _.groupBy(members, 'team');
+    var teams = _.object(_.map(_.groupBy(members, 'team'), function(members, key) {
+      return [key, _.sortBy(members, 'team_rank')];
+    }));
+
     res.render('index', {
       teams: teams,
       crop: crop
