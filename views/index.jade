@@ -13,7 +13,17 @@ html
           for member in members
             .member
               .headshot(
-                style='background-image: url("' + crop(member.headshot, {}) + '");'
+                style='background-image: url(' + crop(member.headshot, {}) + ');'
               )
               .member-name
-                = member.name
+                a(
+                  href='mailto:#{member.email}artsymail.com'
+                )= member.name
+
+                if member.subteam
+                  .member-subteam
+                    | (#{member.subteam})
+
+                if member.product_team
+                  .member-product_team
+                    | (#{member.product_team})

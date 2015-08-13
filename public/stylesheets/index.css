@@ -13,6 +13,10 @@ h1 {
   line-height: 1.2;
 }
 
+a {
+  color: black;
+}
+
 .team {
   margin: 100px;
 }
