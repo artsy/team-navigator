@@ -2,8 +2,10 @@
   "name": "team-navigator",
   "version": "1.0.0",
   "description": "",
+  "repository": "https://github.com/artsy/team-navigator",
   "main": "index.js",
   "scripts": {
+    "postinstall": "node_modules/.bin/stylus -u nib assets/stylesheets -o public/stylesheets",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,8 +15,12 @@
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "lodash": "^3.10.1",
+    "morgan": "^1.6.1",
+    "nib": "^1.1.0",
     "q": "^1.4.1",
     "qs": "^4.0.0",
-    "request": "^2.60.0"
+    "redis": "^1.0.0",
+    "request": "^2.60.0",
+    "stylus": "^0.52.4"
   }
 }

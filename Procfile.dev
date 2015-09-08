@@ -1,0 +1,3 @@
+web: node index.js
+redis: redis-server
+assets: node_modules/.bin/stylus -u nib --watch assets/stylesheets --out public/stylesheets
