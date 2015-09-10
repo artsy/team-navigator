@@ -6,7 +6,6 @@ block body
     size='30'
     autofocus='yes'
     placeholder='Search'
-    oninput='searchTextUpdated(this);'
   )
 
   .teams: for team in teams
@@ -29,8 +28,9 @@ block body
                 a( href= member.email.replace('@', '') )
                   = member.name
                 br
-                a( href='mailto:#{member.email}artsymail.com' )
-                  | #{member.email}artsymail.com
+                a.member-email( href='mailto:#{member.email}artsymail.com' )
+                  span= member.email.replace('@', '')
+                  | @artsymail.com
 
                 if member.title
                   .member-title: em
