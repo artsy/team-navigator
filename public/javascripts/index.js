@@ -1,7 +1,7 @@
 $(function() {
   'use strict';
 
-  $('#search').on('input', function(e) {
+  $('.js-search').on('input', function(e) {
     var searchText = $(this).val();
 
     // Show all teams, all subteams, all members.

@@ -1,0 +1,25 @@
+.member( data-name= member.name, data-subteam= member.subteam )
+  a.member-headshot(
+    style='background-image: url(' + crop(member.headshot, {}) + ');'
+    href= member.email.replace('@', '')
+  )
+
+  .member-metadata
+    a.member-name( href= member.email.replace('@', '') )
+      = member.name
+
+    if member.title
+      .member-title: em
+        = member.title
+
+    if member.product_team
+      .member-product_team
+        | (#{member.product_team})
+
+    if member.role_text
+      .member-role-text
+        = member.role_text
+
+    a.member-email( href='mailto:#{member.email}artsymail.com' )
+      span= member.email.replace('@', '')
+      | @artsymail.com
