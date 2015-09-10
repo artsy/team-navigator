@@ -1,41 +1,28 @@
 extends layout
 
 block body
-  input#search(
-    type='search'
-    size='30'
-    autofocus='yes'
-    placeholder='Search'
-    oninput='searchTextUpdated(this);'
-  )
+  header.search-navigation
+    input.bordered-input.is-block.js-search(
+      type='search'
+      size='30'
+      placeholder='Search'
+    )
 
   .teams: for team in teams
     .team
-      h1.team-name
-        = team.team
+      if team.name
+        .team-metadata
+          h1.team-name
+            = team.name
+          if team.description
+            .team-description
+              = team.description
 
       for subteam in team.subteams
         if subteam.subteam
-          h2.subteam-name= subteam.subteam
+          h2.subteam-name
+            = subteam.subteam
 
         .team-members
           for member in subteam.members
-            .member( data-name= member.name, data-subteam= member.subteam )
-              a.headshot(
-                style='background-image: url(' + crop(member.headshot, {}) + ');'
-                href= member.email.replace('@', '')
-              )
-              .member-name
-                a( href= member.email.replace('@', '') )
-                  = member.name
-                br
-                a( href='mailto:#{member.email}artsymail.com' )
-                  | #{member.email}artsymail.com
-
-                if member.title
-                  .member-title: em
-                    = member.title
-
-                if member.product_team
-                  .member-product_team
-                    | (#{member.product_team})
+            include partials/member

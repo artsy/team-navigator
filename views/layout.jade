@@ -12,3 +12,14 @@ html
 
   body
     block body
+
+    footer.footer
+      p You&rsquo;re logged in as #{user.email}.
+
+      if user.privledged
+        form( action='/refresh', method='POST' )
+          button.avant-garde-button-black
+            | Refresh data
+
+      p: a.avant-garde-button-white( href='/logout' )
+        | Logout
