@@ -1,6 +1,10 @@
 var _ = require('lodash');
 var path = require('path');
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('cookie-session');
+
 var getTeam = require('./lib/get_team');
 var getMember = require('./lib/get_member');
 var crop = require('./lib/crop');
@@ -11,6 +15,15 @@ var app = express();
 app.set('view engine', 'jade');
 app.use(express.static(path.resolve(__dirname, './public')));
 app.use(require('morgan')('dev'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  key: process.env.SESSION_KEY
+}));
+
+require('./lib/auth')(app);
 
 app.get('/', function(req, res, next) {
   var mapObj = _.compose(_.object, _.map);
