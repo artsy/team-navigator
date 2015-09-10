@@ -1,28 +1,37 @@
+@import 'nib'
+
+avant-garde()
+  font-family 'ITC Avant Garde Gothic W04', 'Helvetica', 'sans-serif'
+  text-transform uppercase
+  letter-spacing 1px
+  font-weight normal
+
+garamond()
+  font-family 'Adobe Garamond W08', 'Times New Roman', 'Times', serif
+  text-transform none
 
 body
+  garamond()
   background-color white
   color black
-  font-family 'Adobe Garamond W08', 'Times New Roman', 'Times', serif
   font-smoothing antialiased
   font-size 17px
   line-height 1.5
 
 h1
-  font-weight normal
+  avant-garde()
   font-size 37px
   line-height 1.2
   text-align center
 
 h2
-  font-family 'ITC Avant Garde Gothic W04', 'Helvetica', 'sans-serif'
-  text-transform uppercase
-  letter-spacing 1px
   font-size 17px
   line-height 1.33
   text-align center
 
 a
   color black
+  text-decoration none
 
 hr
   margin 20px 0
@@ -67,6 +76,13 @@ hr
 
 .member-name
   margin 10px 0
+
+.member-email
+  font-size 12px
+  avant-garde()
+  color #aaa
+  > span
+    color black
 
 .hidden
   display none
