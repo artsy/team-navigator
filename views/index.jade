@@ -1,11 +1,14 @@
 extends layout
 
 block body
-  header.search-navigation
+  header.search
     input.bordered-input.is-block.js-search(
       size='30'
       placeholder='Search'
     )
+
+  .results.js-results
+    //- Rendered client-side
 
   .teams: for team in teams
     .team

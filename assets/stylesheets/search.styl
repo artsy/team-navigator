@@ -1,0 +1,37 @@
+header-height = 70px
+
+.search
+  display flex
+  height header-height
+  align-items center
+  position fixed
+  top 0
+  right 0
+  left 0
+  padding 0 20px
+  background-color rgba(white, 0.90)
+  force-hardware-acceleration()
+  > input
+    border-color transparify(gray-lighter-color, black)
+
+.results
+  display none
+  position fixed
+  top header-height
+  right 0
+  bottom 0
+  left 0
+  background-color white
+  border-top 2px solid purple-color
+  overflow-y auto
+  -webkit-overflow-scrolling touch
+
+.is-visually-hidden
+  position absolute
+  overflow hidden
+  clip rect(0 0 0 0)
+  height 1px
+  width 1px
+  margin -1px
+  padding 0
+  border 0
