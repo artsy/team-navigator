@@ -16,7 +16,7 @@ html
     footer.footer
       p You&rsquo;re logged in as #{user.email}.
 
-      if user.privledged
+      if user.privileged
         form( action='/refresh', method='POST' )
           button.avant-garde-button-black
             | Refresh data
