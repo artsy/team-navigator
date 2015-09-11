@@ -1,4 +1,9 @@
-.member( data-name= member.name, data-subteam= member.subteam )
+.member.js-member
+  .is-visually-hidden
+    //- Any text we want to query on but not display
+    = team.name
+    = subteam.subteam
+
   a.member-headshot(
     style='background-image: url(' + crop(member.headshot, {}) + ');'
     href= member.email.replace('@', '')
