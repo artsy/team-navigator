@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var Q = require('q');
 var path = require('path');
 var express = require('express');
@@ -27,8 +26,6 @@ app.use(session({
 require('./lib/auth')(app);
 
 app.get('/', function(req, res, next) {
-  var mapObj = _.compose(_.object, _.map);
-
   Q.all([
     get.team(),
     get.teams()
