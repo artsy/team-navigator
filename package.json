@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "node_modules/.bin/stylus -u nib assets/stylesheets -o public/stylesheets",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha test"
   },
   "author": "",
   "license": "ISC",
@@ -28,5 +28,11 @@
     "redis": "^1.0.0",
     "request": "^2.60.0",
     "stylus": "^0.52.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.2",
+    "rewire": "^2.3.4",
+    "should": "^7.1.0",
+    "sinon": "1.16.0"
   }
 }

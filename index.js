@@ -74,7 +74,7 @@ app.post('/refresh', function(req, res, next) {
   } else {
     res.status(403)
       .send('Forbidden');
-  };
+  }
 });
 
 var port = process.env.PORT || 5000;
