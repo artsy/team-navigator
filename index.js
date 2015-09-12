@@ -1,4 +1,3 @@
-var _ = require('lodash');
 var Q = require('q');
 var path = require('path');
 var express = require('express');
@@ -27,8 +26,6 @@ app.use(session({
 require('./lib/auth')(app);
 
 app.get('/', function(req, res, next) {
-  var mapObj = _.compose(_.object, _.map);
-
   Q.all([
     get.team(),
     get.teams()
@@ -70,9 +67,14 @@ app.get('/api/members/:id', function(req, res, next) {
 });
 
 app.post('/refresh', function(req, res, next) {
-  cache.flushall(function() {
-    res.redirect('/');
-  });
+  if (req.user.privileged) {
+    cache.flushall(function() {
+      res.redirect('/');
+    });
+  } else {
+    res.status(403)
+      .send('Forbidden');
+  }
 });
 
 var port = process.env.PORT || 5000;
