@@ -67,9 +67,14 @@ app.get('/api/members/:id', function(req, res, next) {
 });
 
 app.post('/refresh', function(req, res, next) {
-  cache.flushall(function() {
-    res.redirect('/');
-  });
+  if (req.user.privileged) {
+    cache.flushall(function() {
+      res.redirect('/');
+    });
+  } else {
+    res.status(403)
+      .send('Forbidden');
+  };
 });
 
 var port = process.env.PORT || 5000;
