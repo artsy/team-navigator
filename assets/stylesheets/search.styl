@@ -10,7 +10,11 @@ header-height = 70px
   left 0
   padding 0 20px
   background-color rgba(white, 0.90)
+  transition background-color 0.5s
   force-hardware-acceleration()
+  &.is-focused
+    background-color white
+
   > input
     border-color transparify(gray-lighter-color, black)
 
@@ -23,7 +27,7 @@ header-height = 70px
   left 0
   background-color white
   border-top 2px solid purple-color
-  overflow-y auto
+  overflow-y scroll
   -webkit-overflow-scrolling touch
   z-index 1
 
