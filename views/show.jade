@@ -1,28 +1,13 @@
 extends layout
 
 block body
-  h1
-    = member.name
+  .return: a.avant-garde-button-white.is-tiny( href='/' )
+    | Back
 
-  center
-    a.member-email( href='mailto:#{member.email}artsymail.com' )
-      span= member.email.replace('@', '')
-      | @artsymail.com
+  .members
+    include partials/member
 
-
-  .member-headshot(
-    style='background-image: url(' + crop(member.headshot, {}) + ');'
-  )
-
-  hr
-
-  center
-    if member.title
-      p: em= member.title
-
-    if member.role_text
-      p= member.role_text
-
+  .member-supplementary
     if member.city || member.country
       p Based in #{[member.city, member.country].join(', ')}
 

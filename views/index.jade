@@ -1,16 +1,20 @@
 extends layout
 
 block body
-  header.search
+  .logout: a.avant-garde-button-black.is-small( href='/logout' )
+    | Logout
+
+  header.search.js-header
     input.bordered-input.is-block.js-search(
       size='30'
       placeholder='Search'
+      autofocus
     )
 
   .results.js-results
     //- Rendered client-side
 
-  .teams: for team in teams
+  .teams.js-teams: for team in teams
     .team
       if team.name
         .team-metadata
@@ -25,6 +29,6 @@ block body
           h2.subteam-name
             = subteam.subteam
 
-        .team-members
+        .members
           for member in subteam.members
             include partials/member
