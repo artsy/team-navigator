@@ -32,6 +32,7 @@ app.get('/', function(req, res, next) {
   ])
     .spread(function(members, teams) {
       res.render('index', {
+        count: members.length,
         teams: teamify(members, teams),
         crop: crop
       });
