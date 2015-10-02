@@ -22,6 +22,11 @@
       .member-product_team
         | (#{member.product_team})
 
+    if member.start_date.isValid()
+      .member-start-date
+        - var prefix = member.start_date.isBefore() ? 'Started' : 'Starting in'
+        | #{prefix} #{member.start_date.fromNow()}
+
     if member.role_text
       .member-role-text
         = member.role_text
