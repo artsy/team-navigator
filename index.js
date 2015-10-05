@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var Q = require('q');
 var path = require('path');
 var express = require('express');
@@ -9,6 +10,7 @@ var get = require('./lib/get');
 var cache = require('./lib/cache');
 var crop = require('./lib/crop');
 var teamify = require('./lib/teamify');
+var parse = require('./lib/parse');
 
 var app = express();
 
@@ -31,6 +33,7 @@ app.get('/', function(req, res, next) {
     get.teams()
   ])
     .spread(function(members, teams) {
+      members = _.map(members, parse);
       res.render('index', {
         count: members.length,
         teams: teamify(members, teams),
@@ -45,7 +48,7 @@ app.get('/:id', function(req, res, next) {
   get.member(req.params.id)
     .then(function(member) {
       res.render('show', {
-        member: member,
+        member: parse(member),
         crop: crop
       });
     })
