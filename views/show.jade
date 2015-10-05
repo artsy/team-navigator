@@ -16,3 +16,7 @@ block body
 
     if member.reports_to
       p Reports to #{member.reports_to}
+
+    if member.intro_email
+      p: a.purple-link( href= member.intro_email, target='_blank' )
+        | Check out #{member.name}’s introduction to Artsy!
