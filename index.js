@@ -56,8 +56,15 @@ app.get('/:id', function(req, res, next) {
     .done();
 });
 
+app.get('/api/teams', function(req, res, next) {
+  get.teams()
+    .then(res.send.bind(res))
+    .catch(next)
+    .done();
+});
+
 app.get('/api/members', function(req, res, next) {
-  get.team(req.params.id)
+  get.team()
     .then(res.send.bind(res))
     .catch(next)
     .done();
