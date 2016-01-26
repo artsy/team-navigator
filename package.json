@@ -5,6 +5,7 @@
   "repository": "https://github.com/artsy/team-navigator",
   "main": "index.js",
   "scripts": {
+    "dev": "nf start --procfile Procfile.dev",
     "postinstall": "node_modules/.bin/stylus -u nib assets/stylesheets -o public/stylesheets",
     "test": "node_modules/.bin/mocha test"
   },
@@ -31,6 +32,7 @@
     "stylus": "^0.52.4"
   },
   "devDependencies": {
+    "foreman": "^1.4.1",
     "mocha": "^2.3.2",
     "nodemon": "^1.7.1",
     "rewire": "^2.3.4",
