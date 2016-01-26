@@ -7,6 +7,11 @@ block body
   .members
     include partials/member
 
+  if member.feedback_form_url
+    .member-supplementary
+      p: a.purple-link( href= member.feedback_form_url, target='_blank' )
+        | Click here to provide feedback to #{member.name}
+
   .member-supplementary
     if member.city || member.country
       p Based in #{[member.city, member.country].join(', ')}
