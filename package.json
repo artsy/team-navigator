@@ -4,6 +4,10 @@
   "description": "",
   "repository": "https://github.com/artsy/team-navigator",
   "main": "index.js",
+  "engines": {
+    "node": ">=5.1.1",
+    "npm": "3.x.x"
+  },
   "scripts": {
     "dev": "nf start --procfile Procfile.dev",
     "postinstall": "node_modules/.bin/stylus -u nib assets/stylesheets -o public/stylesheets",
