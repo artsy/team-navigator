@@ -4,30 +4,7 @@ block body
   .logout: a.avant-garde-button-black.is-small( href='/logout' )
     | Logout
 
-  header.header(
-    class='js-header'
-  )
-    .header__cell
-      input.bordered-input.is-block(
-        class='js-search'
-        size='30'
-        tabindex='1'
-        placeholder='Search ' + count + ' members…'
-        autofocus
-      )
-
-    .header__cell
-      a(
-        href='/'
-        class=(CURRENT_PATH === '/' ? 'is-active' : undefined)
-      ) Team
-      a(
-        href='/staff'
-        class=(CURRENT_PATH === '/staff' ? 'is-active' : undefined)
-      ) Staff
-
-  .results( class='js-results' )
-    //- Rendered client-side
+  include partials/header
 
   .teams( class='js-teams' )
     for team in teams

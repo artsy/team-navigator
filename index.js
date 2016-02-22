@@ -10,6 +10,7 @@ var get = require('./lib/get');
 var cache = require('./lib/cache');
 var crop = require('./lib/crop');
 var teamify = require('./lib/teamify');
+var productTeamify = require('./lib/product_teamify');
 var parse = require('./lib/parse');
 
 var app = express();
@@ -50,6 +51,20 @@ app
       })
       .catch(next);
   })
+
+  .get('/product', function(req, res, next) {
+    get.team()
+      .then(function(members) {
+        members = _.map(members, parse);
+        res.render('index', {
+          count: 0,
+          teams: productTeamify(members),
+          crop: crop
+        });
+      })
+      .catch(next);
+  })
+
   .get('/staff', function(req, res, next) {
     Promise.all([
       get.staff(),
@@ -67,6 +82,7 @@ app
       })
       .catch(next);
   })
+
   .get('/:id', function(req, res, next) {
     get.member(req.params.id)
       .then(function(member) {
@@ -77,21 +93,25 @@ app
       })
       .catch(next);
   })
+
   .get('/api/teams', function(req, res, next) {
     get.teams()
       .then(res.send.bind(res))
       .catch(next);
   })
+
   .get('/api/members', function(req, res, next) {
     get.team()
       .then(res.send.bind(res))
       .catch(next);
   })
+
   .get('/api/members/:id', function(req, res, next) {
     get.member(req.params.id)
       .then(res.send.bind(res))
       .catch(next);
   })
+
   .post('/refresh', function(req, res, next) {
     if (req.user.privileged) {
       cache.flushall(function() {
