@@ -4,6 +4,10 @@
   "description": "",
   "repository": "https://github.com/artsy/team-navigator",
   "main": "index.js",
+  "engines": {
+    "node": ">=5.1.1",
+    "npm": "3.x.x"
+  },
   "scripts": {
     "dev": "nf start --procfile Procfile.dev",
     "postinstall": "node_modules/.bin/stylus -u nib assets/stylesheets -o public/stylesheets",
@@ -25,7 +29,6 @@
     "nib": "^1.1.0",
     "passport": "^0.3.0",
     "passport-oauth2": "git://github.com/craigspaeth/passport-oauth2.git",
-    "q": "^1.4.1",
     "qs": "^4.0.0",
     "redis": "^1.0.0",
     "request": "^2.60.0",

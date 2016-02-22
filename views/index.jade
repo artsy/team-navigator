@@ -4,31 +4,47 @@ block body
   .logout: a.avant-garde-button-black.is-small( href='/logout' )
     | Logout
 
-  header.search.js-header
-    input.bordered-input.is-block.js-search(
-      size='30'
-      placeholder='Search ' + count + ' members…'
-      autofocus
-    )
+  header.header(
+    class='js-header'
+  )
+    .header__cell
+      input.bordered-input.is-block(
+        class='js-search'
+        size='30'
+        tabindex='1'
+        placeholder='Search ' + count + ' members…'
+        autofocus
+      )
 
-  .results.js-results
+    .header__cell
+      a(
+        href='/'
+        class=(CURRENT_PATH === '/' ? 'is-active' : undefined)
+      ) Team
+      a(
+        href='/staff'
+        class=(CURRENT_PATH === '/staff' ? 'is-active' : undefined)
+      ) Staff
+
+  .results( class='js-results' )
     //- Rendered client-side
 
-  .teams.js-teams: for team in teams
-    .team
-      if team.name
-        .team-metadata
-          h1.team-name
-            = team.name
-          if team.description
-            .team-description
-              = team.description
+  .teams( class='js-teams' )
+    for team in teams
+      .team
+        if team.name
+          .team-metadata
+            h1.team-name
+              = team.name
+            if team.description
+              .team-description
+                = team.description
 
-      for subteam in team.subteams
-        if subteam.subteam
-          h2.subteam-name
-            = subteam.subteam
+        for subteam in team.subteams
+          if subteam.subteam
+            h2.subteam-name
+              = subteam.subteam
 
-        .members
-          for member in subteam.members
-            include partials/member
+          .members
+            for member in subteam.members
+              include partials/member

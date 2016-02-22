@@ -12,12 +12,32 @@
   width 220px
 
 .member-headshot
+  position relative
   display block
   margin 10px auto
   border-radius 50%
   height 200px
   width 200px
-  background-color gray-color
+  border 1px solid white
+  &:after
+  &:before
+    display block
+    z-index -1
+    position absolute
+
+  &:before
+    content ''
+    width 100%
+    height 100%
+    background-color gray-color
+    border-radius 50%
+  &:after
+    content attr(data-initials)
+    top 50%
+    left 50%
+    transform translate(-50%, -50%)
+    avant-garde-size('xl-headline')
+    color gray-dark-color
 
 .member-metadata
   margin 20px 0

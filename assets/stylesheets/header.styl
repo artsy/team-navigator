@@ -1,22 +1,42 @@
 header-height = 70px
 
-.search
+.header
   display flex
-  height header-height
-  align-items center
   position fixed
   top 0
   right 0
   left 0
+  height header-height
   padding 0 20px
+  align-items center
+  z-index 1
   background-color rgba(white, 0.90)
   transition background-color 0.5s
   force-hardware-acceleration()
+
   &.is-focused
     background-color white
 
-  > input
-    border-color transparify(gray-lighter-color, black)
+  &__cell
+    &:first-child
+      flex 1
+
+    > a
+      display inline-block
+      avant-garde-size('l-headline')
+      padding 10px 20px
+      color gray-dark-color
+      transition color 0.25s
+      &:hover
+      &.is-active
+        color black
+      &:first-child
+        padding-left 40px
+      &:last-child
+        padding-right 40px
+
+    > input
+      border-color transparify(gray-lighter-color, black)
 
 .results
   display none
