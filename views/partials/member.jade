@@ -6,12 +6,13 @@
       = subteam.subteam
 
   a.member-headshot(
-    style='background-image: url(' + crop(member.headshot, {}) + ');'
-    href= member.email.replace('@', '')
+    style=(member.headshot ? 'background-image: url(' + crop(member.headshot, {}) + ');' : undefined)
+    data-initials= member.initials
+    href= member.id
   )
 
   .member-metadata
-    a.member-name( href= member.email.replace('@', '') )
+    a.member-name( href= member.id )
       = member.name
 
     if member.title
@@ -31,6 +32,7 @@
       .member-role-text
         = member.role_text
 
-    a.member-email( href='mailto:#{member.email}artsy.net' )
-      span= member.email.replace('@', '')
-      | @artsy.net
+    if member.email
+      a.member-email( href='mailto:#{member.email}artsy.net' )
+        span= member.email.replace('@', '')
+        | @artsy.net
