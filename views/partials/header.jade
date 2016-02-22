@@ -1,0 +1,23 @@
+mixin link(path, label)
+  a( href= path, class= (path === CURRENT_PATH ? 'is-active' : 'is-inactive') )
+    = label
+
+header.header(
+  class='js-header'
+)
+  .header__cell
+    input.bordered-input.is-block(
+      class='js-search'
+      size='30'
+      tabindex='1'
+      placeholder= (count ? 'Search ' + count + ' members…' : 'Search…')
+      autofocus
+    )
+
+  .header__cell
+    +link('/', 'Team')
+    +link('/product', 'Product Teams')
+    +link('/staff', 'Staff')
+
+.results( class='js-results' )
+  //- Rendered client-side

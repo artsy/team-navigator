@@ -4,6 +4,7 @@
     if team && subteam
       = team.name
       = subteam.subteam
+      = member.product_team
 
   a.member-headshot(
     style=(member.headshot ? 'background-image: url(' + crop(member.headshot, {}) + ');' : undefined)
@@ -19,7 +20,7 @@
       .member-title: em
         = member.title
 
-    if member.product_team
+    if member.product_team && CURRENT_PATH !== '/product'
       .member-product_team
         | (#{member.product_team})
 
