@@ -25,7 +25,6 @@
     "nib": "^1.1.0",
     "passport": "^0.3.0",
     "passport-oauth2": "git://github.com/craigspaeth/passport-oauth2.git",
-    "q": "^1.4.1",
     "qs": "^4.0.0",
     "redis": "^1.0.0",
     "request": "^2.60.0",
