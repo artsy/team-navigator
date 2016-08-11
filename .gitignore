@@ -3,3 +3,5 @@
 node_modules
 dump.rdb
 public/stylesheets
+.vscode/typings
+.vscode/.browse*
