@@ -4,6 +4,12 @@ block body
   .logout: a.avant-garde-button-black.is-small( href='/logout' )
     | Logout
 
+  if user.privileged
+    .refresh
+      form(action="/refresh",method="post")
+        button.avant-garde-button-black.is-small
+          | Admin Refresh
+
   include partials/header
 
   .teams( class='js-teams' )
