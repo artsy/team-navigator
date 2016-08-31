@@ -46,7 +46,8 @@ app
         res.render('index', {
           count: members.length,
           teams: teamify(members, teams),
-          crop: crop
+          crop: crop,
+          user: req.user
         });
       })
       .catch(next);
