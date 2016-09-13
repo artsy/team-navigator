@@ -28,13 +28,12 @@ view.styles({
     display: 'inline-block',
     verticalAlign: 'top'
   },
-  text: {
+  text: assign(type('garamond', 'body'), {
     display: 'inline-block',
     verticalAlign: 'top',
     marginLeft: 10,
-    lineHeight: '1.6em',
     width: `calc(100% - ${headshotSize + 10}px)`
-  },
+  }),
   wrapper: {
     marginBottom: mediumMargin,
     display: 'inline-block',
