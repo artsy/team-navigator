@@ -5,7 +5,7 @@ import * as models from './models'
 
 const app = new Koa()
 
-router.all('/api/member', graphqlize(models))
+router.all('/api', graphqlize(models))
 app.use(router.routes())
 
 export default app

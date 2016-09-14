@@ -5,3 +5,4 @@ dump.rdb
 public/stylesheets
 .vscode/typings
 .vscode/.browse*
+npm-debug.log
