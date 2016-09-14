@@ -1,6 +1,8 @@
 import veact from 'veact'
-import { state } from '../controllers'
-import { type, mediumMargin, grayRegular, sidebarWidth } from './lib'
+import { state, filterMembers } from '../controllers'
+import {
+  type, mediumMargin, grayRegular, sidebarWidth, purpleRegular
+} from './lib'
 import { assign } from 'lodash'
 
 const view = veact()
@@ -22,6 +24,9 @@ view.styles({
   },
   br: {
     height: mediumMargin
+  },
+  li: {
+    cursor: 'pointer'
   }
 })
 
@@ -29,11 +34,17 @@ view.render(() =>
   div('.container',
     h2('.h2', 'Locations'),
     ul('.ul', state.get('cities').map((city) =>
-      li(city))),
+      li('.li', {
+        onClick: () => filterMembers({ city }),
+        style: { color: city === state.get('curFilter') ? purpleRegular : '' }
+      }, city))),
     br('.br'),
     h2('.h2', 'Teams'),
     ul('.ul', state.get('teams').map((team) =>
-      li(team))))
+      li('.li', {
+        onClick: () => filterMembers({ team }),
+        style: { color: team === state.get('curFilter') ? purpleRegular : '' }
+      }, team))))
 )
 
 export default view()

@@ -5,8 +5,8 @@ import envify from 'envify'
 
 const { MONGO_URL, PORT } = process.env
 
-// Bundle together client and server app for hot reloading, and,
-// to be implemented, production ready asset bundle serving
+// Bundle together client and server app for hot reloading, and—
+// to be implemented—production ready asset bundle serving
 // when NODE_ENV=production
 const app = module.exports = hotglue({
   relative: __dirname + '/app',
