@@ -1,8 +1,6 @@
 import veact from 'veact'
-import { state, filterMembers } from '../controllers'
-import {
-  type, mediumMargin, grayRegular, sidebarWidth, purpleRegular
-} from './lib'
+import { state, filterMembers } from '../../controllers'
+import { type, mediumMargin, purpleRegular } from '../lib'
 import { assign } from 'lodash'
 
 const view = veact()
@@ -15,13 +13,6 @@ view.styles({
     { marginBottom: 10 }
   ),
   ul: type('garamond', 'body'),
-  container: {
-    padding: mediumMargin,
-    width: sidebarWidth,
-    height: '100%',
-    display: 'inline-block',
-    verticalAlign: 'top'
-  },
   br: {
     height: mediumMargin
   },
@@ -31,7 +22,7 @@ view.styles({
 })
 
 view.render(() =>
-  div('.container',
+  div(
     h2('.h2', 'Locations'),
     ul('.ul', state.get('cities').map((city) =>
       li('.li', {

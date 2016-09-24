@@ -48,6 +48,10 @@ table {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+a {
+  color: black;
+  text-decoration: none;
 }`
 const fontsUrl = '//fast.fonts.net/cssapi/' +
   'f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.css'

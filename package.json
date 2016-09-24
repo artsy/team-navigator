@@ -1,10 +1,14 @@
 {
-  "name": "team",
+  "name": "team-navigator",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "node": "NODE_PATH=$NODE_PATH:./lib node -r dotenv/config -r babel-core/register",
-    "start": "concurrently 'npm run node .' 'mongod'"
+    "node": "node -r dotenv/config -r babel-core/register",
+    "mocha": "NODE_ENV=test mocha -r dotenv/config -r babel-core/register -r should",
+    "lint": "standard",
+    "test": "npm run lint && npm run mocha test/*",
+    "dev": "concurrently 'npm run node .' 'mongod'",
+    "start": "node -r babel-core/register ."
   },
   "standard": {
     "parser": "babel-eslint"
@@ -14,6 +18,13 @@
       "es2015",
       "stage-3"
     ],
+    "env": {
+      "test": {
+        "plugins": [
+          "rewire"
+        ]
+      }
+    },
     "plugins": [
       "transform-runtime"
     ]
@@ -39,11 +50,20 @@
     "lokka-transport-http": "^1.4.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "sharp": "^0.16.0",
     "superagent": "^2.2.0",
     "unikoa": "0.0.1",
     "unikoa-bootstrap": "0.0.2",
     "unikoa-react-render": "0.0.4",
     "universal-tree": "0.0.2",
     "veact": "0.0.5"
+  },
+  "devDependencies": {
+    "babel-plugin-rewire": "^1.0.0",
+    "cheerio": "^0.22.0",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "sinon": "^1.17.6",
+    "standard": "^8.1.0"
   }
 }
