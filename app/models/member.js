@@ -23,12 +23,16 @@ export const member = model('member', {
   notes: string()
 })
 
-export const teams = query('teams', array().items(string()), async (ctx, next) => {
-  ctx.res.teams = await db.members.distinct('team')
-  await next()
-})
+export const teams = query('teams', array().items(string()),
+  async (ctx, next) => {
+    ctx.res.teams = await db.members.distinct('team')
+    await next()
+  }
+)
 
-export const cities = query('cities', array().items(string()), async (ctx, next) => {
-  ctx.res.cities = await db.members.distinct('city')
-  await next()
-})
+export const cities = query('cities', array().items(string()),
+  async (ctx, next) => {
+    ctx.res.cities = await db.members.distinct('city')
+    await next()
+  }
+)

@@ -3,11 +3,12 @@ import {
   type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize
 } from './lib'
 import { assign } from 'lodash'
+import url from 'url'
 
 const view = veact()
 
 const headshotSize = 75
-const { div, h1, p } = view.els()
+const { div, h1, p, a } = view.els()
 
 view.styles({
   h1: assign(
@@ -32,7 +33,8 @@ view.styles({
     display: 'inline-block',
     verticalAlign: 'top',
     marginLeft: 10,
-    width: `calc(100% - ${headshotSize + 10}px)`
+    width: `calc(100% - ${headshotSize + 10}px)`,
+    paddingRight: mediumMargin
   }),
   wrapper: {
     marginBottom: mediumMargin,
@@ -45,16 +47,18 @@ view.styles({
 view.render(({ members, title }) =>
   div('.container',
     h1('.h1', title),
-    div(members.map((member) =>
-      div('.wrapper',
+    div(members.map((member) => {
+      const src = url.parse(member.headshot).pathname
+      return a('.wrapper', { href: member._id },
         div('.headshot', {
-          style: { backgroundImage: `url(${member.headshot})` }
+          style: { backgroundImage: `url(/img${src})` }
         }),
         div('.text',
           p(member.name),
           p('.title', member.title),
           p(`${member.city}, Fl. ${member.floor}`))
-        ))))
+        )
+    })))
 )
 
 export default view()

@@ -18,5 +18,5 @@ export default mutation('sync', string(), async (ctx, next) => {
   const parsed = await convert(res.text)
   const members = parsed.map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
   await Promise.all(members.map((member) => db.members.save(member)))
-  ctx.res.sync = 'succesful'
+  ctx.res.sync = 'success'
 })

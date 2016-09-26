@@ -2,6 +2,7 @@ import { connect } from 'joiql-mongo'
 import hotglue from 'hotglue'
 import babelify from 'babelify'
 import envify from 'envify'
+import path from 'path'
 
 const { MONGO_URL, PORT } = process.env
 
@@ -9,7 +10,7 @@ const { MONGO_URL, PORT } = process.env
 // to be implemented—production ready asset bundle serving
 // when NODE_ENV=production
 const app = module.exports = hotglue({
-  relative: __dirname + '/app',
+  relative: path.join(__dirname, '/app'),
   server: {
     main: 'server.js',
     watch: [

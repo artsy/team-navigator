@@ -1,7 +1,7 @@
 import unikoa from 'unikoa'
 import bootstrap from 'unikoa-bootstrap'
 import render from 'unikoa-react-render'
-import { index, state } from './controllers'
+import { index, state, show } from './controllers'
 import Head from './views/head'
 
 const router = unikoa()
@@ -12,5 +12,6 @@ router.use(render({
   subscribe: (cb) => state.on('update', cb)
 }))
 router.get('/', index)
+router.get('/:id', show)
 
 export default router

@@ -8,20 +8,24 @@ const api = new Lokka({
   transport: new Transport(process.env.APP_URL + '/api')
 })
 
-export const state = tree({
+const treeData = {
   teams: [],
   cities: [],
   members: [],
   allMembers: [],
-  curFilter: ''
-})
+  curFilter: '',
+  member: null
+}
 
-export const index = async (ctx) => {
+export const state = tree(treeData)
+
+export const initData = async (ctx) => {
   const { teams, cities, members } = await ctx.bootstrap(() =>
     api.query(`{
       teams
       cities
       members {
+        _id
         name
         title
         floor
@@ -31,10 +35,33 @@ export const index = async (ctx) => {
       }
     }`)
   )
+  state.set(treeData)
   state.set('teams', teams)
   state.set('cities', cities)
   state.set('members', members)
   state.set('allMembers', members)
+}
+
+export const index = async (ctx) => {
+  await initData(ctx)
+  ctx.render({ body: Index })
+}
+
+export const show = async (ctx) => {
+  const { member } = await ctx.bootstrap(() =>
+    api.query(`{
+      member(_id: "${ctx.params.id}") {
+        name
+        title
+        floor
+        city
+        headshot
+        team
+      }
+    }`)
+  )
+  await initData(ctx)
+  state.set('member', member)
   ctx.render({ body: Index })
 }
 
