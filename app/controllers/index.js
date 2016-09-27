@@ -69,3 +69,9 @@ export const filterMembers = async (attrs) => {
   state.set('curFilter', values(attrs)[0])
   state.set('members', filter(state.get('allMembers'), attrs))
 }
+
+export const searchMembers = (term) => {
+  state.set('members', filter(state.get('allMembers'), (member) =>
+    member.name.match(new RegExp(term, 'i'))
+  ))
+}

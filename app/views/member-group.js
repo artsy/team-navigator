@@ -49,7 +49,7 @@ view.render(({ members, title }) =>
     h1('.h1', title),
     div(members.map((member) => {
       const src = url.parse(member.headshot).pathname
-      return a('.wrapper', { href: member._id },
+      return a('.wrapper', { href: `/member/${member._id}` },
         div('.headshot', {
           style: { backgroundImage: `url(/img${src})` }
         }),
