@@ -12,7 +12,7 @@ view.styles({
   container: {
     display: 'inline-block',
     width: `calc(100% - ${sidebarWidth}px)`,
-    paddingLeft: mediumMargin,
+    paddingLeft: mediumMargin + sidebarWidth,
     verticalAlign: 'top',
     borderLeft: `1px solid ${grayRegular}`
   }
