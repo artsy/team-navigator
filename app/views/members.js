@@ -1,12 +1,16 @@
 import veact from 'veact'
 import MemberGroup from './member-group'
+import TopNav from './topnav'
 import { state } from '../controllers'
 import { sidebarWidth, mediumMargin, grayRegular } from './lib'
 import { groupBy, first, map, toPairs, sortBy } from 'lodash'
 
 const view = veact()
 
-const { div, membergroup } = view.els({ membergroup: MemberGroup })
+const { div, membergroup, topnav } = view.els({
+  membergroup: MemberGroup,
+  topnav: TopNav
+})
 
 view.styles({
   container: {
@@ -25,6 +29,7 @@ view.render(() => {
   )
   const sortedPairs = sortBy(pairs, ([title]) => title)
   return div('.container',
+    topnav(),
     map(sortedPairs, ([title, members]) =>
       membergroup({ title, members })))
 })

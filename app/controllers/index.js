@@ -52,6 +52,13 @@ export const filterMembers = async (attrs) => {
   state.set('members', filter(state.get('allMembers'), attrs))
 }
 
+export const filterMembersByLetter = (letter) => {
+  state.set('curFilter', letter)
+  state.set('members', filter(state.get('allMembers'), (member) =>
+    member.name[0].toLowerCase() === letter
+  ))
+}
+
 export const searchMembers = (term) => {
   state.unset('curFilter')
   state.set('members', filter(state.get('allMembers'), (member) =>
