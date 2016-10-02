@@ -3,7 +3,7 @@ import Member from './member'
 import Search from './search'
 import LocationsTeams from './locations-teams'
 import { state } from '../../controllers'
-import { mediumMargin, sidebarWidth, type } from '../lib'
+import { mediumMargin, sidebarWidth, type, grayRegular } from '../lib'
 import { assign } from 'lodash'
 
 const view = veact()
@@ -20,7 +20,13 @@ view.styles({
     width: sidebarWidth,
     height: '100%',
     display: 'inline-block',
-    verticalAlign: 'top'
+    verticalAlign: 'top',
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    overflow: 'scroll',
+    background: 'white',
+    borderRight: `1px solid ${grayRegular}`
   },
   homeButton: assign(
     type('avantgarde', 'smallHeadline'),
