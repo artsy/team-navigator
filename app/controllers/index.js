@@ -52,6 +52,10 @@ export const filterMembers = async (attrs) => {
   state.set('members', filter(state.get('allMembers'), attrs))
 }
 
+export const filterMembersByTeam = async (team) => {
+  state.set('members', filter(state.get('allMembers'), { team: team }))
+}
+
 export const searchMembers = (term) => {
   state.unset('curFilter')
   state.set('members', filter(state.get('allMembers'), (member) =>
