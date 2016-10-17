@@ -1,6 +1,6 @@
 import veact from 'veact'
 import {
-  type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize
+  type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize, graySemibold
 } from './lib'
 import { assign } from 'lodash'
 import url from 'url'
@@ -41,7 +41,13 @@ view.styles({
     display: 'inline-block',
     width: '50%'
   },
-  title: ellipsisize()
+  title: ellipsisize(),
+  memberName: {
+    fontWeight: 'bold'
+  },
+  location: {
+    color: graySemibold
+  }
 })
 
 view.render(({ members, title }) =>
@@ -54,9 +60,9 @@ view.render(({ members, title }) =>
           style: { backgroundImage: `url(/img${src})` }
         }),
         div('.text',
-          p(member.name),
+          p('.memberName', member.name),
           p('.title', member.title),
-          p(`${member.city}, Fl. ${member.floor}`))
+          p('.location', `${member.city}, Fl. ${member.floor}`))
         )
     })))
 )

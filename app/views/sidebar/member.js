@@ -1,5 +1,5 @@
 import veact from 'veact'
-import { state } from '../../controllers'
+import { state, filterMembersByTeam } from '../../controllers'
 import { type, graySemibold } from '../lib'
 import { assign } from 'lodash'
 
@@ -34,7 +34,10 @@ view.render(() =>
     a('.backButton', { href: '/' }, 'Back'),
     h2('.h2', state.get('member').name),
     p(state.get('member').title),
-    p(`${state.get('member').city}, Fl. ${state.get('member').floor}`))
+    p(`${state.get('member').city}, Fl. ${state.get('member').floor}`),
+    div({
+      onClick: () => filterMembersByTeam(state.get('member').team)
+    }, `View ${state.get('member').name}'s team`))
 )
 
 export default view()
