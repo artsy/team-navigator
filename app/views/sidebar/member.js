@@ -1,6 +1,6 @@
 import veact from 'veact'
 import { state, filterMembersByTeam } from '../../controllers'
-import { type, graySemibold, borderedButton } from '../lib'
+import { type, borderedButton } from '../lib'
 import { assign } from 'lodash'
 
 const view = veact()
