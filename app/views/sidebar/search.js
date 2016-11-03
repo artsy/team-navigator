@@ -13,6 +13,7 @@ view.styles({
     {
       width: '100%',
       border: `2px solid ${grayRegular}`,
+      marginBottom: '30px',
       paddingLeft: '5px',
       outline: 'none'
     }

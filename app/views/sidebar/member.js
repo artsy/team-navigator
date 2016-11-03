@@ -24,7 +24,10 @@ view.styles({
   ),
   backButton: assign(
     type('avantgarde', 'body'),
-    borderedButton()
+    borderedButton(),
+    {
+      marginTop: 0
+    }
   ),
   teamButton: assign(
     type('avantgarde', 'body'),
