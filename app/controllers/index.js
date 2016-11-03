@@ -30,6 +30,7 @@ export const initData = async (ctx) => {
         city
         headshot
         team
+        reportsTo
       }
     }`)
   )

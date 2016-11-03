@@ -5,13 +5,20 @@ import { assign } from 'lodash'
 
 const view = veact()
 
-const { div, h2, a, p } = view.els()
+const { div, h2, h3, a, p } = view.els()
 
 view.styles({
   h2: assign(
     type('garamond', 'body'),
     {
       marginBottom: 10,
+      fontWeight: 'bold'
+    }
+  ),
+  h3: assign(
+    type('garamond', 'body'),
+    {
+      marginTop: 10,
       fontWeight: 'bold'
     }
   ),
@@ -37,7 +44,10 @@ view.render(() =>
     p(`${state.get('member').city}, Fl. ${state.get('member').floor}`),
     div({
       onClick: () => filterMembersByTeam(state.get('member').team)
-    }, `View ${state.get('member').name}'s team`))
+    }, `View ${state.get('member').name}'s team`),
+    h3('.h3', 'Reports to'),
+    p(state.get('member').reportsTo)
+  )
 )
 
 export default view()
