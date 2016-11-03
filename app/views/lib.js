@@ -63,3 +63,14 @@ export const ellipsisize = () => ({
   overflow: 'hidden',
   textOverflow: 'ellipsis'
 })
+
+export const borderedButton = () => ({
+  display: 'block',
+  color: graySemibold,
+  borderTop: `1px solid ${graySemibold}`,
+  borderBottom: `1px solid ${graySemibold}`,
+  paddingTop: '15px',
+  paddingBottom: '15px',
+  marginTop: '30px',
+  marginBottom: '30px'
+})
