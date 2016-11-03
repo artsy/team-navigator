@@ -45,6 +45,9 @@ view.render(() =>
     div({
       onClick: () => filterMembersByTeam(state.get('member').team)
     }, `View ${state.get('member').name}'s team`),
+    h3('.h3', 'Teams'),
+    p(state.get('member').team),
+    p(state.get('member').productTeam),
     h3('.h3', 'Reports to'),
     p(state.get('member').reportsTo)
   )
