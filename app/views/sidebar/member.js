@@ -1,7 +1,7 @@
 import veact from 'veact'
 import { state, filterMembersByTeam } from '../../controllers'
 import { type, borderedButton } from '../lib'
-import { assign } from 'lodash'
+import { assign, find } from 'lodash'
 
 const view = veact()
 
@@ -50,8 +50,14 @@ view.render(() =>
     h3('.h3', 'Teams'),
     p(state.get('member').team),
     p(state.get('member').productTeam),
-    h3('.h3', 'Reports to'),
-    p(state.get('member').reportsTo)
+    div(state.get('member').reportsTo ?
+      div(
+        h3('.h3', 'Reports to'),
+        a('.wrapper', 
+          { href: `/member/${find(state.get('allMembers'), { 'name': state.get('member').reportsTo })._id}`
+        }, state.get('member').reportsTo)
+      ) : ''
+    )
   )
 )
 
