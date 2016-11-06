@@ -50,13 +50,14 @@ view.render(() =>
     h3('.h3', 'Teams'),
     p(state.get('member').team),
     p(state.get('member').productTeam),
-    div(state.get('member').reportsTo ?
-      div(
-        h3('.h3', 'Reports to'),
-        a('.wrapper',
-          { href: `/member/${find(state.get('allMembers'), { 'name': state.get('member').reportsTo })._id}`
-        }, state.get('member').reportsTo)
-      ) : ''
+    div(state.get('member').reportsTo
+      ? div(
+          h3('.h3', 'Reports to'),
+          a('.wrapper',
+            { href: `/member/${find(state.get('allMembers'), { 'name': state.get('member').reportsTo })._id}`
+          }, state.get('member').reportsTo)
+        )
+      : ''
     )
   )
 )
