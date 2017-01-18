@@ -38,7 +38,7 @@
     "babel-preset-stage-3": "^6.11.0",
     "babelify": "^7.3.0",
     "concurrently": "^2.1.0",
-    "csvtojson": "^1.0.2",
+    "csvtojson": "1.0.2",
     "dotenv": "^2.0.0",
     "envify": "^3.4.0",
     "graphql": "^0.7.0",
