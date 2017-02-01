@@ -25,6 +25,7 @@ export const initData = async (ctx) => {
       members {
         _id
         name
+        email
         title
         floor
         city
