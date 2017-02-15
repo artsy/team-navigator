@@ -37,6 +37,9 @@ npm run dev
 ```
 - Team Navigator should now be running at http://localhost:3000/
 
+- Then you need to sync data, open the [GraphiQL](http://localhost:3000/api?query=mutation%20%7B%0A%20%20sync%0A%7D)
+
+
 ### Testing
 
 We use [standard](https://github.com/feross/standard) for linting. For the best experience it's recommended that you install an inline linter in your text editor, such as [Sublime Linter Standard](https://github.com/Flet/SublimeLinter-contrib-standard), to surface linting issues immediately.
