@@ -33,6 +33,7 @@ export const initData = async (ctx) => {
         team
         productTeam
         reportsTo
+        roleText
       }
     }`)
   )

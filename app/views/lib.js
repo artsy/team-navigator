@@ -4,7 +4,7 @@ export const largeMargin = 50
 export const graySemibold = '#666666'
 export const purpleRegular = '#6e1fff'
 export const grayRegular = '#e5e5e5'
-export const sidebarWidth = 300
+export const sidebarWidth = 390
 
 const garamond = "'" + [
   'Adobe Garamond W08',

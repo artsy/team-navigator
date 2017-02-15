@@ -7,7 +7,7 @@ import { resizeImg } from './controllers/image'
 const app = new Koa()
 
 router.all('/api', graphqlize(models))
-// router.get('/img/*', resizeImg)
+router.get('/img/*', resizeImg)
 app.use(router.routes())
 
 export default app
