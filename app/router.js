@@ -12,6 +12,6 @@ router.use(render({
   subscribe: (cb) => state.on('update', cb)
 }))
 router.get('/', index)
-router.get('/member/:id', show)
+router.get('/member/:handle', show)
 
 export default router

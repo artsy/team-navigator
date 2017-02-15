@@ -24,6 +24,7 @@ export const initData = async (ctx) => {
       cities
       members {
         _id
+        handle
         name
         email
         title
@@ -48,7 +49,7 @@ export const index = async (ctx) => {
 
 export const show = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
-  state.set('member', find(state.get('members'), { _id: ctx.params.id }))
+  state.set('member', find(state.get('members'), { handle: ctx.params.handle }))
   ctx.render({ body: Index })
 }
 
@@ -67,3 +68,4 @@ export const searchMembers = (term) => {
     member.name.match(new RegExp(term, 'i'))
   ))
 }
+

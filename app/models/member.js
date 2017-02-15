@@ -2,6 +2,7 @@ import { model, array, string, query, db } from 'joiql-mongo'
 
 export const member = model('member', {
   name: string(),
+  handle: string(),
   title: string(),
   team: string(),
   subteam: string(),
@@ -20,7 +21,9 @@ export const member = model('member', {
   introEmail: string(),
   personalBio: string(),
   feedbackFormUrl: string(),
-  notes: string()
+  notes: string(),
+  slackHandle: string(),
+  githubHandle: string(),
 })
 
 export const teams = query('teams', array().items(string()),

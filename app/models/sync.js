@@ -13,10 +13,18 @@ const convert = (data) =>
     })
   })
 
-export default mutation('sync', string(), async (ctx, next) => {
+export default mutation('sync', string(), async (ctx) => {
+  await db.members.remove()
+
   const res = await request.get(SHEETS_URL)
   const parsed = await convert(res.text)
   const members = parsed.map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
+                        .map((member) => {
+                          // Use email prefix as a global handle for pretty URLs
+                          member.handle = member.email.replace("@", "")
+                          return member
+                        })
+
   await Promise.all(members.map((member) => db.members.save(member)))
   ctx.res.sync = 'success'
 })

@@ -18,7 +18,7 @@ view.styles({
   container: {
     padding: mediumMargin,
     width: sidebarWidth,
-    position: "-webkit-sticky",
+    position: "sticky",
     top: "10px",
     display: 'inline-block',
   },

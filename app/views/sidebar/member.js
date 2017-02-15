@@ -8,12 +8,12 @@ import { type, borderedButton } from '../lib'
 
 import email from "./email.svg"
 import calendar from "./calendar.svg"
-import chat from "./chat.svg"
+// import chat from "./chat.svg"
 
 const view = veact()
 const headshotSize = 100
 
-const { div, h2, h3, nav, a, p, img, hr } = view.els()
+const { div, h2, h3, nav, a, p, hr } = view.els()
 
 view.styles({
   h2: assign(
@@ -41,7 +41,8 @@ view.styles({
     type('avantgarde', 'body'),
     borderedButton(),
     {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      marginTop: 20
     }
   ),
   location: {
@@ -77,7 +78,6 @@ view.styles({
   }
 })
 
-
 view.render(() => {
     const member = state.get('member')
     const src = url.parse(member.headshot).pathname
@@ -111,7 +111,7 @@ view.render(() => {
         ? div(
             h3('.h3', 'Reports to'),
             a('.wrapper',
-              { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo })._id}`
+              { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}`
             }, state.get('member').reportsTo)
           )
         : ''

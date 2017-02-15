@@ -57,7 +57,7 @@ view.render(({ members, title }) =>
       const src = url.parse(member.headshot).pathname
       const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ""
 
-      return a('.wrapper', { href: `/member/${member._id}` },
+      return a('.wrapper', { href: `/member/${member.handle}` },
         div('.headshot', {
           style: { backgroundImage: `url(/img${src})` }
         }),
