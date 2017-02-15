@@ -55,6 +55,8 @@ view.render(({ members, title }) =>
     h1('.h1', title),
     div(members.map((member) => {
       const src = url.parse(member.headshot).pathname
+      const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ""
+
       return a('.wrapper', { href: `/member/${member._id}` },
         div('.headshot', {
           style: { backgroundImage: `url(/img${src})` }
@@ -62,7 +64,7 @@ view.render(({ members, title }) =>
         div('.text',
           p('.memberName', member.name),
           p('.title', member.title),
-          p('.location', `${member.city}, Fl. ${member.floor}`))
+          p('.location', `${member.city}${floorOrNothing}`))
         )
     })))
 )

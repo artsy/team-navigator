@@ -34,6 +34,7 @@ export const initData = async (ctx) => {
         productTeam
         reportsTo
         roleText
+        startDate
       }
     }`)
   )
