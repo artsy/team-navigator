@@ -9,7 +9,7 @@ export const resizeImg = async (ctx, next) => {
   if (cache[url]) {
     ctx.body = cache[url]
   } else {
-    ctx.body = request.get(url).pipe(sharp().resize(75))
+    ctx.body = request.get(url).pipe(sharp().resize(100))
     await next()
     cache[url] = await ctx.body.toBuffer()
   }
