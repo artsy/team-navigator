@@ -1,7 +1,7 @@
 import unikoa from 'unikoa'
 import bootstrap from 'unikoa-bootstrap'
 import render from 'unikoa-react-render'
-import { index, state, show } from './controllers'
+import { index, state, show, showTeam } from './controllers'
 import Head from './views/head'
 
 const router = unikoa()
@@ -13,5 +13,6 @@ router.use(render({
 }))
 router.get('/', index)
 router.get('/member/:handle', show)
+router.get('/team/:team', showTeam)
 
 export default router

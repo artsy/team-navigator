@@ -5,6 +5,7 @@ export const member = model('member', {
   handle: string(),
   title: string(),
   team: string(),
+  teamID: string(),
   subteam: string(),
   productTeam: string(),
   reportsTo: string(),

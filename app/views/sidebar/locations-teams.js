@@ -5,7 +5,7 @@ import { assign } from 'lodash'
 
 const view = veact()
 
-const { div, h2, ul, li, br } = view.els()
+const { div, h2, ul, li, br, a } = view.els()
 
 view.styles({
   h2: assign(
@@ -32,10 +32,9 @@ view.render(() =>
     br('.br'),
     h2('.h2', 'Teams'),
     ul('.ul', state.get('teams').map((team) =>
-      li('.li', {
-        onClick: () => filterMembers({ team }),
-        style: { color: team === state.get('curFilter') ? purpleRegular : '' }
-      }, team))))
+      a({ href: `/team/${team.toLowerCase().replace(' ', '-').replace(',', '-')}`},
+        li('.li', team)
+      ))))
 )
 
 export default view()

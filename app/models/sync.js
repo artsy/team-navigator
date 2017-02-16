@@ -14,6 +14,7 @@ const convert = (data) =>
   })
 
 export default mutation('sync', string(), async (ctx) => {
+  // Remove old entries
   await db.members.remove()
 
   const res = await request.get(SHEETS_URL)
@@ -22,6 +23,8 @@ export default mutation('sync', string(), async (ctx) => {
                         .map((member) => {
                           // Use email prefix as a global handle for pretty URLs
                           member.handle = member.email.replace("@", "")
+                          // Generate a team ID for URLs
+                          member.teamID = member.team.toLowerCase().replace(" ", "-").replace(",", "-");
                           return member
                         })
 

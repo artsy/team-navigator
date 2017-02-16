@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "node": "node -r dotenv/config -r babel-core/register",
+    "node": "node -r dotenv/config -r babel-core/register .",
     "mocha": "NODE_ENV=test mocha -r dotenv/config -r babel-core/register -r should",
     "lint": "standard",
+    "mongo": "mongo",
     "test": "npm run lint && npm run mocha test/*",
-    "dev": "concurrently 'npm run node .' 'mongod'",
+    "dev": "concurrently 'npm run node' 'mongod'",
     "start": "node -r babel-core/register ."
   },
   "standard": {

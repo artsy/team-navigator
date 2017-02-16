@@ -8,11 +8,15 @@ import url from 'url'
 const view = veact()
 
 const headshotSize = 75
-const { div, h1, p, a } = view.els()
+const { div, h2, p, a } = view.els()
 
 view.styles({
   h1: assign(
     type('garamond', 'largeHeadline'),
+    { margin: `${smallMargin}px 0` }
+  ),
+  h3: assign(
+    type('avantgarde', 'smallHeadline'),
     { margin: `${smallMargin}px 0` }
   ),
   container: {
@@ -50,9 +54,10 @@ view.styles({
   }
 })
 
-view.render(({ members, title }) =>
-  div('.container',
-    h1('.h1', title),
+view.render(({ members, title, shortTitles }) => {
+  const titleClass = shortTitles ? '.h3' : '.h1'
+  return div('.container',
+    h2(titleClass, title),
     div(members.map((member) => {
       const src = url.parse(member.headshot).pathname
       const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ""
@@ -67,6 +72,6 @@ view.render(({ members, title }) =>
           p('.location', `${member.city}${floorOrNothing}`))
         )
     })))
-)
+})
 
 export default view()
