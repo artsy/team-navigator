@@ -56,6 +56,10 @@ view.styles({
   navItem: {
     marginRight: 10
   },
+  wrapper: {
+    display: "block",
+    paddingBottom: "10px"
+  },
   headshotLink: {
     display: 'block',
     height: headshotSize,
@@ -83,6 +87,7 @@ view.render(() => {
   const src = url.parse(member.headshot).pathname
   const noDLhref = member.headshot.replace('?dl=1', '')
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+  const reportees = state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -92,25 +97,31 @@ view.render(() => {
       h2('.h2', member.name),
       p(member.title),
       p('.location', `${member.city}${floorOrNothing}`),
-      member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : null,
+      member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
       nav('.nav', [
         a('.navItem', { href: `${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
         a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } })
       ]),
-      hr(),
+      member.roleText ? hr() : '',
       p('.role', member.roleText),
       div('.teamButton', {
         onClick: () => filterMembersByTeam(member.team)
       }, `View ${member.name}'s team`),
       h3('.h3', 'Teams'),
-      p(member.team),
+      a({ href: `/team/${member.teamID}` }, member.team),
       p(member.productTeam),
+      div(reportees.length ?
+      div(
+        h3('.h3', 'Reportees'),
+          reportees.map(reportee => 
+            a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: "block" }}, reportee.name)
+          ))
+      : ''
+      ),
       div(member.reportsTo
         ? div(
             h3('.h3', 'Reports to'),
-            a('.wrapper',
-              { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}`
-              }, state.get('member').reportsTo)
+            a('.wrapper', { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}`}, state.get('member').reportsTo)
           )
         : ''
       )

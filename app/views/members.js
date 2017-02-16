@@ -33,7 +33,8 @@ const subteams = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => member.subteam)
   )
-  return sortBy(pairs, ([title]) => title)
+  // Move "Head" to always be at the top
+  return sortBy(pairs, ([title]) => title === "Head" ? "1" : title)
 }
 
 view.render(() => {
