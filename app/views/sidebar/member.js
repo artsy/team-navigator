@@ -6,8 +6,8 @@ import moment from 'moment'
 import { state, filterMembersByTeam } from '../../controllers'
 import { type, borderedButton } from '../lib'
 
-import email from "./email.svg"
-import calendar from "./calendar.svg"
+import email from './email.svg'
+import calendar from './calendar.svg'
 // import chat from "./chat.svg"
 
 const view = veact()
@@ -47,20 +47,20 @@ view.styles({
   ),
   location: {
     marginTop: 4,
-    color: "#777"
+    color: '#777'
   },
   nav: {
     marginTop: 20,
     marginBottom: 20
   },
   navItem: {
-    marginRight: 10,
+    marginRight: 10
   },
   headshotLink: {
-    display: "block",
+    display: 'block',
     height: headshotSize,
     width: headshotSize,
-    float: "right" 
+    float: 'right'
   },
   headshot: {
     borderRadius: headshotSize,
@@ -79,25 +79,23 @@ view.styles({
 })
 
 view.render(() => {
-    const member = state.get('member')
-    const src = url.parse(member.headshot).pathname
-    const noDLhref = member.headshot.replace("?dl=1", "")
-    const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ""
+  const member = state.get('member')
+  const src = url.parse(member.headshot).pathname
+  const noDLhref = member.headshot.replace('?dl=1', '')
+  const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
 
-    return div(
+  return div(
       a('.backButton', { href: '/' }, 'Back'),
-      a('.headshotLink', {href: noDLhref}, 
-        div('.headshot', {
-            style: { backgroundImage: `url(/img${src})`}
-        }),
+      a('.headshotLink', {href: noDLhref},
+        div('.headshot', { style: { backgroundImage: `url(/img${src})` } }),
       ),
       h2('.h2', member.name),
       p(member.title),
       p('.location', `${member.city}${floorOrNothing}`),
-      member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) :  null,
-      nav(".nav", [
-        a(".navItem", { href: `${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email }}),
-        a(".navItem", { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar }}),
+      member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : null,
+      nav('.nav', [
+        a('.navItem', { href: `${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
+        a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } })
       ]),
       hr(),
       p('.role', member.roleText),
@@ -112,12 +110,12 @@ view.render(() => {
             h3('.h3', 'Reports to'),
             a('.wrapper',
               { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}`
-            }, state.get('member').reportsTo)
+              }, state.get('member').reportsTo)
           )
         : ''
       )
     )
-  }
+}
 )
 
 export default view()

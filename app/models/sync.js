@@ -22,9 +22,9 @@ export default mutation('sync', string(), async (ctx) => {
   const members = parsed.map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
                         .map((member) => {
                           // Use email prefix as a global handle for pretty URLs
-                          member.handle = member.email.replace("@", "")
+                          member.handle = member.email.replace('@', '')
                           // Generate a team ID for URLs
-                          member.teamID = member.team.toLowerCase().replace(" ", "-").replace(",", "-");
+                          member.teamID = member.team.toLowerCase().replace(' ', '-').replace(',', '-')
                           return member
                         })
 

@@ -60,7 +60,7 @@ view.render(({ members, title, shortTitles }) => {
     h2(titleClass, title),
     div(members.map((member) => {
       const src = url.parse(member.headshot).pathname
-      const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ""
+      const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
 
       return a('.wrapper', { href: `/member/${member.handle}` },
         div('.headshot', {

@@ -18,9 +18,9 @@ view.styles({
   container: {
     padding: mediumMargin,
     width: sidebarWidth,
-    position: "sticky",
-    top: "10px",
-    display: 'inline-block',
+    position: 'sticky',
+    top: '10px',
+    display: 'inline-block'
   },
   homeButton: assign(
     type('avantgarde', 'smallHeadline'),

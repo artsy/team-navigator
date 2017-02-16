@@ -24,7 +24,7 @@ export const member = model('member', {
   feedbackFormUrl: string(),
   notes: string(),
   slackHandle: string(),
-  githubHandle: string(),
+  githubHandle: string()
 })
 
 export const teams = query('teams', array().items(string()),

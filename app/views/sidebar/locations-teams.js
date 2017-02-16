@@ -32,7 +32,7 @@ view.render(() =>
     br('.br'),
     h2('.h2', 'Teams'),
     ul('.ul', state.get('teams').map((team) =>
-      a({ href: `/team/${team.toLowerCase().replace(' ', '-').replace(',', '-')}`},
+      a({ href: `/team/${team.toLowerCase().replace(' ', '-').replace(',', '-')}` },
         li('.li', team)
       ))))
 )

@@ -19,7 +19,7 @@ view.styles({
   h1: assign(
     type('garamond', 'largeHeadline'),
     { margin: `${smallMargin}px 0` }
-  ),
+  )
 })
 
 const alphabeticize = (members) => {
@@ -37,13 +37,13 @@ const subteams = (members) => {
 }
 
 view.render(() => {
-  const useSubteam = state.get("format") === "subteams"
+  const useSubteam = state.get('format') === 'subteams'
   const sort = useSubteam ? subteams : alphabeticize
   const shortTitles = useSubteam
   const sortedPairs = sort(state.get('members'))
 
   return div('.container',
-  state.get('title') ? h2('.h1', state.get('title')) : "",
+  state.get('title') ? h2('.h1', state.get('title')) : '',
     map(sortedPairs, ([title, members]) =>
       membergroup({ title, members, shortTitles })))
 })
