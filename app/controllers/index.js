@@ -85,6 +85,7 @@ export const showTeam = async (ctx) => {
   const subTeam =  filter(state.get('allMembers'), { subteamID: ctx.params.team })
   const productTeam =  filter(state.get('allMembers'), { productTeamID: ctx.params.team })
 
+  state.set('team', ctx.params.team)
   state.set('members', uniq([...mainTeam, ...subTeam, ...productTeam]))
   state.set('format', 'subteams')
 

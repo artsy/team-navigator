@@ -31,8 +31,9 @@ const alphabeticize = (members) => {
 }
 
 const subteams = (members) => {
+  const wholeTeam = state.get('team')
   const pairs = toPairs(
-    groupBy(members, (member) => member.subteam)
+    groupBy(members, (member) => member.subteamID !== wholeTeam ? member.subteam : member.team)
   )
   // Move "Head" to always be at the top
   return sortBy(pairs, ([title]) => title === "Head" ? "1" : title)
