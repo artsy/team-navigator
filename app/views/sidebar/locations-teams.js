@@ -23,12 +23,12 @@ view.styles({
 
 // These are not true "top level" teams, but are important enough to 
 // warrent inclusion in the results
-const extraTeams = ["Design", "Performance Marketing", "Collector Experience & GMV", "Partner Success & Revenue", "Platform"]
+const extraTeams = ["Design", "Performance Marketing", "Collector Experience & GMV", "Partner Success & Revenue"]
 
 view.render(() =>
   div(
     h2('.h2', 'Locations'),
-    ul('.ul', state.get('cities').map((city) =>
+    ul('.ul', state.get('cities').sort().map((city) =>
       li('.li', {
         onClick: () => filterMembers({ city }),
         style: { color: city === state.get('curFilter') ? purpleRegular : '' }

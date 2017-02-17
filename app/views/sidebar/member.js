@@ -104,9 +104,6 @@ view.render(() => {
       ]),
       member.roleText ? hr() : '',
       p('.role', member.roleText),
-      div('.teamButton', {
-        onClick: () => filterMembersByTeam(member.team)
-      }, `View ${member.name}'s team`),
       h3('.h3', 'Teams'),
       a({ href: `/team/${member.teamID}`, style: { display: "block" }}, member.team),
       a({ href: `/team/${member.productTeamID}`, style: { display: "block" }}, member.productTeam),

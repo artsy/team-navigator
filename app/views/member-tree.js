@@ -55,7 +55,6 @@ view.styles({
 })
 
 view.render(({ members, title }) => {
-  const titleClass = shortTitles ? '.h3' : '.h1'
   return div('.container',
     h2(titleClass, title),
     div(members.map((member) => {
