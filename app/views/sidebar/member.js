@@ -57,8 +57,8 @@ view.styles({
     marginRight: 10
   },
   wrapper: {
-    display: "block",
-    paddingBottom: "10px"
+    display: 'block',
+    paddingBottom: '10px'
   },
   headshotLink: {
     display: 'block',
@@ -105,13 +105,13 @@ view.render(() => {
       member.roleText ? hr() : '',
       p('.role', member.roleText),
       h3('.h3', 'Teams'),
-      a({ href: `/team/${member.teamID}`, style: { display: "block" }}, member.team),
-      a({ href: `/team/${member.productTeamID}`, style: { display: "block" }}, member.productTeam),
+      a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' }}, member.team),
+      a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' }}, member.productTeam),
       div(reportees.length ?
       div(
         h3('.h3', 'Reportees'),
-          reportees.map(reportee => 
-            a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: "block" }}, reportee.name)
+          reportees.map(reportee =>
+            a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' }}, reportee.name)
           ))
       : ''
       ),

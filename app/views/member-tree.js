@@ -62,7 +62,7 @@ const showMember = (member, depth) => {
   const src = url.parse(member.headshot).pathname
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
 
-  return a('.wrapper', { href: `/member/${member.handle}` , style: { marginLeft: depth * 40 } }  ,
+  return a('.wrapper', { href: `/member/${member.handle}`, style: { marginLeft: depth * 40 } },
     div('.headshot', {
       style: { backgroundImage: `url(/img${src})` }
     }),
@@ -76,10 +76,10 @@ const showMember = (member, depth) => {
 const showReports = (member, depth, members) => {
   const reportees = filter(members, m => m.reportsTo === member.name)
   return div(
-    showMember(member, depth), 
+    showMember(member, depth),
     reportees.map((reportee) => {
       return showReports(reportee, depth + 1, members)
-  }))
+    }))
 }
 
 view.render(({ members }) => {

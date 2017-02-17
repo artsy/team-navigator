@@ -36,16 +36,15 @@ const subteams = (members) => {
     groupBy(members, (member) => member.subteamID !== wholeTeam ? member.subteam : member.team)
   )
   // Move "Head" to always be at the top
-  return sortBy(pairs, ([title]) => title === "Head" ? "1" : title)
+  return sortBy(pairs, ([title]) => title === 'Head' ? '1' : title)
 }
 
 view.render(() => {
-  if (state.get('format') === "tree") {
+  if (state.get('format') === 'tree') {
     return div('.container',
       state.get('title') ? h2('.h1', state.get('title')) : '',
-      membertree({ title: "hi", members: state.get("members") })
+      membertree({ title: 'hi', members: state.get('members') })
     )
-
   } else {
     const useSubteam = state.get('format') === 'subteams'
     const sort = useSubteam ? subteams : alphabeticize
@@ -56,7 +55,7 @@ view.render(() => {
     state.get('title') ? h2('.h1', state.get('title')) : '',
       map(sortedPairs, ([title, members]) =>
         membergroup({ title, members, shortTitles })))
-  }  
+  }
 })
 
 export default view()

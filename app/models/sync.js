@@ -1,12 +1,12 @@
  import { mutation, string, db } from 'joiql-mongo'
-import request from 'superagent'
-import { Converter } from 'csvtojson'
-import { camelCase, mapKeys } from 'lodash'
-import { teamNameToID } from '../views/lib'
+ import request from 'superagent'
+ import { Converter } from 'csvtojson'
+ import { camelCase, mapKeys } from 'lodash'
+ import { teamNameToID } from '../views/lib'
 
-const converter = new Converter()
-const { SHEETS_URL } = process.env
-const convert = (data) =>
+ const converter = new Converter()
+ const { SHEETS_URL } = process.env
+ const convert = (data) =>
   new Promise((resolve, reject) => {
     converter.fromString(data, (err, json) => {
       if (err) reject(err)
@@ -14,13 +14,13 @@ const convert = (data) =>
     })
   })
 
-export default mutation('sync', string(), async (ctx) => {
+ export default mutation('sync', string(), async (ctx) => {
   // Remove old entries
-  await db.members.remove()
+   await db.members.remove()
 
-  const res = await request.get(SHEETS_URL)
-  const parsed = await convert(res.text)
-  const members = parsed
+   const res = await request.get(SHEETS_URL)
+   const parsed = await convert(res.text)
+   const members = parsed
     .map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
     .map((member) => {
       // Use email prefix as a global handle for pretty URLs
@@ -32,6 +32,6 @@ export default mutation('sync', string(), async (ctx) => {
       return member
     })
 
-  await Promise.all(members.map((member) => db.members.save(member)))
-  ctx.res.sync = 'success'
-})
+   await Promise.all(members.map((member) => db.members.save(member)))
+   ctx.res.sync = 'success'
+ })

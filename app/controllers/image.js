@@ -1,16 +1,26 @@
 import sharp from 'sharp'
 import request from 'superagent'
-
-const cache = {}
+import { existsSync, readFileSync, createWriteStream } from 'fs'
+import { tmpdir } from 'os'
+import { join, basename } from 'path'
 
 export const resizeImg = async (ctx, next) => {
   ctx.set('Content-Type', 'image/jpeg')
   const url = `https://dropbox.com/${ctx.url.replace('img', '')}?raw=1`
-  if (cache[url]) {
-    ctx.body = cache[url]
+  const localPath = join(tmpdir(), basename(ctx.url))
+
+  if (existsSync(localPath)) {
+    ctx.body = readFileSync(localPath)
   } else {
-    ctx.body = request.get(url).pipe(sharp().resize(100))
-    await next()
-    cache[url] = await ctx.body.toBuffer()
+    const writableStream = createWriteStream(localPath)
+    const resizer = sharp().resize(100)
+
+    // Allow passing directly to the response, but also write to a tmp file
+    ctx.body = request.get(url).pipe(resizer).on('data', (data) => {
+      writableStream.write(data)
+    })
   }
+
+  await next()
 }
+
