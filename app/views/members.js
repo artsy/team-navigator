@@ -1,12 +1,13 @@
 import veact from 'veact'
 import MemberGroup from './member-group'
+import MemberTree from './member-tree'
 import { state } from '../controllers'
 import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './lib'
 import { groupBy, first, map, toPairs, sortBy, assign } from 'lodash'
 
 const view = veact()
 
-const { div, membergroup, h2 } = view.els({ membergroup: MemberGroup })
+const { div, membergroup, membertree, h2 } = view.els({ membergroup: MemberGroup, membertree: MemberTree })
 
 view.styles({
   container: {
@@ -38,15 +39,23 @@ const subteams = (members) => {
 }
 
 view.render(() => {
-  const useSubteam = state.get('format') === 'subteams'
-  const sort = useSubteam ? subteams : alphabeticize
-  const shortTitles = useSubteam
-  const sortedPairs = sort(state.get('members'))
+  if (state.get('format') === "tree") {
+    return div('.container',
+      state.get('title') ? h2('.h1', state.get('title')) : '',
+      membertree("hi", state.get("members"))
+    )
 
-  return div('.container',
-  state.get('title') ? h2('.h1', state.get('title')) : '',
-    map(sortedPairs, ([title, members]) =>
-      membergroup({ title, members, shortTitles })))
+  } else {
+    const useSubteam = state.get('format') === 'subteams'
+    const sort = useSubteam ? subteams : alphabeticize
+    const shortTitles = useSubteam
+    const sortedPairs = sort(state.get('members'))
+
+    return div('.container',
+    state.get('title') ? h2('.h1', state.get('title')) : '',
+      map(sortedPairs, ([title, members]) =>
+        membergroup({ title, members, shortTitles })))
+  }  
 })
 
 export default view()

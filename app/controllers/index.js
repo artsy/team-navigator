@@ -2,7 +2,7 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
-import { filter, values, find, startCase, camelCase } from 'lodash'
+import { filter, values, find, startCase, camelCase, uniq } from 'lodash'
 
 const api = new Lokka({
   transport: new Transport(process.env.APP_URL + '/api')
@@ -34,7 +34,9 @@ export const initData = async (ctx) => {
         team
         teamID
         subteam
+        subteamID
         productTeam
+        productTeamID
         reportsTo
         roleText
         startDate
@@ -79,8 +81,23 @@ export const searchMembers = (term) => {
 export const showTeam = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
-  state.set('members', filter(state.get('allMembers'), { teamID: ctx.params.team }))
+  const mainTeam =  filter(state.get('allMembers'), { teamID: ctx.params.team })
+  const subTeam =  filter(state.get('allMembers'), { subteamID: ctx.params.team })
+  const productTeam =  filter(state.get('allMembers'), { productTeamID: ctx.params.team })
+
+  state.set('members', uniq([...mainTeam, ...subTeam, ...productTeam]))
   state.set('format', 'subteams')
+
+  const prettyTeam = startCase(camelCase(ctx.params.team))
+  state.set('title', `Members of ${prettyTeam}`)
+  ctx.render({ body: Index })
+}
+
+export const showTeamTree = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+
+  state.set('members', filter(state.get('allMembers'), { teamID: ctx.params.team }))
+  state.set('format', 'tree')
 
   const prettyTeam = startCase(camelCase(ctx.params.team))
   state.set('title', `Members of ${prettyTeam}`)

@@ -108,8 +108,8 @@ view.render(() => {
         onClick: () => filterMembersByTeam(member.team)
       }, `View ${member.name}'s team`),
       h3('.h3', 'Teams'),
-      a({ href: `/team/${member.teamID}` }, member.team),
-      p(member.productTeam),
+      a({ href: `/team/${member.teamID}`, style: { display: "block" }}, member.team),
+      a({ href: `/team/${member.productTeamID}`, style: { display: "block" }}, member.productTeam),
       div(reportees.length ?
       div(
         h3('.h3', 'Reportees'),

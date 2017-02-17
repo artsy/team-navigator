@@ -46,6 +46,7 @@
     "hotglue": "0.0.2",
     "joiql-mongo": "^1.0.7",
     "koa": "^2.0.0-alpha.4",
+    "koa-passport": "2",
     "lodash": "^4.15.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.4.0",

@@ -74,3 +74,6 @@ export const borderedButton = () => ({
   marginTop: '30px',
   marginBottom: '30px'
 })
+
+
+export const teamNameToID = (name) => name && name.toLowerCase().replace(/ /g, '-').replace(/,/g, '-').replace(/&/g, '-')

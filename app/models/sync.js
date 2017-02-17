@@ -2,6 +2,7 @@
 import request from 'superagent'
 import { Converter } from 'csvtojson'
 import { camelCase, mapKeys } from 'lodash'
+import { teamNameToID } from '../views/lib'
 
 const converter = new Converter()
 const { SHEETS_URL } = process.env
@@ -19,14 +20,17 @@ export default mutation('sync', string(), async (ctx) => {
 
   const res = await request.get(SHEETS_URL)
   const parsed = await convert(res.text)
-  const members = parsed.map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
-                        .map((member) => {
-                          // Use email prefix as a global handle for pretty URLs
-                          member.handle = member.email.replace('@', '')
-                          // Generate a team ID for URLs
-                          member.teamID = member.team.toLowerCase().replace(' ', '-').replace(',', '-')
-                          return member
-                        })
+  const members = parsed
+    .map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
+    .map((member) => {
+      // Use email prefix as a global handle for pretty URLs
+      member.handle = member.email.replace('@', '')
+      // Generate a team ID for URLs
+      member.teamID = teamNameToID(member.team)
+      member.subteamID = teamNameToID(member.subteam)
+      member.productTeamID = teamNameToID(member.productTeam)
+      return member
+    })
 
   await Promise.all(members.map((member) => db.members.save(member)))
   ctx.res.sync = 'success'

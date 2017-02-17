@@ -1,6 +1,6 @@
 import veact from 'veact'
 import { state, filterMembers } from '../../controllers'
-import { type, mediumMargin, purpleRegular } from '../lib'
+import { type, mediumMargin, purpleRegular, teamNameToID } from '../lib'
 import { assign } from 'lodash'
 
 const view = veact()
@@ -21,6 +21,10 @@ view.styles({
   }
 })
 
+// These are not true "top level" teams, but are important enough to 
+// warrent inclusion in the results
+const extraTeams = ["Design", "Performance Marketing", "Collector Experience & GMV", "Partner Success & Revenue"]
+
 view.render(() =>
   div(
     h2('.h2', 'Locations'),
@@ -31,8 +35,8 @@ view.render(() =>
       }, city))),
     br('.br'),
     h2('.h2', 'Teams'),
-    ul('.ul', state.get('teams').map((team) =>
-      a({ href: `/team/${team.toLowerCase().replace(' ', '-').replace(',', '-')}` },
+    ul('.ul', [...extraTeams, ...state.get('teams')].sort().map((team) =>
+      a({ href: `/team/${teamNameToID(team)}` },
         li('.li', team)
       ))))
 )
