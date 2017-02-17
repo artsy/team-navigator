@@ -78,15 +78,18 @@ export const searchMembers = (term) => {
   state.set('format', 'alphabetical')
 }
 
+const membersForTeam = (teamID) => {
+  const mainTeam =  filter(state.get('allMembers'), { teamID: teamID })
+  const subTeam =  filter(state.get('allMembers'), { subteamID: teamID })
+  const productTeam =  filter(state.get('allMembers'), { productTeamID: teamID })
+  return uniq([...mainTeam, ...subTeam, ...productTeam])
+}
+
 export const showTeam = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
-  const mainTeam =  filter(state.get('allMembers'), { teamID: ctx.params.team })
-  const subTeam =  filter(state.get('allMembers'), { subteamID: ctx.params.team })
-  const productTeam =  filter(state.get('allMembers'), { productTeamID: ctx.params.team })
-
   state.set('team', ctx.params.team)
-  state.set('members', uniq([...mainTeam, ...subTeam, ...productTeam]))
+  state.set('members', membersForTeam(ctx.params.team))
   state.set('format', 'subteams')
 
   const prettyTeam = startCase(camelCase(ctx.params.team))
@@ -97,7 +100,7 @@ export const showTeam = async (ctx) => {
 export const showTeamTree = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
-  state.set('members', filter(state.get('allMembers'), { teamID: ctx.params.team }))
+  state.set('members', membersForTeam(ctx.params.team))
   state.set('format', 'tree')
 
   const prettyTeam = startCase(camelCase(ctx.params.team))

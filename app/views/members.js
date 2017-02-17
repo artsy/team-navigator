@@ -43,7 +43,7 @@ view.render(() => {
   if (state.get('format') === "tree") {
     return div('.container',
       state.get('title') ? h2('.h1', state.get('title')) : '',
-      membertree("hi", state.get("members"))
+      membertree({ title: "hi", members: state.get("members") })
     )
 
   } else {

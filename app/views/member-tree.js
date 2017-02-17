@@ -2,7 +2,8 @@ import veact from 'veact'
 import {
   type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize, graySemibold
 } from './lib'
-import { assign } from 'lodash'
+import { state } from '../controllers'
+import { assign, filter, find, member } from 'lodash'
 import url from 'url'
 
 const view = veact()
@@ -54,23 +55,42 @@ view.styles({
   }
 })
 
-view.render(({ members, title }) => {
-  return div('.container',
-    h2(titleClass, title),
-    div(members.map((member) => {
-      const src = url.parse(member.headshot).pathname
-      const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+const userForName = name => find(state.get('allMembers'), { 'name': name })
 
-      return a('.wrapper', { href: `/member/${member.handle}` },
-        div('.headshot', {
-          style: { backgroundImage: `url(/img${src})` }
-        }),
-        div('.text',
-          p('.memberName', member.name),
-          p('.title', member.title),
-          p('.location', `${member.city}${floorOrNothing}`))
-        )
-    })))
+const showMember = (member, depth) => {
+  console.log(member)
+  const src = url.parse(member.headshot).pathname
+  const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+
+  return a('.wrapper', { href: `/member/${member.handle}` , style: { marginLeft: depth * 40 } }  ,
+    div('.headshot', {
+      style: { backgroundImage: `url(/img${src})` }
+    }),
+    div('.text',
+      p('.memberName', member.name),
+      p('.title', member.title),
+      p('.location', `${member.city}${floorOrNothing}`))
+    )
+}
+
+const showReports = (member, depth, members) => {
+  const reportees = filter(members, m => m.reportsTo === member.name)
+  return div(
+    showMember(member, depth), 
+    reportees.map((reportee) => {
+      return showReports(reportee, depth + 1, members)
+  }))
+}
+
+view.render(({ members }) => {
+  // Anyone with a reportTo who isn't in the team, might not be perfect
+  // but it's a good start and seems to work for most cases. You can click on them to see their manager.
+  const roots = filter(members, m => m.reportsTo && !members.includes(userForName(m.reportsTo)))
+
+  return div('.container',
+   // Recurse through the roots showing their reportees
+   roots.map(root => showReports(root, 0, members))
+  )
 })
 
 export default view()
