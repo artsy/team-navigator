@@ -35,5 +35,6 @@ const app = module.exports = hotglue({
 
 // Connect to Mongo and run app
 connect(MONGO_URL)
+import app from "./app/server"
 app.listen(PORT)
 console.log('Listening on ' + PORT)

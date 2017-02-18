@@ -1,6 +1,5 @@
 import request from 'superagent'
-
-const router = require('koa-router')();
+const router = require("koa-router")()
 
 import passport from 'koa-passport';
 import OAuth2Strategy from 'passport-oauth2';
@@ -21,7 +20,7 @@ export function authenticateWithUser(ctx) {
 }
 
 export function authenticateOrLogin(ctx, next) {
-  if (authenticateWithUser(ctx) || ctx.request.url === '/login') {
+  if (authenticateWithUser(ctx)) {
     return next();
   }
 
@@ -41,6 +40,8 @@ const strategy = new OAuth2Strategy({
   clientSecret: GRAVITY_SECRET,
   callbackURL: '/auth/artsy/callback',
 }, async (accessToken, refreshToken, profile, done)  => {
+  console.log("ASDASDASD")
+
   const reponse = await request
     .get(GRAVITY_API_URL + '/api/v1/me')
     .set('X-Access-Token', accessToken)
@@ -66,24 +67,31 @@ export default (app) => {
   app.use(bodyParser())
 
   // authentication
-  // require('./auth')
+  // require('./auth') 
 
   app.use(passport.initialize())
   app.use(passport.session())
 
-  app.use(router.get('/login', passport.authenticate('artsy')));
-  app.use(router.get('/auth/artsy/callback', passport.authenticate('artsy', {
+
+  router.get('/login', (ctx, next) => {console.log("OKASDASD"), next()}, passport.authenticate('artsy', {
+    successRedirect: '/app',
+    failureRedirect: '/failure'
+  }))
+  
+  router.get('/auth/artsy/callback', passport.authenticate('artsy', {
     successRedirect: '/',
     failureRedirect: '/logout',
     failureFlash: true,
   }), (req, res) => {
     res.redirect('/');
-  }))
+  })
 
-  app.use(router.get('/logout', (ctx) => {
+  router.get('/logout', (ctx) => {
     ctx.logout()
     ctx.redirect(GRAVITY_API_URL + '/users/sign_out')
-  }))
+  })
 
+  app.use(router.routes())  
   app.use(authenticateOrLogin);
-};
+}
+

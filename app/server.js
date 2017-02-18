@@ -6,7 +6,6 @@ import { resizeImg } from './controllers/image'
 import auth from "./auth"
 
 const app = new Koa()
-auth(app, router)
 
 router.all('/api', graphqlize(models))
 router.get('/img/*', resizeImg)
