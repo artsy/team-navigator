@@ -47,3 +47,7 @@ We use [standard](https://github.com/feross/standard) for linting. For the best 
 We use [mocha](https://mochajs.org/) for testing. For the best experience writing tests it's recommended you target the suite you're working on in watch mode `npm run mocha -- --watch test/your/tests.js`.
 
 To run the full test suite and linter use `npm test`.
+
+### Scripts
+
+Want to send out workaversary slack notifications? Schedule `scripts/daily_notifications.js` to run every day.

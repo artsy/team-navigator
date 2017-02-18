@@ -1,4 +1,4 @@
-import { model, array, string, query, db } from 'joiql-mongo'
+import { model, array, string, boolean, query, db } from 'joiql-mongo'
 
 export const member = model('member', {
   name: string(),
@@ -26,6 +26,8 @@ export const member = model('member', {
   feedbackFormUrl: string(),
   notes: string(),
   slackHandle: string(),
+  slackID: string(),
+  slackPresence: boolean(),
   githubHandle: string()
 })
 

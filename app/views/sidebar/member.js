@@ -8,10 +8,13 @@ import { type, borderedButton } from '../lib'
 
 import email from './email.svg'
 import calendar from './calendar.svg'
-// import chat from "./chat.svg"
+import chat from "./chat.svg"
+import activeChat from "./active-chat.svg"
 
 const view = veact()
 const headshotSize = 100
+
+const { SLACK_TEAM_ID } = process.env
 
 const { div, h2, h3, nav, a, p, hr } = view.els()
 
@@ -56,6 +59,10 @@ view.styles({
   navItem: {
     marginRight: 10
   },
+  navItemChat: {
+    marginRight: 10,
+    marginTop: 10
+  },
   wrapper: {
     display: 'block',
     paddingBottom: '10px'
@@ -88,6 +95,7 @@ view.render(() => {
   const noDLhref = member.headshot.replace('?dl=1', '')
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
   const reportees = state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
+  const slackClickLink = `slack://user?team=${SLACK_TEAM_ID}&id=${member.slackID}`
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -99,7 +107,8 @@ view.render(() => {
       p('.location', `${member.city}${floorOrNothing}`),
       member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
       nav('.nav', [
-        a('.navItem', { href: `${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
+        a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
+        a('.navItem', { href: `mailto:${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
         a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } })
       ]),
       member.roleText ? hr() : '',

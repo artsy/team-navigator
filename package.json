@@ -55,6 +55,8 @@
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "sharp": "^0.16.0",
+    "slack-api": "^0.1.12",
+    "slackbots": "^1.0.2",
     "superagent": "^2.2.0",
     "unikoa": "0.0.1",
     "unikoa-bootstrap": "0.0.2",

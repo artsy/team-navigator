@@ -40,6 +40,10 @@ export const initData = async (ctx) => {
         reportsTo
         roleText
         startDate
+        slackHandle
+        slackID
+        slackPresence
+        githubHandle
       }
     }`)
   )

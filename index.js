@@ -4,7 +4,7 @@ import babelify from 'babelify'
 import envify from 'envify'
 import path from 'path'
 
-const { MONGO_URL, PORT } = process.env
+const { MONGO_URL, PORT, SLACK_AUTH_TOKEN } = process.env
 
 // Bundle together client and server app for hot reloading, and—
 // to be implemented—production ready asset bundle serving
@@ -36,4 +36,11 @@ const app = module.exports = hotglue({
 // Connect to Mongo and run app
 connect(MONGO_URL)
 app.listen(PORT)
+
 console.log('Listening on ' + PORT)
+
+import updatePresence from "./scripts/update_presence"
+if (SLACK_AUTH_TOKEN) {
+  console.log('Starting Slack presence updater.')
+  setInterval(updatePresence, 5 * 60 * 1000)
+}
