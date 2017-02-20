@@ -3,7 +3,6 @@ import { graphqlize } from 'joiql-mongo'
 import router from './router'
 import * as models from './models'
 import { resizeImg } from './controllers/image'
-import auth from "./auth"
 
 const app = new Koa()
 

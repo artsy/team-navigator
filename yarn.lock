@@ -809,6 +809,10 @@ bluebird@^3.4.6:
   version "3.4.7"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
 
+bluebird@~0.11.5-1:
+  version "0.11.6"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-0.11.6.tgz#9a42fbfd5c25372f07e8acd31b0c646c603f2996"
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.6"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
@@ -965,7 +969,7 @@ browserify@^13.0.0, browserify@^13.1.0:
     vm-browserify "~0.0.1"
     xtend "^4.0.0"
 
-bson@~0.4.23:
+bson@~0.4.20, bson@~0.4.23:
   version "0.4.23"
   resolved "https://registry.yarnpkg.com/bson/-/bson-0.4.23.tgz#e65a2e3c7507ffade4109bc7575a76e50f8da915"
 
@@ -1382,11 +1386,19 @@ debug@*, debug@^2.1.1, debug@^2.2.0:
   dependencies:
     ms "0.7.2"
 
+debug@0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-0.8.1.tgz#20ff4d26f5e422cb68a1bacbbb61039ad8c1c130"
+
 debug@2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
     ms "0.7.1"
+
+debug@~0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
 deep-equal@~1.0.0:
   version "1.0.1"
@@ -1523,6 +1535,12 @@ domutils@1.5, domutils@1.5.1, domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dot-component@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/dot-component/-/dot-component-0.1.1.tgz#d8208ce6b3a132f2a27f0dc9435597ee6fa7b7aa"
+  dependencies:
+    type-component "*"
+
 dotenv@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
@@ -1606,6 +1624,10 @@ es6-map@^0.1.3:
     es6-set "~0.1.3"
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
+
+es6-promise@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-2.1.1.tgz#03e8f3c7297928e5478d6ab1d0643251507bdedd"
 
 es6-promise@3.2.1:
   version "3.2.1"
@@ -2655,6 +2677,23 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
+koa-mongodb-session@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/koa-mongodb-session/-/koa-mongodb-session-0.0.3.tgz#73de6ccc6dfdd6f9170c92c5be4622d37231bbf5"
+  dependencies:
+    debug "0.8.1"
+    mongo-eql "0.1.1"
+    mongo-query "0.5.2"
+    sliced "0.0.5"
+    uid2 "0.0.3"
+
+koa-mount@next:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/koa-mount/-/koa-mount-2.0.0.tgz#728b7d01ab23e7e58dc588e52fc554d67ee981db"
+  dependencies:
+    debug "*"
+    koa-compose "^3.0.0"
+
 koa-passport@rkusa/koa-passport#v2.x:
   version "2.2.2"
   resolved "https://codeload.github.com/rkusa/koa-passport/tar.gz/1cadf2e55cca04b046c2416755c25b0f1c8c3c69"
@@ -2678,6 +2717,14 @@ koa-router@^7.0.1:
     koa-compose "^3.0.0"
     methods "^1.0.1"
     path-to-regexp "^1.1.1"
+
+koa-session-mongo@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/koa-session-mongo/-/koa-session-mongo-1.1.0.tgz#81c494accee2ad504d68b581ec3ec07e621ad250"
+  dependencies:
+    bluebird "~0.11.5-1"
+    debug "~0.7.4"
+    mongodb "~2.0.49"
 
 koa@^2.0.0-alpha.4, koa@^2.0.0-alpha.7:
   version "2.0.0"
@@ -2984,6 +3031,36 @@ moment@2.x.x, moment@^2.11.2, moment@^2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
+mongo-eql@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/mongo-eql/-/mongo-eql-0.1.0.tgz#fb36666c53b555d2a10c28cd4ae842d95e941e84"
+  dependencies:
+    debug "*"
+    type-component "*"
+
+mongo-eql@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/mongo-eql/-/mongo-eql-0.1.1.tgz#e58e37196b46feaa99b44defbed379afe8fca9fd"
+  dependencies:
+    debug "*"
+    type-component "*"
+
+mongo-query@0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/mongo-query/-/mongo-query-0.5.2.tgz#253b3bfd2f8a990697cb3315a9a5db0c22c66157"
+  dependencies:
+    debug "*"
+    dot-component "0.1.1"
+    mongo-eql "0.1.0"
+    object-component "0.0.3"
+    type-component "0.0.1"
+
+mongodb-core@1.2.31:
+  version "1.2.31"
+  resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-1.2.31.tgz#f1e6405f03d40846fdb838a702507affa3cb2c39"
+  dependencies:
+    bson "~0.4.20"
+
 mongodb-core@2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/mongodb-core/-/mongodb-core-2.1.8.tgz#b33e0370d0a59d97b6cb1ec610527be9e95ca2c0"
@@ -3005,6 +3082,14 @@ mongodb@^2.0.42:
     es6-promise "3.2.1"
     mongodb-core "2.1.8"
     readable-stream "2.1.5"
+
+mongodb@~2.0.49:
+  version "2.0.55"
+  resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.0.55.tgz#a09dd77259f6bba69f7dd592a011c11aa5761097"
+  dependencies:
+    es6-promise "2.1.1"
+    mongodb-core "1.2.31"
+    readable-stream "1.0.31"
 
 ms@0.7.1:
   version "0.7.1"
@@ -3099,6 +3184,10 @@ object-assign@^2.0.0:
 object-assign@^4.0.0, object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+
+object-component@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/object-component/-/object-component-0.0.3.tgz#f0c69aa50efc95b866c186f400a33769cb2f1291"
 
 object.omit@^2.0.0:
   version "2.0.1"
@@ -3436,6 +3525,15 @@ read-only-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/read-only-stream/-/read-only-stream-2.0.0.tgz#2724fd6a8113d73764ac288d4386270c1dbf17f0"
   dependencies:
     readable-stream "^2.0.2"
+
+readable-stream@1.0.31:
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-1.0.31.tgz#8f2502e0bc9e3b0da1b94520aabb4e2603ecafae"
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "0.0.1"
+    string_decoder "~0.10.x"
 
 readable-stream@1.1, readable-stream@~1.1.8:
   version "1.1.14"
@@ -3786,6 +3884,10 @@ slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
 
+sliced@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/sliced/-/sliced-0.0.5.tgz#5edc044ca4eb6f7816d50ba2fc63e25d8fe4707f"
+
 sntp@1.x.x:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/sntp/-/sntp-1.0.9.tgz#6541184cc90aeea6c6e7b35e2659082443c66198"
@@ -4088,6 +4190,10 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
+type-component@*, type-component@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/type-component/-/type-component-0.0.1.tgz#952a6c81c21efd24d13d811d0c8498cb860e1956"
+
 type-is@^1.5.5, type-is@~1.6.6:
   version "1.6.14"
   resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.14.tgz#e219639c17ded1ca0789092dd54a03826b817cb2"
@@ -4114,7 +4220,7 @@ uid-safe@~2.1.1:
     base64-url "1.3.3"
     random-bytes "~1.0.0"
 
-uid2@0.0.x:
+uid2@0.0.3, uid2@0.0.x:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/uid2/-/uid2-0.0.3.tgz#483126e11774df2f71b8b639dcd799c376162b82"
 

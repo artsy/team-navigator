@@ -4,8 +4,11 @@ import tree from 'universal-tree'
 import Index from '../views'
 import { filter, values, find, startCase, camelCase, uniq } from 'lodash'
 
+// As we're making real API calls through node, we need to allow it to get through auth
+const { INTERNAL_REQUESTS_HEADER_SECRET } = process.env
+
 const api = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api')
+  transport: new Transport(process.env.APP_URL + '/api', { headers: { 'secret' : INTERNAL_REQUESTS_HEADER_SECRET } } )
 })
 
 export const state = tree({

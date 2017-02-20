@@ -33,8 +33,37 @@ const app = module.exports = hotglue({
   }
 })
 
+// Error propagation.
+app.use(function *(next) {
+  try {
+    yield next;
+    // Handle 404 upstream.
+    var status = this.status || 404;
+    if (status === 404) this.throw(404);
+  } catch (err) {
+    err.status = err.status || 500;
+    err.message = err.expose ? err.message : 'Kaboom!';
+
+    // Set our response.
+    this.status = err.status;
+    this.body = {code: err.status, message: err.message};
+
+    // Since we handled this manually we'll
+    // want to delegate to the regular app
+    // level error handling as well so that
+    // centralized still functions correctly.
+    this.app.emit('error', err, this);
+  }
+});
+
+
 // Connect to Mongo and run app
 connect(MONGO_URL)
-import app from "./app/server"
-app.listen(PORT)
+
+import auth from "./app/auth"
+const mount = require('koa-mount');
+
+auth.use(mount(app))
+auth.listen(PORT)
+
 console.log('Listening on ' + PORT)

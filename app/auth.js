@@ -4,6 +4,14 @@ const router = require("koa-router")()
 import passport from 'koa-passport';
 import OAuth2Strategy from 'passport-oauth2';
 
+const {
+  GRAVITY_API_URL,
+  GRAVITY_ID,
+  GRAVITY_SECRET,
+  MONGO_URL,
+  INTERNAL_REQUESTS_HEADER_SECRET
+} = process.env;
+
 export function validArtsyEmail(email) {
   return /@artsymail.com$/.test(email) || /@artsy.net$/.test(email);
 }
@@ -13,25 +21,23 @@ export function isUserAdmin(user) {
 }
 
 export function authenticateWithUser(ctx) {
-  console.log(ctx)
     return ctx && ctx.isAuthenticated()
       && validArtsyEmail(ctx.state.user.email)
       && isUserAdmin(ctx.state.user);
 }
 
+export function isNodeFetchSelf(ctx) {
+    return ctx && ctx.request.headers['secret'] == INTERNAL_REQUESTS_HEADER_SECRET
+}
+
 export function authenticateOrLogin(ctx, next) {
-  if (authenticateWithUser(ctx)) {
+  if (authenticateWithUser(ctx) || isNodeFetchSelf(ctx)) {
     return next();
   }
 
   ctx.redirect('/login');
 }
 
-const {
-  GRAVITY_API_URL,
-  GRAVITY_ID,
-  GRAVITY_SECRET,
-} = process.env;
 
 const strategy = new OAuth2Strategy({
   authorizationURL: GRAVITY_API_URL + '/oauth2/authorize',
@@ -40,7 +46,6 @@ const strategy = new OAuth2Strategy({
   clientSecret: GRAVITY_SECRET,
   callbackURL: '/auth/artsy/callback',
 }, async (accessToken, refreshToken, profile, done)  => {
-  console.log("ASDASDASD")
 
   const reponse = await request
     .get(GRAVITY_API_URL + '/api/v1/me')
@@ -54,44 +59,43 @@ passport.use('artsy', strategy);
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-export default (app) => {
+import Koa from 'koa'
+const app = new Koa()
 
-  // sessions
-  const convert = require('koa-convert')
-  const session = require('koa-generic-session')
-  app.keys = ['your-session-secret']
-  app.use(convert(session()))
+// sessions
+const convert = require('koa-convert')
+const session = require('koa-generic-session')
+const MongoStore = require('koa-generic-session-mongo');
 
-  // body parser
-  const bodyParser = require('koa-bodyparser')
-  app.use(bodyParser())
+app.keys = ['our-secret-team-nav-secret']
+app.use(convert( session({ store: new MongoStore({ url: MONGO_URL}) }) ))
 
-  // authentication
-  // require('./auth') 
+// body parser
+const bodyParser = require('koa-bodyparser')
+app.use(bodyParser())
 
-  app.use(passport.initialize())
-  app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 
+router.get('/login',  passport.authenticate('artsy', {
+  successRedirect: '/',
+  failureRedirect: '/failure'
+}))
 
-  router.get('/login', (ctx, next) => {console.log("OKASDASD"), next()}, passport.authenticate('artsy', {
-    successRedirect: '/app',
-    failureRedirect: '/failure'
-  }))
-  
-  router.get('/auth/artsy/callback', passport.authenticate('artsy', {
-    successRedirect: '/',
-    failureRedirect: '/logout',
-    failureFlash: true,
-  }), (req, res) => {
-    res.redirect('/');
-  })
+router.get('/auth/artsy/callback', passport.authenticate('artsy', {
+  successRedirect: '/',
+  failureRedirect: '/logout',
+  failureFlash: true,
+}), (req, res) => {
+  res.redirect('/');
+})
 
-  router.get('/logout', (ctx) => {
-    ctx.logout()
-    ctx.redirect(GRAVITY_API_URL + '/users/sign_out')
-  })
+router.get('/logout', (ctx) => {
+  ctx.logout()
+  ctx.redirect(GRAVITY_API_URL + '/users/sign_out')
+})
 
-  app.use(router.routes())  
-  app.use(authenticateOrLogin);
-}
+app.use(router.routes())
+app.use(authenticateOrLogin)
 
+export default app;
