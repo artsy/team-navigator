@@ -2,29 +2,45 @@ import veact from 'veact'
 import { state, searchMembers } from '../../controllers'
 import { type, grayRegular } from '../lib'
 import { assign } from 'lodash'
+import artsyLogo from './artsy-logo.svg'
 
 const view = veact()
 
-const { input } = view.els()
+const { div, a, input } = view.els()
 
 view.styles({
+  searchWrapper: {
+    height: "60px",
+    marginTop: "20px",
+  },
+  navItem: {
+    height: "40px",
+    width: "50px",
+    float: "left"
+
+  },
   input: assign(
     type('garamond', 'body'),
     {
-      width: '100%',
+      width: "280px",
+      height: "40px",
       border: `2px solid ${grayRegular}`,
-      marginBottom: '30px',
       paddingLeft: '5px',
-      outline: 'none'
+      outline: 'none',
+      display: "inline-block",
+      float: "right"
     }
   )
 })
 
 view.render(() =>
-  input('.input', {
-    placeholder: `Search ${state.get('allMembers').length} team members`,
-    onChange: (e) => searchMembers(e.target.value)
-  })
+  div('.searchWrapper',
+    a('.navItem', { href: `https://artsy.net`, dangerouslySetInnerHTML: { __html: artsyLogo } }),
+    input('.input', {
+      placeholder: `Search ${state.get('allMembers').length} team members`,
+      onChange: (e) => searchMembers(e.target.value)
+    })
+  )
 )
 
 export default view()

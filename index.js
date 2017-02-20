@@ -35,7 +35,7 @@ const app = module.exports = hotglue({
 })
 
 // Connect to Mongo and run app
-connect(MONGO_URL)
+const db = connect(MONGO_URL)
 
 import auth from './app/auth'
 const mount = require('koa-mount')
@@ -48,5 +48,6 @@ console.log('Listening on ' + PORT)
 import updatePresence from './scripts/update_presence'
 if (SLACK_AUTH_TOKEN) {
   console.log('Starting Slack presence updater.')
-  setInterval(updatePresence, 5 * 60 * 1000)
+  updatePresence(db)
+  setInterval(() => { updatePresence(db) }, 5 * 60 * 1000)
 }

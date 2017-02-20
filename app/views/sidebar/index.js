@@ -22,18 +22,22 @@ view.styles({
     top: '10px',
     display: 'inline-block'
   },
-  homeButton: assign(
+  homeButton: type('avantgarde', 'smallHeadline'),
+  atlas: assign(
     type('avantgarde', 'smallHeadline'),
     {
-      marginBottom: '15px',
-      display: 'block'
+      float: "right",
+      color: '#777'
     }
   )
 })
 
 view.render(() =>
   div('.container',
-    a('.homeButton', { href: '/' }, 'Team Navigator'),
+    div('.headline', 
+      a('.homeButton', { href: '/' }, 'Team Navigator'),
+      a('.atlas', { href: 'http://atlas.artsy.net' }, 'Atlas')
+    ),
     search(),
     (() => {
       if (state.get('member')) return member()
