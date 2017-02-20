@@ -4,7 +4,7 @@ import url from 'url'
 import moment from 'moment'
 
 import { state } from '../../controllers'
-import { type, borderedButton } from '../lib'
+import { type, borderedButton, grayRegular } from '../lib'
 
 import email from './email.svg'
 import calendar from './calendar.svg'
@@ -38,7 +38,8 @@ view.styles({
     type('avantgarde', 'body'),
     borderedButton(),
     {
-      marginTop: 0
+      marginTop: 0,
+      borderTop: "none"
     }
   ),
   teamButton: assign(
@@ -87,6 +88,10 @@ view.styles({
   role: {
     marginTop: 20,
     lineHeight: 1.4
+  },
+  hr : {
+    color: grayRegular,
+    borderTop: "none"
   }
 })
 
@@ -113,7 +118,7 @@ view.render(() => {
         a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } }),
        member.githubHandle ? a('.navItem', { href: `https://github.com/${member.githubHandle}`, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
       ]),
-      member.roleText ? hr() : '',
+      member.roleText ? hr('.hr') : '',
       p('.role', member.roleText),
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),

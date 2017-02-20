@@ -67,8 +67,8 @@ export const ellipsisize = () => ({
 export const borderedButton = () => ({
   display: 'block',
   color: graySemibold,
-  borderTop: `1px solid ${graySemibold}`,
-  borderBottom: `1px solid ${graySemibold}`,
+  borderTop: `1px solid ${grayRegular}`,
+  borderBottom: `1px solid ${grayRegular}`,
   paddingTop: '15px',
   paddingBottom: '15px',
   marginTop: '30px',

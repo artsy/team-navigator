@@ -21,7 +21,8 @@ view.styles({
     type('garamond', 'largeHeadline'),
     { 
       margin: `${smallMargin}px 0`,
-      marginTop: "50px"
+      marginTop: "50px",
+      marginBottom: "26px"
     }
   )
 })

@@ -10,8 +10,9 @@ const { div, a, input } = view.els()
 
 view.styles({
   searchWrapper: {
-    height: "60px",
+    height: "70px",
     marginTop: "20px",
+    borderBottom: `1px solid ${grayRegular}`,
   },
   navItem: {
     height: "40px",
@@ -35,7 +36,7 @@ view.styles({
 
 view.render(() =>
   div('.searchWrapper',
-    a('.navItem', { href: `https://artsy.net`, dangerouslySetInnerHTML: { __html: artsyLogo } }),
+    a('.navItem', { href: `/`, dangerouslySetInnerHTML: { __html: artsyLogo } }),
     input('.input', {
       placeholder: `Search ${state.get('allMembers').length} team members`,
       onChange: (e) => searchMembers(e.target.value)

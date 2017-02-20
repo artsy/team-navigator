@@ -21,7 +21,7 @@ view.styles({
   ),
   container: {
     borderTop: `1px solid ${grayRegular}`,
-    marginTop: largeMargin
+    marginBottom: largeMargin
   },
   headshot: {
     borderRadius: headshotSize,

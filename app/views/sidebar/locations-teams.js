@@ -10,7 +10,7 @@ const { div, h2, ul, li, br, a } = view.els()
 view.styles({
   h2: assign(
     type('avantgarde', 'smallHeadline'),
-    { marginBottom: 10 }
+    { marginTop: 30, marginBottom: 4 }
   ),
   ul: type('garamond', 'body'),
   br: {
