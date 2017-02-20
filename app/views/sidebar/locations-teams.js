@@ -1,7 +1,7 @@
 import veact from 'veact'
 import { state, filterMembers } from '../../controllers'
 import { type, mediumMargin, purpleRegular, teamNameToID } from '../lib'
-import { assign } from 'lodash'
+import { assign, sortBy } from 'lodash'
 
 const view = veact()
 
@@ -28,14 +28,14 @@ const extraTeams = ['Design', 'Performance Marketing', 'Collector Experience & G
 view.render(() =>
   div(
     h2('.h2', 'Locations'),
-    ul('.ul', state.get('cities').sort().map((city) =>
+    ul('.ul', sortBy(state.get('cities')).map((city) =>
       li('.li', {
         onClick: () => filterMembers({ city }),
         style: { color: city === state.get('curFilter') ? purpleRegular : '' }
       }, city))),
     br('.br'),
     h2('.h2', 'Teams'),
-    ul('.ul', [...extraTeams, ...state.get('teams')].sort().map((team) =>
+    ul('.ul', sortBy([...extraTeams, ...state.get('teams')]).map((team) =>
       a({ href: `/team/${teamNameToID(team)}` },
         li('.li', team)
       ))))

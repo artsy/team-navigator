@@ -71,18 +71,14 @@ export const filterMembers = async (attrs) => {
   state.set('title', values(attrs)[0])
 }
 
-export const filterMembersByTeam = async (team) => {
-  state.set('members', filter(state.get('allMembers'), { team: team }))
-  state.set('format', 'alphbetical')
-  state.set('title', `Members of ${team}`)
-}
-
 export const searchMembers = (term) => {
   state.unset('curFilter')
+  state.unset('team')
   state.set('members', filter(state.get('allMembers'), (member) =>
     member.name.match(new RegExp(term, 'i'))
   ))
   state.set('format', 'alphabetical')
+  state.set('title', `Searching for ${term}`)
 }
 
 const membersForTeam = (teamID) => {
