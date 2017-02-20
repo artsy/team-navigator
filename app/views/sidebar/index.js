@@ -17,10 +17,13 @@ const { div, locationsteams, member, search, a } = view.els({
 view.styles({
   container: {
     padding: mediumMargin,
+    paddingTop: "17px",
     width: sidebarWidth,
     position: 'sticky',
-    top: '10px',
-    display: 'inline-block'
+    top: '0px',
+    maxHeight: "100%",
+    display: 'inline-block',
+    overflowY: 'scroll'
   },
   homeButton: type('avantgarde', 'smallHeadline'),
   atlas: assign(

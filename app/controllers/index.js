@@ -75,7 +75,10 @@ export const searchMembers = (term) => {
   state.unset('curFilter')
   state.unset('team')
   state.set('members', filter(state.get('allMembers'), (member) =>
-    member.name.match(new RegExp(term, 'i'))
+    member.name.match(new RegExp(term, 'i')) || 
+    member.team.match(new RegExp(term, 'i')) ||
+    member.subteam.match(new RegExp(term, 'i')) ||
+    member.productTeam.match(new RegExp(term, 'i'))
   ))
   state.set('format', 'alphabetical')
   state.set('title', `Searching for ${term}`)
