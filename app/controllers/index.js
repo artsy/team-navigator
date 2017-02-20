@@ -47,6 +47,7 @@ export const initData = async (ctx) => {
         slackID
         slackPresence
         githubHandle
+        githubHistory
       }
     }`)
   )

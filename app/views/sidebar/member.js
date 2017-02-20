@@ -10,6 +10,7 @@ import email from './email.svg'
 import calendar from './calendar.svg'
 import chat from './chat.svg'
 import activeChat from './active-chat.svg'
+import githubCat from './github-cat.svg'
 
 const view = veact()
 const headshotSize = 100
@@ -109,7 +110,8 @@ view.render(() => {
       nav('.nav', [
         a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
         a('.navItem', { href: `mailto:${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
-        a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } })
+        a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } }),
+       member.githubHandle ? a('.navItem', { href: `https://github.com/${member.githubHandle}`, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
       ]),
       member.roleText ? hr() : '',
       p('.role', member.roleText),
@@ -127,6 +129,14 @@ view.render(() => {
         ? div(
             h3('.h3', 'Reports to'),
             a('.wrapper', { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}` }, state.get('member').reportsTo)
+          )
+        : ''
+      ),
+      div(member.githubHandle
+        ? div(
+            h3('.h3', 'Recent GitHub Repos'),
+              member.githubHistory.map(repo =>
+                a('.wrapper', { href: `https://github.com/${repo}`, style: { display: 'block' } }, repo))
           )
         : ''
       )

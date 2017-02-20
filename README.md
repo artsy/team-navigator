@@ -10,8 +10,8 @@
 
 ### Set-Up
 
-- Fork Team Navigator to your Github account in the Github UI.
-- Clone your repo locally (substitute your Github username).
+- Fork Team Navigator to your GitTub account in the GitHub UI.
+- Clone your repo locally (substitute your GitHub username).
 ```
 git clone git@github.com:your-github-username/team-navigator.git
 ```
@@ -29,7 +29,7 @@ npm install
 with staging config.
 ```
 cp .env.example .env
-heroku config --app=team-navigator-staging
+heroku config --app=artsy-team-navigator
 ```
 - Start Team Navigator and Mongo
 ```
@@ -51,3 +51,4 @@ To run the full test suite and linter use `npm test`.
 ### Scripts
 
 Want to send out workaversary slack notifications? Schedule `scripts/daily_notifications.js` to run every day.
+Want to have up-to-date notes about what repos a developer touches? make `scripts/daily_github_history_for_member.js` run every day.

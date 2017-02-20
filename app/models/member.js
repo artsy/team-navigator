@@ -28,7 +28,8 @@ export const member = model('member', {
   slackHandle: string(),
   slackID: string(),
   slackPresence: boolean(),
-  githubHandle: string()
+  githubHandle: string(),
+  githubHistory: array().items(string())
 })
 
 export const teams = query('teams', array().items(string()),
