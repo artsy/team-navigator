@@ -9,6 +9,7 @@ const { MONGO_URL, PORT, SLACK_AUTH_TOKEN } = process.env
 // Bundle together client and server app for hot reloading, and—
 // to be implemented—production ready asset bundle serving
 // when NODE_ENV=production
+
 const app = module.exports = hotglue({
   relative: path.join(__dirname, '/app'),
   server: {
@@ -35,7 +36,12 @@ const app = module.exports = hotglue({
 
 // Connect to Mongo and run app
 connect(MONGO_URL)
-app.listen(PORT)
+
+import auth from "./app/auth"
+const mount = require('koa-mount');
+
+auth.use(mount(app))
+auth.listen(PORT)
 
 console.log('Listening on ' + PORT)
 
