@@ -22,7 +22,7 @@ new Promise((resolve, reject) => {
 const run = async () => {
   const res = await request.get(SHEETS_URL)
   const csvMembers = await convert(res.text)
-  
+
   const response = await Slack.users.list({ token: SLACK_AUTH_TOKEN })
   const slackMembers = response.members
 
@@ -31,7 +31,7 @@ const run = async () => {
     if (slackMember) {
       console.log(slackMember.id)
     } else {
-      console.log("")
+      console.log('')
     }
   })
 }

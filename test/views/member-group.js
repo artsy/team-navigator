@@ -14,7 +14,7 @@ describe('MemberGroup', () => {
 
   it('renders an alphbetically grouped list of members', async () => {
     const $ = render(MemberGroup, props)
-    $('h1').text().should.equal('O')
+    $('h2').text().should.equal('O')
     $('a').text().should.equal('OrtaBadassNYC, Fl. 25')
   })
 })

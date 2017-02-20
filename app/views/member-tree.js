@@ -3,13 +3,13 @@ import {
   type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize, graySemibold
 } from './lib'
 import { state } from '../controllers'
-import { assign, filter, find, member } from 'lodash'
+import { assign, filter, find } from 'lodash'
 import url from 'url'
 
 const view = veact()
 
 const headshotSize = 75
-const { div, h2, p, a } = view.els()
+const { div, p, a } = view.els()
 
 view.styles({
   h1: assign(
@@ -62,7 +62,7 @@ const showMember = (member, depth) => {
   const src = url.parse(member.headshot).pathname
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
 
-  return a('.wrapper', { href: `/member/${member.handle}`, style: { marginLeft: depth * 40 } },
+  return a('.wrapper', { href: `/member/${member.handle}`, style: { marginLeft: depth * 60 } },
     div('.headshot', {
       style: { backgroundImage: `url(/img${src})` }
     }),

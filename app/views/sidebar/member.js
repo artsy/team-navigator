@@ -3,13 +3,13 @@ import { assign, find } from 'lodash'
 import url from 'url'
 import moment from 'moment'
 
-import { state, filterMembersByTeam } from '../../controllers'
+import { state } from '../../controllers'
 import { type, borderedButton } from '../lib'
 
 import email from './email.svg'
 import calendar from './calendar.svg'
-import chat from "./chat.svg"
-import activeChat from "./active-chat.svg"
+import chat from './chat.svg'
+import activeChat from './active-chat.svg'
 
 const view = veact()
 const headshotSize = 100
@@ -114,20 +114,19 @@ view.render(() => {
       member.roleText ? hr() : '',
       p('.role', member.roleText),
       h3('.h3', 'Teams'),
-      a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' }}, member.team),
-      a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' }}, member.productTeam),
-      div(reportees.length ?
-      div(
-        h3('.h3', 'Reportees'),
-          reportees.map(reportee =>
-            a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' }}, reportee.name)
-          ))
+      a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
+      a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam),
+      div(reportees.length
+        ? div(
+            h3('.h3', 'Reportees'),
+              reportees.map(reportee =>
+                a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' } }, reportee.name)))
       : ''
       ),
       div(member.reportsTo
         ? div(
             h3('.h3', 'Reports to'),
-            a('.wrapper', { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}`}, state.get('member').reportsTo)
+            a('.wrapper', { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}` }, state.get('member').reportsTo)
           )
         : ''
       )

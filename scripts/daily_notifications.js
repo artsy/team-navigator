@@ -7,10 +7,10 @@ import moment from 'moment'
 import pmongo from 'promised-mongo'
 
 const { MONGO_URL, SLACK_BOT_TOKEN } = process.env
-const db = pmongo(MONGO_URL, ["members"])
+const db = pmongo(MONGO_URL, ['members'])
 
-var SlackBot = require('slackbots');
-var bot = new SlackBot({ token: SLACK_BOT_TOKEN, name: 'team-nav-bot' });
+var SlackBot = require('slackbots')
+var bot = new SlackBot({ token: SLACK_BOT_TOKEN, name: 'team-nav-bot' })
 
 bot.on('start', async () => {
   const now = moment(new Date())
@@ -20,10 +20,9 @@ bot.on('start', async () => {
   db.close()
 
   allMembers.forEach(async member => {
-  
     const startDate = moment(member.startDate)
     if (startDate) {
-      const inAWeek = startDate.subtract(7, "d").dayOfYear()
+      const inAWeek = startDate.subtract(7, 'd').dayOfYear()
       if (today === inAWeek) {
         const manager = find(allMembers, (m) => m.name === member.reportsTo)
         if (manager) {
