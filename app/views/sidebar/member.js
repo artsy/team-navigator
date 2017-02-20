@@ -101,6 +101,11 @@ view.styles({
     display: "block",
     padding: "20px 0",
     color: purpleRegular
+  }, 
+  reporting: {
+    display: 'block', 
+    marginTop: 6,
+    color: '#777'
   }
 })
 
@@ -133,13 +138,13 @@ view.render(() => {
       member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '', 
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
-      a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam),
+      member.productTeamID ? a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam) : "",
       div(reportees.length
         ? div(
             h3('.h3', 'Reportees'),
               reportees.map(reportee =>
                 a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' } }, reportee.name)),
-            a('.wrapper',  { href: `/member/${member.handle}/reportees`, style: { display: 'block' } }, "Show all")
+            a('.reporting',  { href: `/member/${member.handle}/reportees`}, "Show Reporting Structure")
           )
       : ''
       ),
@@ -150,7 +155,7 @@ view.render(() => {
           )
         : ''
       ),
-      div(member.githubHandle
+      div(member.githubHandle && member.githubHistory
         ? div(
             h3('.h3', 'Recent GitHub Repos'),
               member.githubHistory.map(repo =>

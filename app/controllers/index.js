@@ -76,6 +76,7 @@ export const filterMembers = async (attrs) => {
 export const searchMembers = (term) => {
   state.unset('curFilter')
   state.unset('team')
+  state.unset('subtitle')
   state.set('members', filter(state.get('allMembers'), (member) =>
     member.name.match(new RegExp(term, 'i')) || 
     member.team.match(new RegExp(term, 'i')) ||
@@ -99,26 +100,35 @@ const getReporteeTreeForUser = (member) => {
   return flatten([...reportees, ...reportees.map(getReporteeTreeForUser)])
 }
 
+const setupForTeam = teamID => {
+  state.set('team', teamID)
+  state.set('members', membersForTeam(teamID))
+  
+  const prettyTeam = startCase(camelCase(teamID))
+  state.set('title', `Members of ${prettyTeam}`)
+
+  state.set('subtitles', [
+    { title: "Teams", href: `/team/${teamID}`}, 
+    { title: "Reporting Structure", href: `/team/${teamID}/tree` }
+  ])
+
+}
+
 export const showTeam = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
-  state.set('team', ctx.params.team)
-  state.set('members', membersForTeam(ctx.params.team))
+  setupForTeam(ctx.params.team)
   state.set('format', 'subteams')
 
-  const prettyTeam = startCase(camelCase(ctx.params.team))
-  state.set('title', `Members of ${prettyTeam}`)
   ctx.render({ body: Index })
 }
 
 export const showTeamTree = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
-  state.set('members', membersForTeam(ctx.params.team))
+  setupForTeam(ctx.params.team)
   state.set('format', 'tree')
 
-  const prettyTeam = startCase(camelCase(ctx.params.team))
-  state.set('title', `Members of ${prettyTeam}`)
   ctx.render({ body: Index })
 }
 

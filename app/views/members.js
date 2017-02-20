@@ -7,7 +7,7 @@ import { groupBy, first, map, toPairs, sortBy, assign } from 'lodash'
 
 const view = veact()
 
-const { div, membergroup, membertree, h2 } = view.els({ membergroup: MemberGroup, membertree: MemberTree })
+const { div, membergroup, membertree, h2, a, span } = view.els({ membergroup: MemberGroup, membertree: MemberTree })
 
 view.styles({
   container: {
@@ -24,7 +24,13 @@ view.styles({
       marginTop: "50px",
       marginBottom: "26px"
     }
-  )
+  ), subtitles: {
+    float: "right",
+    color: grayRegular,
+  }, subtitle: {
+    fontSize: "17px",
+    marginRight: smallMargin
+  }
 })
 
 const alphabeticize = (members) => {
@@ -43,20 +49,30 @@ const subteams = (members) => {
   return sortBy(pairs, ([title]) => title === 'Head' ? '1' : title)
 }
 
+const title = () => h2('.h1', state.get('title'), 
+                        state.get('subtitles') ? span('.subtitles', state.get('subtitles').map(subtitle)) : ""
+                      )
+const subtitle = ({title, href}) => a('.subtitle', { href }, title)
+
 view.render(() => {
+  const page = (content) => 
+    div('.container',
+      state.get('title') ? title() : '',
+      content
+    )
+
   if (state.get('format') === 'tree') {
-    return div('.container',
-      state.get('title') ? h2('.h1', state.get('title')) : '',
+    return page(
       membertree({ title: 'hi', members: state.get('members') })
     )
+
   } else {
     const useSubteam = state.get('format') === 'subteams'
     const sort = useSubteam ? subteams : alphabeticize
     const shortTitles = useSubteam
     const sortedPairs = sort(state.get('members'))
 
-    return div('.container',
-    state.get('title') ? h2('.h1', state.get('title')) : '',
+    return page(
       map(sortedPairs, ([title, members]) =>
         membergroup({ title, members, shortTitles })))
   }
