@@ -48,6 +48,7 @@ export const initData = async (ctx) => {
         slackPresence
         githubHandle
         githubHistory
+        feedbackFormUrl
       }
     }`)
   )

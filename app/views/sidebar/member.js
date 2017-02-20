@@ -4,7 +4,7 @@ import url from 'url'
 import moment from 'moment'
 
 import { state } from '../../controllers'
-import { type, borderedButton, grayRegular } from '../lib'
+import { type, borderedButton, grayRegular, purpleRegular } from '../lib'
 
 import email from './email.svg'
 import calendar from './calendar.svg'
@@ -83,15 +83,24 @@ view.styles({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
     display: 'inline-block',
-    verticalAlign: 'top'
+    verticalAlign: 'top',
+    marginLeft: 10
   },
   role: {
     marginTop: 20,
-    lineHeight: 1.4
+    lineHeight: 1.4,
+    paddingBottom: "20px",
+    borderBottom: `1px solid ${grayRegular}`,
   },
-  hr : {
-    color: grayRegular,
-    borderTop: "none"
+  bio: {
+    borderBottom: `1px solid ${grayRegular}`,
+  },
+  feedback: {
+    textDecoration: "underline",
+    borderBottom: `1px solid ${grayRegular}`,
+    display: "block",
+    padding: "20px 0",
+    color: purpleRegular
   }
 })
 
@@ -108,18 +117,20 @@ view.render(() => {
       a('.headshotLink', {href: noDLhref},
         div('.headshot', { style: { backgroundImage: `url(/img${src})` } }),
       ),
-      h2('.h2', member.name),
-      p(member.title),
-      p('.location', `${member.city}${floorOrNothing}`),
-      member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
-      nav('.nav', [
-        a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
-        a('.navItem', { href: `mailto:${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
-        a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } }),
-       member.githubHandle ? a('.navItem', { href: `https://github.com/${member.githubHandle}`, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
-      ]),
-      member.roleText ? hr('.hr') : '',
+      div(".bio", 
+        h2('.h2', member.name),
+        p('.job', member.title),
+        p('.location', `${member.city}${floorOrNothing}`),
+        member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
+        nav('.nav', [
+          a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
+          a('.navItem', { href: `mailto:${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
+          a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } }),
+        member.githubHandle ? a('.navItem', { href: `https://github.com/${member.githubHandle}`, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
+        ]),
+      ),
       p('.role', member.roleText),
+      member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '', 
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
       a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam),
