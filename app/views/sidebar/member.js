@@ -122,7 +122,9 @@ view.render(() => {
         ? div(
             h3('.h3', 'Reportees'),
               reportees.map(reportee =>
-                a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' } }, reportee.name)))
+                a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' } }, reportee.name)),
+            a('.wrapper',  { href: `/member/${member.handle}/reportees`, style: { display: 'block' } }, "Show all")
+          )
       : ''
       ),
       div(member.reportsTo

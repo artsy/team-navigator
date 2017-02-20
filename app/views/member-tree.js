@@ -22,7 +22,8 @@ view.styles({
   ),
   container: {
     borderTop: `1px solid ${grayRegular}`,
-    marginTop: largeMargin
+    marginTop: largeMargin,
+    paddingTop: largeMargin
   },
   headshot: {
     borderRadius: headshotSize,
@@ -58,11 +59,10 @@ view.styles({
 const userForName = name => find(state.get('allMembers'), { 'name': name })
 
 const showMember = (member, depth) => {
-  console.log(member)
   const src = url.parse(member.headshot).pathname
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
-
-  return a('.wrapper', { href: `/member/${member.handle}`, style: { marginLeft: depth * 60 } },
+  const style = { marginLeft: depth * 60, width: `calc(100% - ${depth * 60}px);` }
+  return a('.wrapper', { href: `/member/${member.handle}`, style },
     div('.headshot', {
       style: { backgroundImage: `url(/img${src})` }
     }),

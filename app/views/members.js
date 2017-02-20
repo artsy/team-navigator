@@ -19,7 +19,10 @@ view.styles({
   },
   h1: assign(
     type('garamond', 'largeHeadline'),
-    { margin: `${smallMargin}px 0` }
+    { 
+      margin: `${smallMargin}px 0`,
+      marginTop: "50px"
+    }
   )
 })
 

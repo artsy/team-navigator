@@ -2,7 +2,7 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
-import { filter, values, find, startCase, camelCase, uniq } from 'lodash'
+import { filter, values, find, startCase, camelCase, uniq, flatten } from 'lodash'
 
 // As we're making real API calls through node, we need to allow it to get through auth
 const { INTERNAL_REQUESTS_HEADER_SECRET } = process.env
@@ -92,6 +92,12 @@ const membersForTeam = (teamID) => {
   return uniq([...mainTeam, ...subTeam, ...productTeam])
 }
 
+const reporteesForUser = (member) => filter(state.get('allMembers'), m => m.reportsTo === member.name)
+const getReporteeTreeForUser = (member) => { 
+  const reportees = reporteesForUser(member)
+  return flatten([...reportees, ...reportees.map(getReporteeTreeForUser)])
+}
+
 export const showTeam = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)
 
@@ -112,5 +118,17 @@ export const showTeamTree = async (ctx) => {
 
   const prettyTeam = startCase(camelCase(ctx.params.team))
   state.set('title', `Members of ${prettyTeam}`)
+  ctx.render({ body: Index })
+}
+
+export const showMemberTree = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+
+  const member = find(state.get('members'), { handle: ctx.params.handle })
+  state.set('member', member)
+  state.set('members', flatten(getReporteeTreeForUser(member)))
+  state.set('format', 'tree')
+
+  state.set('title', `Reportees of ${member.name}`)
   ctx.render({ body: Index })
 }
