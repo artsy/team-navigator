@@ -17,7 +17,7 @@ const headshotSize = 100
 
 const { SLACK_TEAM_ID } = process.env
 
-const { div, h2, h3, nav, a, p, hr } = view.els()
+const { div, h2, h3, nav, a, p } = view.els()
 
 view.styles({
   h2: assign(
@@ -116,6 +116,9 @@ view.render(() => {
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
   const reportees = state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
   const slackClickLink = `slack://user?team=${SLACK_TEAM_ID}&id=${member.slackID}`
+  const calendarLink = `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`
+  const mailTo = `mailto:${member.email}artsymail.com`
+  const github = `https://github.com/${member.githubHandle}`
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -129,9 +132,9 @@ view.render(() => {
         member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
         nav('.nav', [
           a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
-          a('.navItem', { href: `mailto:${member.email}artsymail.com`, dangerouslySetInnerHTML: { __html: email } }),
-          a('.navItem', { href: `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`, dangerouslySetInnerHTML: { __html: calendar } }),
-        member.githubHandle ? a('.navItem', { href: `https://github.com/${member.githubHandle}`, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
+          a('.navItem', { href: mailTo, dangerouslySetInnerHTML: { __html: email } }),
+          a('.navItem', { href: calendarLink, dangerouslySetInnerHTML: { __html: calendar } }),
+          member.githubHandle ? a('.navItem', { href: github, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
         ]),
       ),
       p('.role', member.roleText),

@@ -24,11 +24,15 @@ view.styles({
       marginTop: "50px",
       marginBottom: "26px"
     }
-  ), subtitles: {
+  ), 
+  subtitles: assign(
+    type('avantgarde', 'smallHeadline'),
+  {
     float: "right",
     color: grayRegular,
-  }, subtitle: {
-    fontSize: "17px",
+    paddingTop: "22px"
+  }),
+  subtitle: {
     marginRight: smallMargin
   }
 })
@@ -54,7 +58,7 @@ const title = () => h2('.h1', state.get('title'),
                       )
 const subtitle = ({title, href}) => a('.subtitle', { href }, title)
 
-view.render(() => {
+view.render((thing) => {
   const page = (content) => 
     div('.container',
       state.get('title') ? title() : '',
