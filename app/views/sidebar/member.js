@@ -162,7 +162,16 @@ view.render(() => {
                 a('.wrapper', { href: `https://github.com/${repo}`, style: { display: 'block' } }, repo))
           )
         : ''
+      ),
+      div(member.writerAuthorId && member.articleHistory
+        ? div(
+            h3('.h3', 'Recent Published Articles'),
+              member.articleHistory.map(article =>
+                a('.wrapper', { href: `https://artsy.net/${article.href}`, style: { display: 'block' } }, article.name))
+          )
+        : ''
       )
+
     )
 }
 )

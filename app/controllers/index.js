@@ -50,6 +50,11 @@ export const initData = async (ctx) => {
         githubHandle
         githubHistory
         feedbackFormUrl
+        writerAuthorId
+        articleHistory {
+          href
+          name
+        }
       }
     }`)
   )
