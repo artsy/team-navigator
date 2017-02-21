@@ -42,6 +42,7 @@ export const initData = async (ctx) => {
         productTeamID
         reportsTo
         roleText
+        teamRank
         startDate
         slackHandle
         slackID
@@ -70,13 +71,14 @@ export const filterMembers = async (attrs) => {
   state.set('curFilter', values(attrs)[0])
   state.set('members', filter(state.get('allMembers'), attrs))
   state.set('format', 'alphabetical')
+  state.unset('subtitles')
   state.set('title', values(attrs)[0])
 }
 
 export const searchMembers = (term) => {
   state.unset('curFilter')
   state.unset('team')
-  state.unset('subtitle')
+  state.unset('subtitles')
   state.set('members', filter(state.get('allMembers'), (member) =>
     member.name.match(new RegExp(term, 'i')) || 
     member.team.match(new RegExp(term, 'i')) ||
@@ -139,6 +141,7 @@ export const showMemberTree = async (ctx) => {
   state.set('member', member)
   state.set('members', flatten(getReporteeTreeForUser(member)))
   state.set('format', 'tree')
+  state.unset('subtitles')
 
   state.set('title', `Reportees of ${member.name}`)
   ctx.render({ body: Index })

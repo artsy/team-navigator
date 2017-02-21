@@ -17,6 +17,19 @@ new Promise((resolve, reject) => {
   })
 })
 
+const updateTeamRanks = (members) => {
+  members.forEach(m => {
+    m.teamRank = getNumberOfManagers(members, m, 0)
+  })
+}
+
+const getNumberOfManagers = (members, member, depth) => {
+  if (!getManager(members, member)) { return depth }
+  return getNumberOfManagers(members, getManager(members, member), depth + 1)
+}
+
+const getManager = (members, member) => find(members, (m) => m.name === member.reportsTo)
+
 export default mutation('sync', string(), async (ctx) => {
 // Remove old entries
   await db.members.remove()
@@ -43,6 +56,8 @@ export default mutation('sync', string(), async (ctx) => {
 
     return member
   })
+
+  updateTeamRanks(members)
 
   await Promise.all(members.map((member) => db.members.save(member)))
   ctx.res.sync = 'success'

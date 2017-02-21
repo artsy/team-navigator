@@ -2,7 +2,7 @@ import veact from 'veact'
 import {
   type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize, graySemibold
 } from './lib'
-import { assign } from 'lodash'
+import { assign, sortBy } from 'lodash'
 import url from 'url'
 
 const view = veact()
@@ -58,7 +58,7 @@ view.render(({ members, title, shortTitles }) => {
   const titleClass = shortTitles ? '.h3' : '.h1'
   return div('.container',
     h2(titleClass, title),
-    div(members.map((member) => {
+    div(sortBy(members, m => m.teamRank).map(member => {
       const src = url.parse(member.headshot).pathname
       const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
 
