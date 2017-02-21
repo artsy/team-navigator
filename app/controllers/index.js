@@ -88,7 +88,8 @@ export const searchMembers = (term) => {
     member.name.match(new RegExp(term, 'i')) || 
     member.team.match(new RegExp(term, 'i')) ||
     member.subteam.match(new RegExp(term, 'i')) ||
-    member.productTeam.match(new RegExp(term, 'i'))
+    member.subteam.match(new RegExp(term, 'i')) ||
+    member.title.match(new RegExp(term, 'i'))
   ))
   state.set('format', 'alphabetical')
   state.set('title', `Searching for ${term}`)

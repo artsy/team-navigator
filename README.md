@@ -53,3 +53,8 @@ To run the full test suite and linter use `npm test`.
 Want to send out workaversary slack notifications? Schedule `scripts/daily_notifications.js` to run every day.
 Want to have up-to-date notes about what repos a developer touches? make `scripts/daily_github_history_for_member.js` run every day.
 Want to have up-to-date notes about what articles the Editorial staff are writing? make `scripts/daily_articles_for_member.js` run every day.
+
+
+### Maintainer notes
+
+* To get an individual's `writerAuthorId` load the [Artsy Editorial](https://writer.artsy.net/settings/channels/5759e3efb5989e6f98f77993/edit) channel in writer then inspect the elements for their IDs.
