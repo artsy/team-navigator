@@ -8,6 +8,18 @@
 * __CI:__ [Semaphore](https://semaphoreci.com/artsy-it/team-navigator)
 * __Point People:__ [@craigspaeth](https://github.com/craigspaeth), [@orta](https://github.com/orta)
 
+### What is this?
+
+We have a pretty complicated set of businesses inside Artsy. Now that we're above 150+ staff members, our organizational structure can get tricky to understand. This is a web-app for showing our team setup.
+
+Here's a censored overview. It has search, filter by locations, teams and an A-Z of all staff.
+
+![./screenshots/overview.png](./screenshots/overview.png)
+
+And individual people pages have all sorts of useful info
+
+![./screenshots/member.png](./screenshots/member.png)
+
 ### Set-Up
 
 - Fork Team Navigator to your GitHub account in the GitHub UI.
