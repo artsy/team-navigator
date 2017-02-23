@@ -100,7 +100,7 @@ export const searchMembers = (term) => {
 const membersForTeam = (teamID) => {
   const mainTeam = filter(state.get('allMembers'), { teamID: teamID })
   const subTeam = filter(state.get('allMembers'), { subteamID: teamID })
-  const productTeam = filter(state.get('allMembers'), { productTeamID: teamID })
+  const productTeam = filter(state.get('allMembers'), m => m.productTeamID.includes(teamID))
   return uniq([...mainTeam, ...subTeam, ...productTeam])
 }
 
