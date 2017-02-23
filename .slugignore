@@ -1,0 +1,4 @@
+screenshots/*
+
+# https://github.com/Automattic/node-canvas/issues/284#issuecomment-278941287
+yarn.lock
