@@ -35,7 +35,7 @@ const app = module.exports = hotglue({
 })
 
 // Connect to Mongo and run app
-const db = connect(MONGODB_URI)
+const db = connect(MONGODB_URI, { authMechanism: 'ScramSHA1' })
 
 import auth from './app/auth'
 const mount = require('koa-mount')

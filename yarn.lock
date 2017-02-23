@@ -801,11 +801,11 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@2.9.6:
+bluebird@2.9.6, bluebird@^2.9.3:
   version "2.9.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.9.6.tgz#1fc3a6b1685267dc121b5ec89b32ce069d81ab7d"
 
-bluebird@^2.9.27, bluebird@^2.9.3:
+bluebird@^2.9.27:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
 
@@ -2254,7 +2254,7 @@ iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
 
-iconv-lite@0.4.15, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
+iconv-lite@^0.4.5, iconv-lite@~0.4.13:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
@@ -2508,22 +2508,22 @@ joi@^9.0.4:
     moment "2.x.x"
     topo "2.x.x"
 
-joiql-mongo@^1.0.7:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/joiql-mongo/-/joiql-mongo-1.0.10.tgz#6fc7a835686bd425b3e03bf5f605191f3b1df9ce"
+"joiql-mongo@https://github.com/orta/joiql-mongo#b64a851":
+  version "1.0.9"
+  resolved "https://github.com/orta/joiql-mongo#b64a851"
   dependencies:
     joi "^9.0.4"
-    joiql "0.0.10"
+    joiql "0.0.9"
     koa-compose "^3.1.0"
     koa-convert "^1.2.0"
     koa-graphql "^0.5.6"
     lodash "^4.15.0"
     pluralize "^3.0.0"
-    promised-mongo "^1.2.0"
+    promised-mongo "git://github.com/tjyrkinen/promised-mongo.git#dist"
 
-joiql@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/joiql/-/joiql-0.0.10.tgz#fc3afefd89950bb8dd27e930419974aa8f1162e1"
+joiql@0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/joiql/-/joiql-0.0.9.tgz#cbea567496ee137e2895d3d355924aefac66cf0c"
   dependencies:
     koa-compose "^3.1.0"
     lodash "^4.13.1"
@@ -3392,9 +3392,9 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-promised-mongo@^1.2.0:
+"promised-mongo@git://github.com/tjyrkinen/promised-mongo.git#dist":
   version "1.2.0"
-  resolved "https://registry.yarnpkg.com/promised-mongo/-/promised-mongo-1.2.0.tgz#57404dec9cb6a61fd6c2973e008089459f688439"
+  resolved "git://github.com/tjyrkinen/promised-mongo.git#870ef948fe8c46dbd1a44b370f15e5574fb03921"
   dependencies:
     babel-runtime "^5.5.5"
     bluebird "^2.9.27"
@@ -3461,15 +3461,7 @@ randombytes@^2.0.0, randombytes@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.3.tgz#674c99760901c3c4112771a31e521dc349cc09ec"
 
-raw-body@^2.1.7:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.2.0.tgz#994976cf6a5096a41162840492f0bdc5d6e7fb96"
-  dependencies:
-    bytes "2.4.0"
-    iconv-lite "0.4.15"
-    unpipe "1.0.0"
-
-raw-body@~2.1.2:
+raw-body@^2.1.7, raw-body@~2.1.2:
   version "2.1.7"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.1.7.tgz#adfeace2e4fb3098058014d08c072dcc59758774"
   dependencies:
