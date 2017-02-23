@@ -40,6 +40,7 @@
     "babelify": "^7.3.0",
     "concurrently": "^2.1.0",
     "csvtojson": "1.0.2",
+    "cheerio": "^0.22.0",
     "dotenv": "^2.0.0",
     "envify": "^3.4.0",
     "graphql": "^0.7.0",
@@ -68,12 +69,11 @@
     "unikoa-bootstrap": "0.0.2",
     "unikoa-react-render": "0.0.4",
     "universal-tree": "0.0.2",
-    "veact": "0.0.5"
+    "veact": "0.0.5",
   },
   "devDependencies": {
     "@types/koa": "^2.0.37",
     "babel-plugin-rewire": "^1.0.0",
-    "cheerio": "^0.22.0",
     "mocha": "^3.0.2",
     "should": "^11.1.0",
     "sinon": "^1.17.6",
