@@ -1,4 +1,4 @@
-// node -r dotenv/config -r babel-core/register scripts/daily_github_history_for_member.js
+// node -r dotenv/config -r babel-core/register scripts/daily_articles_for_member.js
 
 // Generates a repo history for all users, at 1 API request per user
 
@@ -40,6 +40,12 @@ const run = async () => {
   await Promise.all(writers.map(updateUser))
   db.close()
 }
+
+process.on('unhandledRejection', function(reason, p){
+  console.log("A promise raised an error")
+  console.error(reason)
+  process.exit()
+})
 
 // Go
 run()

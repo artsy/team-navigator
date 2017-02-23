@@ -23,7 +23,7 @@ view.styles({
 
 // These are not true "top level" teams, but are important enough to
 // warrent inclusion in the results
-const extraTeams = ['Design', 'Performance Marketing', 'Collector Experience & GMV', 'Partner Success & Revenue']
+const extraTeams = ['Design', 'Performance Marketing', 'Collector Experience & GMV', 'Partner Success & Revenue', 'Analytics']
 
 view.render(() =>
   div(
