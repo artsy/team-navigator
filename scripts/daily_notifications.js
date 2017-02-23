@@ -7,7 +7,7 @@ import moment from 'moment'
 import pmongo from 'promised-mongo'
 
 const { MONGODB_URI, SLACK_BOT_TOKEN } = process.env
-const db = pmongo(MONGODB_URI, ['members'])
+const db = pmongo(MONGODB_URI, { authMechanism: 'ScramSHA1' }, ['members'])
 
 var SlackBot = require('slackbots')
 var bot = new SlackBot({ token: SLACK_BOT_TOKEN, name: 'team-nav-bot' })

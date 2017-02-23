@@ -7,7 +7,7 @@ import { uniq } from 'lodash'
 import request from 'superagent'
 import pmongo from 'promised-mongo'
 
-const db = pmongo(MONGODB_URI, ['members'])
+const db = pmongo(MONGODB_URI, { authMechanism: 'ScramSHA1' }, ['members'])
 
 // Gets repos related to a user
 const getRepos = async (handle) => {
