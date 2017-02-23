@@ -3,7 +3,7 @@
 // Generates a repo history for all users, at 1 API request per user
 
 const { MONGO_URL } = process.env
-import { uniq } from "lodash"
+import { uniq } from 'lodash'
 import request from 'superagent'
 import pmongo from 'promised-mongo'
 
@@ -12,14 +12,13 @@ const db = pmongo(MONGO_URL, ['members'])
 // Gets repos related to a user
 const getArticles = async (handle) => {
   const params = `?all_by_author=${handle}&published=true`
-  const url = "https://writer.artsy.net/api/articles"
+  const url = 'https://writer.artsy.net/api/articles'
 
   try {
     const response = await request.get(url + params)
     return uniq(response.body.results.map(e => {
-      return { name: e.title, href: `article/${e.slug}`}
+      return { name: e.title, href: `article/${e.slug}` }
     }))
-
   } catch (error) {
     return []
   }

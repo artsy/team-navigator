@@ -57,12 +57,14 @@ const fontsUrl = '//fast.fonts.net/cssapi/' +
   'f7f47a40-b25b-44ee-9f9c-cfdfc8bb2741.css'
 
 const view = veact()
-const { style, link, head } = view.els()
+const { style, link, head, meta } = view.els()
 
 view.render(() =>
   head(
     style({ dangerouslySetInnerHTML: { __html: reset } }),
-    link({ type: 'text/css', rel: 'stylesheet', href: fontsUrl }))
+    link({ type: 'text/css', rel: 'stylesheet', href: fontsUrl }),
+    meta({ name: 'viewport', content: 'width=390, initial-scale=1, maximum-scale=1, user-scalable=0' })
+  )
 )
 
 export default view()

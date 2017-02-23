@@ -20,5 +20,4 @@ export default async (db) => {
 
     await db.members.update({ _id: member._id }, { $set: { slackPresence: here } })
   })
-
 }

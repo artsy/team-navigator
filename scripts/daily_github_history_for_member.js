@@ -3,7 +3,7 @@
 // Generates a repo history for all users, at 1 API request per user
 
 const { MONGO_URL, GITHUB_ORG_LOOKUP_KEY, GITHUB_ORG } = process.env
-import { uniq } from "lodash"
+import { uniq } from 'lodash'
 import request from 'superagent'
 import pmongo from 'promised-mongo'
 
@@ -13,7 +13,7 @@ const db = pmongo(MONGO_URL, ['members'])
 const getRepos = async (handle) => {
   const path = `/search/commits?q=user:${GITHUB_ORG}%20committer:${handle}&per_page=100&sort=committer-date&order=desc`
 
-  const url = "https://api.github.com"
+  const url = 'https://api.github.com'
   try {
     const response = await request
       .get(url + path)
@@ -21,7 +21,6 @@ const getRepos = async (handle) => {
       .set('Accept', 'application/vnd.github.cloak-preview')
 
     return uniq(response.body.items.map(e => e.repository.full_name))
-
   } catch (error) {
     return []
   }

@@ -17,19 +17,19 @@ const { div, locationsteams, member, search, a } = view.els({
 view.styles({
   container: {
     padding: mediumMargin,
-    paddingTop: "17px",
+    paddingTop: '17px',
     width: sidebarWidth,
     position: 'sticky',
     top: '0px',
-    maxHeight: "100%",
+    maxHeight: '100%',
     display: 'inline-block',
-    overflowY: 'scroll',
+    overflowY: 'scroll'
   },
   homeButton: type('avantgarde', 'smallHeadline'),
   atlas: assign(
     type('avantgarde', 'smallHeadline'),
     {
-      float: "right",
+      float: 'right',
       color: '#777'
     }
   )
@@ -37,7 +37,7 @@ view.styles({
 
 view.render(() =>
   div('.container',
-    div('.headline', 
+    div('.headline',
       a('.homeButton', { href: '/' }, 'Team Navigator'),
       a('.atlas', { href: 'http://atlas.artsy.net' }, 'Atlas')
     ),

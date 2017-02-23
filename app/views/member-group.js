@@ -43,7 +43,7 @@ view.styles({
   wrapper: {
     marginBottom: mediumMargin,
     display: 'inline-block',
-    width: '400px'
+    width: '390px'
   },
   title: ellipsisize(),
   memberName: {

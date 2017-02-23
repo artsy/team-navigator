@@ -24,17 +24,20 @@ describe('Sync', () => {
   })
 
   it('syncs a csv of team members into mongo documents', async () => {
-    request.get.returns(Promise.resolve({ text: 'name,title,email\nOrta,Badass,orta@' }))
+    request.get.returns(Promise.resolve({ text: 'name,title,email,reports_to\nOrta,Badass,orta@,db' }))
     await resolve()
-    db.members.save.calledWith({
+    console.log(db.members.save.firstCall)
+    db.members.save.firstCall.args.should.eql([{
       name: 'Orta',
       title: 'Badass',
       email: 'orta@',
+      reportsTo: 'db',
       handle: 'orta',
       teamID: undefined,
       subteamID: undefined,
-      productTeamID: undefined
-    }).should.be.ok()
+      productTeamID: undefined,
+      teamRank: 0
+    }])
     ctx.res.sync.should.equal('success')
   })
 })

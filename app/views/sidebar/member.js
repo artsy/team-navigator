@@ -39,7 +39,7 @@ view.styles({
     borderedButton(),
     {
       marginTop: 0,
-      borderTop: "none"
+      borderTop: 'none'
     }
   ),
   teamButton: assign(
@@ -89,21 +89,21 @@ view.styles({
   role: {
     marginTop: 20,
     lineHeight: 1.4,
-    paddingBottom: "20px",
-    borderBottom: `1px solid ${grayRegular}`,
+    paddingBottom: '20px',
+    borderBottom: `1px solid ${grayRegular}`
   },
   bio: {
-    borderBottom: `1px solid ${grayRegular}`,
+    borderBottom: `1px solid ${grayRegular}`
   },
   feedback: {
-    textDecoration: "underline",
+    textDecoration: 'underline',
     borderBottom: `1px solid ${grayRegular}`,
-    display: "block",
-    padding: "20px 0",
+    display: 'block',
+    padding: '20px 0',
     color: purpleRegular
-  }, 
+  },
   reporting: {
-    display: 'block', 
+    display: 'block',
     marginTop: 6,
     color: '#777'
   }
@@ -125,8 +125,9 @@ view.render(() => {
       a('.headshotLink', {href: noDLhref},
         div('.headshot', { style: { backgroundImage: `url(/img${src})` } }),
       ),
-      div(".bio", 
+      div('.bio',
         h2('.h2', member.name),
+        member.namePronounciation ? p('.job', `Pronounced: ${member.namePronounciation}`) : '',
         p('.job', member.title),
         p('.location', `${member.city}${floorOrNothing}`),
         member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
@@ -134,20 +135,20 @@ view.render(() => {
           a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
           a('.navItem', { href: mailTo, dangerouslySetInnerHTML: { __html: email } }),
           a('.navItem', { href: calendarLink, dangerouslySetInnerHTML: { __html: calendar } }),
-          member.githubHandle ? a('.navItem', { href: github, dangerouslySetInnerHTML: { __html: githubCat } }) : ""
+          member.githubHandle ? a('.navItem', { href: github, dangerouslySetInnerHTML: { __html: githubCat } }) : ''
         ]),
       ),
       p('.role', member.roleText),
-      member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '', 
+      member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '',
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
-      member.productTeamID ? a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam) : "",
+      member.productTeamID ? a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam) : '',
       div(reportees.length
         ? div(
             h3('.h3', 'Reportees'),
               reportees.map(reportee =>
                 a('.wrapper', { href: `/member/${reportee.handle}`, style: { display: 'block' } }, reportee.name)),
-            a('.reporting',  { href: `/member/${member.handle}/reportees`}, "Show Reporting Structure")
+            a('.reporting', { href: `/member/${member.handle}/reportees` }, 'Show Reporting Structure')
           )
       : ''
       ),

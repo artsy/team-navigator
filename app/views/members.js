@@ -19,19 +19,19 @@ view.styles({
   },
   h1: assign(
     type('garamond', 'largeHeadline'),
-    { 
+    {
       margin: `${smallMargin}px 0`,
-      marginTop: "50px",
-      marginBottom: "26px"
+      marginTop: '50px',
+      marginBottom: '26px'
     }
-  ), 
+  ),
   subtitles: assign(
     type('avantgarde', 'smallHeadline'),
-  {
-    float: "right",
-    color: grayRegular,
-    paddingTop: "22px"
-  }),
+    {
+      float: 'right',
+      color: grayRegular,
+      paddingTop: '22px'
+    }),
   subtitle: {
     marginRight: smallMargin
   }
@@ -53,13 +53,13 @@ const subteams = (members) => {
   return sortBy(pairs, ([title]) => title === 'Head' ? '1' : title)
 }
 
-const title = () => h2('.h1', state.get('title'), 
-                        state.get('subtitles') ? span('.subtitles', state.get('subtitles').map(subtitle)) : ""
+const title = () => h2('.h1', state.get('title'),
+                        state.get('subtitles') ? span('.subtitles', state.get('subtitles').map(subtitle)) : ''
                       )
 const subtitle = ({title, href}) => a('.subtitle', { href }, title)
 
-view.render((thing) => {
-  const page = (content) => 
+view.render(() => {
+  const page = (content) =>
     div('.container',
       state.get('title') ? title() : '',
       content
@@ -69,7 +69,6 @@ view.render((thing) => {
     return page(
       membertree({ title: 'hi', members: state.get('members') })
     )
-
   } else {
     const useSubteam = state.get('format') === 'subteams'
     const sort = useSubteam ? subteams : alphabeticize

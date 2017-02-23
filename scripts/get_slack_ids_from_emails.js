@@ -1,6 +1,7 @@
 // node -r dotenv/config -r babel-core/register scripts/get_slack_ids_from_emails.js
 
 // Prints a C&Pable list of all slack IDs to their corresponding email addresses
+// so you could optionally include it inside a spreadsheet
 
 import request from 'superagent'
 import { Converter } from 'csvtojson'
