@@ -6,8 +6,8 @@ import { find } from 'lodash'
 import moment from 'moment'
 import pmongo from 'promised-mongo'
 
-const { MONGO_URL, SLACK_BOT_TOKEN } = process.env
-const db = pmongo(MONGO_URL, ['members'])
+const { MONGODB_URI, SLACK_BOT_TOKEN } = process.env
+const db = pmongo(MONGODB_URI, ['members'])
 
 var SlackBot = require('slackbots')
 var bot = new SlackBot({ token: SLACK_BOT_TOKEN, name: 'team-nav-bot' })

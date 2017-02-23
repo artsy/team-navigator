@@ -4,7 +4,7 @@ import babelify from 'babelify'
 import envify from 'envify'
 import path from 'path'
 
-const { MONGO_URL, PORT, SLACK_AUTH_TOKEN } = process.env
+const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN } = process.env
 
 // Bundle together client and server app for hot reloading, and—
 // to be implemented—production ready asset bundle serving
@@ -35,7 +35,7 @@ const app = module.exports = hotglue({
 })
 
 // Connect to Mongo and run app
-const db = connect(MONGO_URL)
+const db = connect(MONGODB_URI)
 
 import auth from './app/auth'
 const mount = require('koa-mount')

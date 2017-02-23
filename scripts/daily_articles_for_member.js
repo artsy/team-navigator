@@ -2,12 +2,12 @@
 
 // Generates a repo history for all users, at 1 API request per user
 
-const { MONGO_URL } = process.env
+const { MONGODB_URI } = process.env
 import { uniq } from 'lodash'
 import request from 'superagent'
 import pmongo from 'promised-mongo'
 
-const db = pmongo(MONGO_URL, ['members'])
+const db = pmongo(MONGODB_URI, ['members'])
 
 // Gets repos related to a user
 const getArticles = async (handle) => {
