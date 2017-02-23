@@ -41,6 +41,7 @@ npm install
 with staging config.
 ```
 cp .env.example .env
+# Artsy staff can see our production env vars with
 heroku config --app=artsy-team-navigator
 ```
 - Start Team Navigator and Mongo
