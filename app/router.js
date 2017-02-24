@@ -6,11 +6,19 @@ import Head from './views/head'
 
 const router = unikoa()
 
+
 router.use(bootstrap)
+router.use(async (ctx, next) => {
+  const isMobile = await ctx.bootstrap( async () => !!ctx.headers['user-agent'].match('Mobile'))
+  state.set({ isMobile, allMembers: [] })
+  return next()
+})
+
 router.use(render({
   head: Head,
   subscribe: (cb) => state.on('update', cb)
 }))
+
 router.get('/', index)
 router.get('/member/:handle', show)
 router.get('/member/:handle/reportees', showMemberTree)

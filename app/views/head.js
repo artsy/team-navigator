@@ -63,7 +63,7 @@ view.render(() =>
   head(
     style({ dangerouslySetInnerHTML: { __html: reset } }),
     link({ type: 'text/css', rel: 'stylesheet', href: fontsUrl }),
-    meta({ name: 'viewport', content: 'width=390, initial-scale=1, maximum-scale=1, user-scalable=0' })
+    meta({ name: 'viewport', content: 'width=420, initial-scale=1, maximum-scale=1, user-scalable=0' })
   )
 )
 
