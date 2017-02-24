@@ -94,7 +94,7 @@ export const searchMembers = (term) => {
     member.title.match(new RegExp(term, 'i'))
   ))
   state.set('format', 'alphabetical')
-  state.set('title\', `Searching for ${term}`)
+  state.set('title', `Searching for ${term}`)
 }
 
 const membersForTeam = (teamID) => {
