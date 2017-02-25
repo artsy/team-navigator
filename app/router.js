@@ -1,7 +1,7 @@
 import unikoa from 'unikoa'
 import bootstrap from 'unikoa-bootstrap'
 import render from 'unikoa-react-render'
-import { index, state, show, showTeam, showTeamTree, showMemberTree } from './controllers'
+import { index, indexByAge, state, show, showTeam, showTeamTree, showMemberTree } from './controllers'
 import Head from './views/head'
 
 const router = unikoa()
@@ -24,6 +24,7 @@ router.use(render({
 }))
 
 router.get('/', index)
+router.get('/age', indexByAge)
 router.get('/member/:handle', show)
 router.get('/member/:handle/reportees', showMemberTree)
 router.get('/team/:team', showTeam)

@@ -3,7 +3,9 @@ import MemberGroup from './member-group'
 import MemberTree from './member-tree'
 import { state } from '../controllers'
 import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './lib'
+
 import { groupBy, first, map, toPairs, sortBy, assign } from 'lodash'
+import moment from 'moment'
 
 const view = veact()
 
@@ -41,7 +43,16 @@ const alphabeticize = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => first(member.name))
   )
-  return sortBy(pairs, ([title]) => title)
+  const sortedPairs = pairs.map(([year, members]) => [year, sortBy(members, m => m.name)])
+  return sortBy(sortedPairs, ([title]) => title)
+}
+
+const seniority = (members) => {
+  const pairs = toPairs(
+    groupBy(members, (member) => moment(member.startDate).year())
+  )
+  const sortedPairs = pairs.map(([year, members]) => [year, sortBy(members, m => moment(m.startDate).dayOfYear())])
+  return sortBy(sortedPairs, ([year]) => year)
 }
 
 const subteams = (members) => {
@@ -49,8 +60,10 @@ const subteams = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => member.subteamID !== wholeTeam ? member.subteam : member.team)
   )
+  // Sort by team rank internally in a group
+  const sortedPairs = pairs.map(([year, members]) => [year, sortBy(members, m => m.teamRank)])
   // Move "Head" to always be at the top
-  return sortBy(pairs, ([title]) => title === 'Head' ? '1' : title)
+  return sortBy(sortedPairs, ([title]) => title === 'Head' ? '1' : title)
 }
 
 const title = () => h2('.h1', state.get('title'),
@@ -70,9 +83,12 @@ view.render(() => {
       membertree({ title: 'hi', members: state.get('members') })
     )
   } else {
-    const useSubteam = state.get('format') === 'subteams'
-    const sort = useSubteam ? subteams : alphabeticize
-    const shortTitles = useSubteam
+    const format = state.get('format')
+    let sort = alphabeticize
+    if (format === 'subteams') sort = subteams
+    if (format === 'seniority') sort = seniority
+    
+    const shortTitles = (format === 'subteams')
     const sortedPairs = sort(state.get('members'))
 
     return page(

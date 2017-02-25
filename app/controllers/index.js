@@ -68,7 +68,13 @@ export const initData = async (ctx) => {
 }
 
 export const index = async (ctx) => {
-  await initData(ctx)
+  if (!state.get('allMembers').length) await initData(ctx)
+  ctx.render({ body: Index })
+}
+
+export const indexByAge = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+  state.set('format', 'seniority')
   ctx.render({ body: Index })
 }
 

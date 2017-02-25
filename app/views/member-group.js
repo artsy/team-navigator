@@ -4,6 +4,8 @@ import {
 } from './lib'
 import { assign, sortBy } from 'lodash'
 import url from 'url'
+import { state } from '../controllers'
+import moment from 'moment'
 
 const view = veact()
 
@@ -54,13 +56,18 @@ view.styles({
   }
 })
 
+const prettyDate = startDate => moment(startDate).format("MMM DD")
+
 view.render(({ members, title, shortTitles }) => {
   const titleClass = shortTitles ? '.h3' : '.h1'
+  const format = state.get('format')
+
   return div('.container',
     h2(titleClass, title),
-    div(sortBy(members, m => m.teamRank).map(member => {
+    div(members.map(member => {
       const src = url.parse(member.headshot).pathname
       const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+      const subtitle = format === "seniority" ? prettyDate(member.startDate) : `${member.city}${floorOrNothing}`
 
       return a('.wrapper', { key: member.email, href: `/member/${member.handle}` },
         div('.headshot', {
@@ -69,7 +76,7 @@ view.render(({ members, title, shortTitles }) => {
         div('.text',
           p('.memberName', member.name),
           p('.title', member.title),
-          p('.location', `${member.city}${floorOrNothing}`))
+          p('.location', subtitle))
         )
     })))
 })
