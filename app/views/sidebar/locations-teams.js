@@ -21,6 +21,11 @@ view.styles({
   }
 })
 
+const extraLinks = [{
+  name: "Who is New?",
+  href: "/who-is-new"
+}]
+
 view.render(() => {
   console.log(state.get('team'))
   const highlights = state.get('highlightTeams')
@@ -47,6 +52,12 @@ view.render(() => {
     ul('.ul', team.map(team =>
       a({ href: `/team/${teamNameToID(team)}` },
         li('.li', { style: { color: team === teamNameToID(state.get('team')) ? purpleRegular : '' }}, team )
+      ))),
+
+    h2('.h2', 'Links'),
+    ul('.ul', extraLinks.map(link =>
+      a({ href: link.href },
+        li('.li', link.name )
       ))))
   }
 )

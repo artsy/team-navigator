@@ -4,7 +4,7 @@ import MemberTree from './member-tree'
 import { state } from '../controllers'
 import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './lib'
 
-import { groupBy, first, map, toPairs, sortBy, assign } from 'lodash'
+import { groupBy, first, map, toPairs, sortBy, assign, orderBy } from 'lodash'
 import moment from 'moment'
 
 const view = veact()
@@ -51,8 +51,8 @@ const seniority = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => moment(member.startDate).year())
   )
-  const sortedPairs = pairs.map(([year, members]) => [year, sortBy(members, m => moment(m.startDate).dayOfYear())])
-  return sortBy(sortedPairs, ([year]) => year)
+  const sortedPairs = pairs.map(([year, members]) => [year, orderBy(members, m => moment(m.startDate).dayOfYear(), ['desc'])])
+  return orderBy(sortedPairs, ([year]) => year, ['desc'])
 }
 
 const subteams = (members) => {

@@ -24,7 +24,7 @@ router.use(render({
 }))
 
 router.get('/', index)
-router.get('/age', indexByAge)
+router.get('/who-is-new', indexByAge)
 router.get('/member/:handle', show)
 router.get('/member/:handle/reportees', showMemberTree)
 router.get('/team/:team', showTeam)
