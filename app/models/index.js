@@ -1,4 +1,4 @@
-import { member, teams, cities } from './member'
+import { member, teams, cities, highlightTeams, standoutSubTeams } from './member'
 import sync from './sync'
 
-export { member, teams, cities, sync }
+export { member, teams, cities, highlightTeams, standoutSubTeams, sync }

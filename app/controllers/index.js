@@ -21,9 +21,14 @@ export const state = tree({
 })
 
 export const initData = async (ctx) => {
-  const { teams, cities, members } = await ctx.bootstrap(() =>
+  const { teams, highlightTeams, standoutSubTeams, cities, members } = await ctx.bootstrap(() =>
     api.query(`{
       teams
+      highlightTeams {
+        name
+        teams
+      }
+      standoutSubTeams
       cities
       members {
         _id
@@ -59,7 +64,7 @@ export const initData = async (ctx) => {
       }
     }`)
   )
-  state.set({ teams, cities, members, allMembers: members, member: null })
+  state.set({ teams, cities, members, standoutSubTeams, highlightTeams, allMembers: members, member: null })
 }
 
 export const index = async (ctx) => {

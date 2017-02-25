@@ -21,14 +21,11 @@ view.styles({
   }
 })
 
-// Support per-project custom teams etc
-const { STANDOUT_SUBTEAMS, HIGHLIGHT_TEAM_NAME, HIGHLIGHT_TEAMS} = process.env
-
-const extraTeams = STANDOUT_SUBTEAMS.split(",")
-const highlightTeams = HIGHLIGHT_TEAMS.split(",")
-
 view.render(() => {
-  const team = filter(sortBy([...extraTeams, ...state.get('teams')]), team => !highlightTeams.includes(team))
+  console.log(state)
+  const highlights = state.get('highlightTeams')
+  const standouts = state.get('standoutSubTeams')
+  const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
   return div(
     h2('.h2', 'Locations'),
     ul('.ul', sortBy(state.get('cities')).map(city =>
@@ -37,11 +34,13 @@ view.render(() => {
         style: { color: city === state.get('curFilter') ? purpleRegular : '' }
       }, city))),
     br('.br'),
-    h2('.h2', HIGHLIGHT_TEAM_NAME),
-    ul('.ul', sortBy(highlightTeams).map(team =>
-      a({ href: `/team/${teamNameToID(team)}` },
-        li('.li', team)
-      ))),
+    div(highlights ? div(
+      h2('.h2', highlights.name),
+      ul('.ul', sortBy(highlights.teams).map(team =>
+        a({ href: `/team/${teamNameToID(team)}` },
+          li('.li', team)
+        ))),
+    ) : ""),
     h2('.h2', 'Teams'),
     ul('.ul', team.map(team =>
       a({ href: `/team/${teamNameToID(team)}` },
