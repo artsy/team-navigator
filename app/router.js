@@ -9,7 +9,11 @@ const router = unikoa()
 
 router.use(bootstrap)
 router.use(async (ctx, next) => {
-  const isMobile = await ctx.bootstrap( async () => !!ctx.headers['user-agent'].match('Mobile'))
+  const isMobile = await ctx.bootstrap( async () => {
+    if (typeof navigator !== 'undefined') return !!navigator.userAgent.match('Mobile')
+    if (ctx.headers) return !!ctx.headers['user-agent'].match('Mobile')
+    return false
+  })
   state.set({ isMobile, allMembers: [] })
   return next()
 })

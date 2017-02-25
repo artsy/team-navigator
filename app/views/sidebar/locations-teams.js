@@ -22,10 +22,11 @@ view.styles({
 })
 
 view.render(() => {
-  console.log(state)
+  console.log(state.get('team'))
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
+
   return div(
     h2('.h2', 'Locations'),
     ul('.ul', sortBy(state.get('cities')).map(city =>
@@ -33,18 +34,19 @@ view.render(() => {
         onClick: () => filterMembers({ city }),
         style: { color: city === state.get('curFilter') ? purpleRegular : '' }
       }, city))),
-    br('.br'),
+    
     div(highlights ? div(
       h2('.h2', highlights.name),
       ul('.ul', sortBy(highlights.teams).map(team =>
         a({ href: `/team/${teamNameToID(team)}` },
-          li('.li', team)
+          li('.li', { style: { color: team === teamNameToID(state.get('team')) ? purpleRegular : '' }}, team )
         ))),
     ) : ""),
+
     h2('.h2', 'Teams'),
     ul('.ul', team.map(team =>
       a({ href: `/team/${teamNameToID(team)}` },
-        li('.li', team)
+        li('.li', { style: { color: team === teamNameToID(state.get('team')) ? purpleRegular : '' }}, team )
       ))))
   }
 )
