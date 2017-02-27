@@ -8,11 +8,11 @@ import path from 'path'
 import { state } from '../../controllers'
 import { type, borderedButton, grayRegular, purpleRegular } from '../lib'
 
-const email = readFileSync(path.join(__dirname, 'email.svg'), 'utf8')
-const calendar = readFileSync(path.join(__dirname, 'calendar.svg'), 'utf8')
-const chat = readFileSync(path.join(__dirname, 'chat.svg'), 'utf8')
-const activeChat = readFileSync(path.join(__dirname, 'active-chat.svg'), 'utf8')
-const githubCat = readFileSync(path.join(__dirname, 'github-cat.svg'), 'utf8')
+const email = readFileSync(path.join(__dirname, 'email.svg'))
+const calendar = readFileSync(path.join(__dirname, 'calendar.svg'))
+const chat = readFileSync(path.join(__dirname, 'chat.svg'))
+const activeChat = readFileSync(path.join(__dirname, 'active-chat.svg'))
+const githubCat = readFileSync(path.join(__dirname, 'github-cat.svg'))
 
 const view = veact()
 const headshotSize = 100
