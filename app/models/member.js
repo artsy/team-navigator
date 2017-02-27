@@ -52,16 +52,20 @@ export const cities = query('cities', array().items(string()),
   }
 )
 
-const { STANDOUT_SUBTEAMS, HIGHLIGHT_TEAM_NAME, HIGHLIGHT_TEAMS} = process.env
+const {
+  STANDOUT_SUBTEAMS,
+  HIGHLIGHT_TEAM_NAME,
+  HIGHLIGHT_TEAMS
+} = process.env
 
 export const highlightTeams = query('highlightTeams', object({
-    name: string(),
-    teams: array().items(string())
-  }),
+  name: string(),
+  teams: array().items(string())
+}),
   async (ctx, next) => {
     ctx.res.highlightTeams = {
-      name: HIGHLIGHT_TEAM_NAME || "",
-      teams: HIGHLIGHT_TEAMS ? HIGHLIGHT_TEAMS.split(",") : []
+      name: HIGHLIGHT_TEAM_NAME || '',
+      teams: HIGHLIGHT_TEAMS ? HIGHLIGHT_TEAMS.split(',') : []
     }
     await next()
   }
@@ -69,7 +73,7 @@ export const highlightTeams = query('highlightTeams', object({
 
 export const standoutSubTeams = query('standoutSubTeams', array().items(string()),
   async (ctx, next) => {
-    ctx.res.standoutSubTeams = STANDOUT_SUBTEAMS ? STANDOUT_SUBTEAMS.split(",") : []
+    ctx.res.standoutSubTeams = STANDOUT_SUBTEAMS ? STANDOUT_SUBTEAMS.split(',') : []
     await next()
   }
 )

@@ -1,8 +1,14 @@
 import veact from 'veact'
 import {
-  type, smallMargin, mediumMargin, largeMargin, grayRegular, ellipsisize, graySemibold
+  type,
+  smallMargin,
+  mediumMargin,
+  largeMargin,
+  grayRegular,
+  ellipsisize,
+  graySemibold
 } from './lib'
-import { assign, sortBy } from 'lodash'
+import { assign } from 'lodash'
 import url from 'url'
 import { state } from '../controllers'
 import moment from 'moment'
@@ -56,7 +62,7 @@ view.styles({
   }
 })
 
-const prettyDate = startDate => moment(startDate).format("MMM DD")
+const prettyDate = startDate => moment(startDate).format('MMM DD')
 
 view.render(({ members, title, shortTitles }) => {
   const titleClass = shortTitles ? '.h3' : '.h1'
@@ -67,7 +73,7 @@ view.render(({ members, title, shortTitles }) => {
     div(members.map(member => {
       const src = url.parse(member.headshot).pathname
       const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
-      const subtitle = format === "seniority" ? prettyDate(member.startDate) : `${member.city}${floorOrNothing}`
+      const subtitle = format === 'seniority' ? prettyDate(member.startDate) : `${member.city}${floorOrNothing}`
 
       return a('.wrapper', { key: member.email, href: `/member/${member.handle}` },
         div('.headshot', {

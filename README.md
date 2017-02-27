@@ -35,7 +35,7 @@ brew install mongodb
 ```
 brew install nvm
 nvm install 6
-npm install
+yarn install
 ```
 - Copy over a .env file and replace all sensitive config, e.g. `SHEETS_URL=REPLACE`,
 with staging config.
@@ -46,7 +46,7 @@ heroku config --app=artsy-team-navigator
 ```
 - Start Team Navigator and Mongo
 ```
-npm run dev
+yarn dev
 ```
 - Team Navigator should now be running at http://localhost:3000/
 
@@ -68,9 +68,9 @@ If the example is out of date, that's fine, go look at the member model and conv
 
 We use [standard](https://github.com/feross/standard) for linting. For the best experience it's recommended that you install an inline linter in your text editor, such as [Sublime Linter Standard](https://github.com/Flet/SublimeLinter-contrib-standard), to surface linting issues immediately.
 
-We use [mocha](https://mochajs.org/) for testing. For the best experience writing tests it's recommended you target the suite you're working on in watch mode `npm run mocha -- --watch test/your/tests.js`.
+We use [mocha](https://mochajs.org/) for testing. For the best experience writing tests it's recommended you target the suite you're working on in watch mode `yarn mocha -- --watch test/your/tests.js`.
 
-To run the full test suite and linter use `npm test`.
+To run the full test suite and linter use `yarn test`.
 
 ### Scripts
 

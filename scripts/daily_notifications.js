@@ -36,9 +36,9 @@ bot.on('start', async () => {
   bot.ws.close()
 })
 
-process.on('unhandledRejection', function(reason, p){
-  console.log("A promise raised an error")
+process.on('unhandledRejection', function (reason, p) {
+  console.log('A promise raised an error')
   console.error(reason)
   bot.ws.close()
   process.exit()
-});
+})
