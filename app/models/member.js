@@ -39,37 +39,37 @@ export const member = model('member', {
 })
 
 export const teams = query('teams', array().items(string()),
-  async (ctx, next) => {
+  async(ctx, next) => {
     ctx.res.teams = await db.members.distinct('team')
     await next()
   }
 )
 
 export const cities = query('cities', array().items(string()),
-  async (ctx, next) => {
+  async(ctx, next) => {
     ctx.res.cities = await db.members.distinct('city')
     await next()
   }
 )
 
-const { STANDOUT_SUBTEAMS, HIGHLIGHT_TEAM_NAME, HIGHLIGHT_TEAMS} = process.env
+const { STANDOUT_SUBTEAMS, HIGHLIGHT_TEAM_NAME, HIGHLIGHT_TEAMS } = process.env
 
 export const highlightTeams = query('highlightTeams', object({
-    name: string(),
-    teams: array().items(string())
-  }),
-  async (ctx, next) => {
+  name: string(),
+  teams: array().items(string())
+}),
+  async(ctx, next) => {
     ctx.res.highlightTeams = {
-      name: HIGHLIGHT_TEAM_NAME || "",
-      teams: HIGHLIGHT_TEAMS ? HIGHLIGHT_TEAMS.split(",") : []
+      name: HIGHLIGHT_TEAM_NAME || '',
+      teams: HIGHLIGHT_TEAMS ? HIGHLIGHT_TEAMS.split(',') : []
     }
     await next()
   }
 )
 
 export const standoutSubTeams = query('standoutSubTeams', array().items(string()),
-  async (ctx, next) => {
-    ctx.res.standoutSubTeams = STANDOUT_SUBTEAMS ? STANDOUT_SUBTEAMS.split(",") : []
+  async(ctx, next) => {
+    ctx.res.standoutSubTeams = STANDOUT_SUBTEAMS ? STANDOUT_SUBTEAMS.split(',') : []
     await next()
   }
 )

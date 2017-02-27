@@ -87,7 +87,7 @@ view.render(() => {
     let sort = alphabeticize
     if (format === 'subteams') sort = subteams
     if (format === 'seniority') sort = seniority
-    
+
     const shortTitles = (format === 'subteams')
     const sortedPairs = sort(state.get('members'))
 
