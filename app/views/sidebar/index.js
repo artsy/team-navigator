@@ -16,7 +16,7 @@ const { div, locationsteams, member, search, a } = view.els({
 
 view.styles({
   containerMobile: {
-    width: "100"
+    width: '100'
   },
   container: {
     padding: mediumMargin,
@@ -39,7 +39,7 @@ view.styles({
 })
 
 view.render(() =>
-  div(state.get("isMobile") ? '.containerMobile' : '.container',
+  div(state.get('isMobile') ? '.containerMobile' : '.container',
     div('.headline',
       a('.homeButton', { href: '/' }, 'Team Navigator'),
       a('.atlas', { href: 'http://atlas.artsy.net' }, 'Atlas')
