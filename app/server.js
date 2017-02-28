@@ -12,8 +12,8 @@ const app = new Koa()
 
 if (NODE_ENV === 'production') {
   app.use(enforceHttps({ trustProtoHeader: true }))
-  router.get('/img/*', resizeImg)
 }
+router.get('/img/*', resizeImg)
 router.all('/api', graphqlize(models))
 app.use(mount(auth))
 app.use(router.routes())

@@ -110,12 +110,15 @@ export const show = async (ctx) => {
   ctx.render({ body: Index })
 }
 
-export const filterMembers = async (attrs) => {
-  state.set('curFilter', values(attrs)[0])
-  state.set('members', filter(state.get('allMembers'), attrs))
+export const byLocation = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+  const city = ctx.params.location
+  state.set('curFilter', city)
+  state.set('members', filter(state.get('allMembers'), { city }))
   state.set('format', 'alphabetical')
   state.unset('subtitles')
-  state.set('title', values(attrs)[0])
+  state.set('title', city)
+  ctx.render({ body: Index })
 }
 
 export const searchMembers = (term) => {

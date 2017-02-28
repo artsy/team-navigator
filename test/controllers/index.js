@@ -16,6 +16,21 @@ describe('index controller', () => {
     state = mod.__get__('state')
   })
 
+  describe('#byLocation', () => {
+    it('sets members from a city', async () => {
+      state.set('allMembers', [
+        fixture('member', { name: 'Craig', city: 'earth' }),
+        fixture('member', { name: 'Orta', city: 'earth' }),
+        fixture('member', { name: 'Marty', city: 'mars' })
+      ])
+      ctx.bootstrap.returns(Promise.resolve({ teams: ['engineering'] }))
+      ctx.params.location = 'earth'
+      await controller.byLocation(ctx)
+      state.get('members').map((m) => m.name).join(',')
+        .should.equal('Craig,Orta')
+    })
+  })
+
   describe('#showTeam', () => {
     it('loads init data', async () => {
       ctx.bootstrap.returns(Promise.resolve({ teams: ['foo'] }))
