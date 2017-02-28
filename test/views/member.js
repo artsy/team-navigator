@@ -2,7 +2,6 @@
 import Baobab from 'baobab'
 import { fixture, render } from '../helpers'
 import Member from '../../app/views/sidebar/member'
-import React from 'react'
 
 describe('Member', () => {
   let state

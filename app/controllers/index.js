@@ -4,7 +4,6 @@ import tree from 'universal-tree'
 import Index from '../views'
 import {
   filter,
-  values,
   find,
   startCase,
   camelCase,
