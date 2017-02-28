@@ -10,7 +10,8 @@ export const fixture = (type, attrs) =>
       title: 'Badass',
       headshot: 'http://foobar.com/img/1.jpg',
       floor: 25,
-      city: 'NYC'
+      city: 'NYC',
+      slackID: 'ABC'
     }
   }[type], attrs)
 

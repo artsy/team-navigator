@@ -2,15 +2,17 @@ import veact from 'veact'
 import { assign, find } from 'lodash'
 import url from 'url'
 import moment from 'moment'
+import { readFileSync } from 'fs'
+import path from 'path'
 
 import { state } from '../../controllers'
 import { type, borderedButton, grayRegular, purpleRegular } from '../lib'
 
-import email from './email.svg'
-import calendar from './calendar.svg'
-import chat from './chat.svg'
-import activeChat from './active-chat.svg'
-import githubCat from './github-cat.svg'
+const email = readFileSync(path.join(__dirname, 'email.svg'))
+const calendar = readFileSync(path.join(__dirname, 'calendar.svg'))
+const chat = readFileSync(path.join(__dirname, 'chat.svg'))
+const activeChat = readFileSync(path.join(__dirname, 'active-chat.svg'))
+const githubCat = readFileSync(path.join(__dirname, 'github-cat.svg'))
 
 const view = veact()
 const headshotSize = 100

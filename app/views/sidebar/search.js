@@ -2,8 +2,10 @@ import veact from 'veact'
 import { state, searchMembers } from '../../controllers'
 import { type, grayRegular } from '../lib'
 import { assign } from 'lodash'
-import artsyLogo from './artsy-logo.svg'
+import { readFileSync } from 'fs'
+import path from 'path'
 
+const artsyLogo = readFileSync(path.join(__dirname, './artsy-logo.svg'))
 const view = veact()
 
 const { div, a, input } = view.els()

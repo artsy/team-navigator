@@ -2,6 +2,7 @@ import { connect } from 'joiql-mongo'
 import hotglue from 'hotglue'
 import babelify from 'babelify'
 import envify from 'envify'
+import brfs from 'brfs-babel'
 import path from 'path'
 
 const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN } = process.env
@@ -24,7 +25,7 @@ const app = module.exports = hotglue({
   },
   client: {
     main: 'client.js',
-    transforms: [babelify, envify],
+    transforms: [brfs, babelify, envify],
     watch: [
       'views/**/*',
       'controllers/**/*',

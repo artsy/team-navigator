@@ -5,7 +5,7 @@ import { assign, sortBy, filter } from 'lodash'
 
 const view = veact()
 
-const { div, h2, ul, li, br, a } = view.els()
+const { div, h2, ul, li, a } = view.els()
 
 view.styles({
   h2: assign(
@@ -22,8 +22,8 @@ view.styles({
 })
 
 const extraLinks = [{
-  name: "Who is New?",
-  href: "/who-is-new"
+  name: 'Who is New?',
+  href: '/who-is-new'
 }]
 
 view.render(() => {
@@ -39,27 +39,35 @@ view.render(() => {
         onClick: () => filterMembers({ city }),
         style: { color: city === state.get('curFilter') ? purpleRegular : '' }
       }, city))),
-    
+
     div(highlights ? div(
       h2('.h2', highlights.name),
       ul('.ul', sortBy(highlights.teams).map(team =>
         a({ href: `/team/${teamNameToID(team)}` },
-          li('.li', { style: { color: team === teamNameToID(state.get('team')) ? purpleRegular : '' }}, team )
+          li('.li', {
+            style: {
+              color: team === teamNameToID(state.get('team')) ? purpleRegular : ''
+            }
+          }, team)
         ))),
-    ) : ""),
+    ) : ''),
 
     h2('.h2', 'Teams'),
     ul('.ul', team.map(team =>
       a({ href: `/team/${teamNameToID(team)}` },
-        li('.li', { style: { color: team === teamNameToID(state.get('team')) ? purpleRegular : '' }}, team )
+        li('.li', {
+          style: {
+            color: team === teamNameToID(state.get('team')) ? purpleRegular : ''
+          }
+        }, team)
       ))),
 
     h2('.h2', 'Links'),
     ul('.ul', extraLinks.map(link =>
       a({ href: link.href },
-        li('.li', link.name )
+        li('.li', link.name)
       ))))
-  }
+}
 )
 
 export default view()

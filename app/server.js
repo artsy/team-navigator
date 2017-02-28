@@ -5,9 +5,10 @@ import * as models from './models'
 import { resizeImg } from './controllers/image'
 
 const app = new Koa()
+const { NODE_ENV } = process.env
 
 router.all('/api', graphqlize(models))
-router.get('/img/*', resizeImg)
+if (NODE_ENV !== 'development') router.get('/img/*', resizeImg)
 app.use(router.routes())
 
 export default app

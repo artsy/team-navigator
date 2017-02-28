@@ -41,8 +41,8 @@ const run = async () => {
   db.close()
 }
 
-process.on('unhandledRejection', function(reason, p){
-  console.log("A promise raised an error")
+process.on('unhandledRejection', function (reason, p) {
+  console.log('A promise raised an error')
   console.error(reason)
   process.exit()
 })

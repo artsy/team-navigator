@@ -9,7 +9,10 @@ import moment from 'moment'
 
 const view = veact()
 
-const { div, membergroup, membertree, h2, a, span } = view.els({ membergroup: MemberGroup, membertree: MemberTree })
+const { div, membergroup, membertree, h2, a, span } = view.els({
+  membergroup: MemberGroup,
+  membertree: MemberTree
+})
 
 view.styles({
   container: {
@@ -87,7 +90,7 @@ view.render(() => {
     let sort = alphabeticize
     if (format === 'subteams') sort = subteams
     if (format === 'seniority') sort = seniority
-    
+
     const shortTitles = (format === 'subteams')
     const sortedPairs = sort(state.get('members'))
 
