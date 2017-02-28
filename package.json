@@ -9,7 +9,7 @@
     "mongo": "mongo",
     "test": "yarn lint && yarn mocha test/*",
     "dev": "concurrently 'yarn node' 'mongod'",
-    "start": "yarn node ."
+    "start": "npm run node ."
   },
   "standard": {
     "parser": "babel-eslint"
