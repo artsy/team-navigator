@@ -27,7 +27,6 @@ const extraLinks = [{
 }]
 
 view.render(() => {
-  console.log(state.get('team'))
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))

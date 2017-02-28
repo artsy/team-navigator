@@ -2,13 +2,24 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
-import { filter, values, find, startCase, camelCase, uniq, flatten } from 'lodash'
+import {
+  filter,
+  values,
+  find,
+  startCase,
+  camelCase,
+  uniq,
+  flatten
+} from 'lodash'
 
-// As we're making real API calls through node, we need to allow it to get through auth
+// As we're making real API calls through node, we need to allow it to get
+// through auth
 const { INTERNAL_REQUESTS_HEADER_SECRET } = process.env
 
 const api = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api', { headers: { 'secret': INTERNAL_REQUESTS_HEADER_SECRET } })
+  transport: new Transport(process.env.APP_URL + '/api', {
+    headers: { secret: INTERNAL_REQUESTS_HEADER_SECRET }
+  })
 })
 
 export const state = tree({
@@ -21,7 +32,13 @@ export const state = tree({
 })
 
 export const initData = async (ctx) => {
-  const { teams, highlightTeams, standoutSubTeams, cities, members } = await ctx.bootstrap(() =>
+  const {
+    teams,
+    highlightTeams,
+    standoutSubTeams,
+    cities,
+    members
+  } = await ctx.bootstrap(() =>
     api.query(`{
       teams
       highlightTeams {
@@ -64,7 +81,15 @@ export const initData = async (ctx) => {
       }
     }`)
   )
-  state.set({ teams, cities, members, standoutSubTeams, highlightTeams, allMembers: members, member: null })
+  state.set({
+    teams,
+    cities,
+    members,
+    standoutSubTeams,
+    highlightTeams,
+    allMembers: members,
+    member: null
+  })
 }
 
 export const index = async (ctx) => {
@@ -111,11 +136,15 @@ export const searchMembers = (term) => {
 const membersForTeam = (teamID) => {
   const mainTeam = filter(state.get('allMembers'), { teamID: teamID })
   const subTeam = filter(state.get('allMembers'), { subteamID: teamID })
-  const productTeam = filter(state.get('allMembers'), m => m.productTeamID.includes(teamID))
+  const productTeam = filter(state.get('allMembers'), m =>
+    m.productTeamID && m.productTeamID.includes(teamID)
+  )
   return uniq([...mainTeam, ...subTeam, ...productTeam])
 }
 
-const reporteesForUser = (member) => filter(state.get('allMembers'), m => m.reportsTo === member.name)
+const reporteesForUser = (member) =>
+  filter(state.get('allMembers'), m => m.reportsTo === member.name)
+
 const getReporteeTreeForUser = (member) => {
   const reportees = reporteesForUser(member)
   return flatten([...reportees, ...reportees.map(getReporteeTreeForUser)])

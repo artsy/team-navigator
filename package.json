@@ -9,7 +9,7 @@
     "mongo": "mongo",
     "test": "yarn lint && yarn mocha test/*",
     "dev": "concurrently 'yarn node' 'mongod'",
-    "start": "node -r babel-core/register ."
+    "start": "yarn node ."
   },
   "standard": {
     "parser": "babel-eslint"
@@ -54,6 +54,7 @@
     "koa-mount": "next",
     "koa-passport": "rkusa/koa-passport#v2.x",
     "koa-route": "^2.4.2",
+    "koa-sslify": "2.1.0",
     "lodash": "^4.15.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.4.0",
