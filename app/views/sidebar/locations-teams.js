@@ -1,5 +1,5 @@
 import veact from 'veact'
-import { state, filterMembers } from '../../controllers'
+import { state } from '../../controllers'
 import { type, mediumMargin, purpleRegular, teamNameToID } from '../lib'
 import { assign, sortBy, filter } from 'lodash'
 
@@ -27,7 +27,6 @@ const extraLinks = [{
 }]
 
 view.render(() => {
-  console.log(state.get('team'))
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
@@ -35,10 +34,11 @@ view.render(() => {
   return div(
     h2('.h2', 'Locations'),
     ul('.ul', sortBy(state.get('cities')).map(city =>
-      li('.li', {
-        onClick: () => filterMembers({ city }),
-        style: { color: city === state.get('curFilter') ? purpleRegular : '' }
-      }, city))),
+      li('.li',
+        a({
+          href: `/location/${city}`,
+          style: { color: city === state.get('curFilter') ? purpleRegular : '' }
+        }, city))),
 
     div(highlights ? div(
       h2('.h2', highlights.name),
@@ -66,8 +66,7 @@ view.render(() => {
     ul('.ul', extraLinks.map(link =>
       a({ href: link.href },
         li('.li', link.name)
-      ))))
-}
-)
+      )))))
+})
 
 export default view()

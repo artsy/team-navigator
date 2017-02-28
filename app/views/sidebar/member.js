@@ -121,6 +121,7 @@ view.render(() => {
   const calendarLink = `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`
   const mailTo = `mailto:${member.email}artsymail.com`
   const github = `https://github.com/${member.githubHandle}`
+  const reportsTo = member.reportsTo && find(state.get('allMembers'), { 'name': member.reportsTo })
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -154,10 +155,10 @@ view.render(() => {
           )
       : ''
       ),
-      div(member.reportsTo
+      div(reportsTo
         ? div(
             h3('.h3', 'Reports to'),
-            a('.wrapper', { href: `/member/${find(state.get('allMembers'), { 'name': member.reportsTo }).handle}` }, state.get('member').reportsTo)
+            a('.wrapper', { href: `/member/${reportsTo.handle}` }, state.get('member').reportsTo)
           )
         : ''
       ),

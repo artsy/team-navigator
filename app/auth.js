@@ -65,7 +65,6 @@ const convert = require('koa-convert')
 const session = require('koa-generic-session')
 const MongoStore = require('koa-generic-session-mongo')
 
-app.keys = ['our-secret-team-nav-secret']
 app.use(convert(session({ store: new MongoStore({ url: MONGODB_URI }) })))
 
 // body parser

@@ -26,7 +26,6 @@ describe('Sync', () => {
   it('syncs a csv of team members into mongo documents', async () => {
     request.get.returns(Promise.resolve({ text: 'name,title,email,reports_to\nOrta,Badass,orta@,db' }))
     await resolve()
-    console.log(db.members.save.firstCall)
     db.members.save.firstCall.args.should.eql([{
       name: 'Orta',
       title: 'Badass',
