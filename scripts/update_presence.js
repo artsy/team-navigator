@@ -18,6 +18,11 @@ export default async (db) => {
 
     const here = slackMember.presence !== 'away'
 
-    await db.members.update({ _id: member._id }, { $set: { slackPresence: here } })
+    await db.members.update({ _id: member._id }, { $set: { 
+      slackPresence: here,
+      timeZone: slackMember.tz,
+      timeZoneLabel: slackMember.tz_label,
+      timeZoneOffset: slackMember.tz_offset
+    } })
   })
 }

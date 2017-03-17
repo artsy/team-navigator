@@ -1,4 +1,4 @@
-import { model, array, string, boolean, query, db, object } from 'joiql-mongo'
+import { model, array, string, boolean, number, query, db, object } from 'joiql-mongo'
 
 export const member = model('member', {
   name: string(),
@@ -35,7 +35,10 @@ export const member = model('member', {
   articleHistory: array().items(object({
     name: string(),
     href: string()
-  }))
+  })),
+  timeZone: string(),
+  timeZoneOffset: number(),
+  timeZoneLabel: string(),
 })
 
 export const teams = query('teams', array().items(string()),
