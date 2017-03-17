@@ -77,6 +77,9 @@ export const initData = async (ctx) => {
           href
           name
         }
+        timeZone
+        timeZoneOffset
+        timeZoneLabel
       }
     }`)
   )
@@ -161,7 +164,8 @@ const setupForTeam = teamID => {
 
   state.set('subtitles', [
     { title: 'Teams', href: `/team/${teamID}` },
-    { title: 'Reporting Structure', href: `/team/${teamID}/tree` }
+    { title: 'Reporting Structure', href: `/team/${teamID}/tree` },
+    { title: 'Timezones', href: `/team/${teamID}/timezones` }
   ])
 }
 
@@ -193,5 +197,15 @@ export const showMemberTree = async (ctx) => {
   state.unset('subtitles')
 
   state.set('title', `Reportees of ${member.name}`)
+  ctx.render({ body: Index })
+}
+
+export const showTeamTimezones = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+
+  setupForTeam(ctx.params.team)
+  state.set('format', 'timezones')
+
+  state.set('title', `Timezones of ${member.name}`)
   ctx.render({ body: Index })
 }
