@@ -58,6 +58,17 @@ const seniority = (members) => {
   return orderBy(sortedPairs, ([year]) => year, ['desc'])
 }
 
+const timezone = (members) => {
+  const pairs = toPairs(
+    groupBy(members, (member) => member.timeZoneLabel)
+  )
+  const sortedPairs = pairs.map(([timez, members]) => [
+    `${timez} - ${moment().subtract(members[0].timeZoneOffset, 'seconds').format('h:mm a')}`,
+    sortBy(members, m => m.name)
+  ])
+  return sortBy(sortedPairs, ([_, members]) => members[0].timeZoneOffset)
+}
+
 const subteams = (members) => {
   const wholeTeam = state.get('team')
   const pairs = toPairs(
@@ -90,8 +101,9 @@ view.render(() => {
     let sort = alphabeticize
     if (format === 'subteams') sort = subteams
     if (format === 'seniority') sort = seniority
+    if (format === 'timezones') sort = timezone
 
-    const shortTitles = (format === 'subteams')
+    const shortTitles = format === 'subteams' || format === 'timezones'
     const sortedPairs = sort(state.get('members'))
 
     return page(
