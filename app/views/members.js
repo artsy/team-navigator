@@ -6,7 +6,6 @@ import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './li
 
 import { groupBy, first, map, toPairs, sortBy, assign, orderBy } from 'lodash'
 import moment from 'moment'
-import 'moment-timezone'
 
 const view = veact()
 
