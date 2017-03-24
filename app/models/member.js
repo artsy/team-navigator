@@ -38,7 +38,7 @@ export const member = model('member', {
   })),
   timeZone: string(),
   timeZoneOffset: number(),
-  timeZoneLabel: string(),
+  timeZoneLabel: string()
 })
 
 export const teams = query('teams', array().items(string()),

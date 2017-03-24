@@ -206,6 +206,7 @@ export const showTeamTimezones = async (ctx) => {
   setupForTeam(ctx.params.team)
   state.set('format', 'timezones')
 
-  state.set('title', `Timezones of ${member.name}`)
+  const prettyTeam = startCase(camelCase(ctx.params.team))
+  state.set('title', `Timezones of ${prettyTeam}`)
   ctx.render({ body: Index })
 }

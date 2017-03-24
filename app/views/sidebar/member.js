@@ -133,7 +133,6 @@ view.render(() => {
         member.namePronounciation ? p('.job', `Pronounced: ${member.namePronounciation}`) : '',
         p('.job', member.title),
         p('.location', `${member.city}${floorOrNothing}`),
-        member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
         nav('.nav', [
           a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
           a('.navItem', { href: mailTo, dangerouslySetInnerHTML: { __html: email } }),
@@ -142,6 +141,10 @@ view.render(() => {
         ]),
       ),
       p('.role', member.roleText),
+      div('.nav', [
+        member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
+        member.timeZone ? p('.location', `Time Zone: ${member.timeZone}`) : ''
+      ]),
       member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '',
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
