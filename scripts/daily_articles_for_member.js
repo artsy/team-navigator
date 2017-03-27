@@ -2,50 +2,48 @@
 
 // Generates a repo history for all users, at 1 API request per user
 
-const { MONGODB_URI } = process.env
 import { uniq } from 'lodash'
 import request from 'superagent'
-import pmongo from 'promised-mongo'
 
-const db = pmongo(MONGODB_URI, { authMechanism: 'ScramSHA1' }, ['members'])
+export default async (db) => {
+  // Gets repos related to a user
+  const getArticles = async (handle) => {
+    const params = `?all_by_author=${handle}&published=true`
+    const url = 'https://writer.artsy.net/api/articles'
 
-// Gets repos related to a user
-const getArticles = async (handle) => {
-  const params = `?all_by_author=${handle}&published=true`
-  const url = 'https://writer.artsy.net/api/articles'
-
-  try {
-    const response = await request.get(url + params)
-    return uniq(response.body.results.map(e => {
-      return { name: e.title, href: `article/${e.slug}` }
-    }))
-  } catch (error) {
-    return []
+    try {
+      const response = await request.get(url + params)
+      return uniq(response.body.results.map(e => {
+        return { name: e.title, href: `article/${e.slug}` }
+      }))
+    } catch (error) {
+      return []
+    }
   }
+
+  // Update a User in the db
+  const updateUser = async (member) => {
+    const handle = member.writerAuthorId
+    const articles = await getArticles(handle)
+    await db.members.update({ _id: member._id }, { $set: { articleHistory: articles } })
+  }
+
+  // Runs a lookup against against all members
+  const run = async () => {
+    const allMembers = await db.members.find().toArray()
+    const writers = allMembers.filter(m => m.writerAuthorId)
+
+    // Ensure all db work is done before we kill the db
+    await Promise.all(writers.map(updateUser))
+    db.close()
+  }
+
+  process.on('unhandledRejection', function (reason, p) {
+    console.log('A promise raised an error')
+    console.error(reason)
+    process.exit()
+  })
+
+  // Go
+  run()
 }
-
-// Update a User in the db
-const updateUser = async (member) => {
-  const handle = member.writerAuthorId
-  const articles = await getArticles(handle)
-  await db.members.update({ _id: member._id }, { $set: { articleHistory: articles } })
-}
-
-// Runs a lookup against against all members
-const run = async () => {
-  const allMembers = await db.members.find().toArray()
-  const writers = allMembers.filter(m => m.writerAuthorId)
-
-  // Ensure all db work is done before we kill the db
-  await Promise.all(writers.map(updateUser))
-  db.close()
-}
-
-process.on('unhandledRejection', function (reason, p) {
-  console.log('A promise raised an error')
-  console.error(reason)
-  process.exit()
-})
-
-// Go
-run()
