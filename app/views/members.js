@@ -63,7 +63,7 @@ const timezone = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => member.timeZoneLabel)
   )
-  const nowGMT = moment().tz('UTC') // aww, not for long... :(
+  const nowGMT = moment().tz('UTC')
   const sortedPairs = pairs.map(([timez, members]) => [
     `${timez} - ${nowGMT.clone().add(members[0].timeZoneOffset, 'seconds').format('h:mm a')}`,
     sortBy(members, m => m.name)
