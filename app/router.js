@@ -10,6 +10,7 @@ import {
   showTeamTree,
   showMemberTree,
   showTeamTimezones,
+  showAllTeamTimezones,
   byLocation
 } from './controllers'
 import Head from './views/head'
@@ -34,6 +35,7 @@ router.use(render({
 
 router.get('/', index)
 router.get('/who-is-new', indexByAge)
+router.get('/team-timezones', showAllTeamTimezones)
 router.get('/location/:location', byLocation)
 router.get('/member/:handle', show)
 router.get('/member/:handle/reportees', showMemberTree)

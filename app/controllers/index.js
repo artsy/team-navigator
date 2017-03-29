@@ -220,3 +220,10 @@ export const showTeamTimezones = async (ctx) => {
   state.set('title', `Timezones of ${prettyTeam}`)
   ctx.render({ body: Index })
 }
+
+export const showAllTeamTimezones = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+
+  state.set('format', 'timezones')
+  ctx.render({ body: Index })
+}
