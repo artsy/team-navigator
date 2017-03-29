@@ -14,7 +14,6 @@ export default async (db) => {
     const today = now.dayOfYear()
 
     const allMembers = await db.members.find().toArray()
-    db.close()
 
     allMembers.forEach(async member => {
       const startDate = moment(member.startDate)

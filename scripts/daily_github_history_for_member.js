@@ -38,7 +38,6 @@ export default async (db) => {
 
     // Ensure all db work is done before we kill the db
     await Promise.all(githubbers.map(updateUser))
-    db.close()
   }
 
   process.on('unhandledRejection', function (reason, p) {
