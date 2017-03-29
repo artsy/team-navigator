@@ -6,6 +6,7 @@ import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './li
 
 import { groupBy, first, map, toPairs, sortBy, assign, orderBy } from 'lodash'
 import moment from 'moment'
+import 'moment-timezone'
 
 const view = veact()
 
@@ -62,8 +63,9 @@ const timezone = (members) => {
   const pairs = toPairs(
     groupBy(members, (member) => member.timeZoneLabel)
   )
+  const nowGMT = moment().tz('UTC') // aww, not for long... :(
   const sortedPairs = pairs.map(([timez, members]) => [
-    `${timez} - ${moment().subtract(members[0].timeZoneOffset, 'seconds').format('h:mm a')}`,
+    `${timez} - ${nowGMT.clone().add(members[0].timeZoneOffset, 'seconds').format('h:mm a')}`,
     sortBy(members, m => m.name)
   ])
   return sortBy(sortedPairs, ([_, members]) => members[0].timeZoneOffset)

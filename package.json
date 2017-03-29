@@ -59,6 +59,7 @@
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.4.0",
     "moment": "^2.17.1",
+    "moment-timezone": "^0.5.11",
     "passport-oauth2": "^1.4.0",
     "promised-mongo": "git://github.com/tjyrkinen/promised-mongo.git#dist",
     "react": "^15.3.1",
