@@ -86,3 +86,5 @@ We have some daily scripts that happen automatically:
 ### Maintainer notes
 
 * To get an individual's `writerAuthorId` load the [Artsy Editorial](https://writer.artsy.net/settings/channels/5759e3efb5989e6f98f77993/edit) channel in writer then inspect the elements for their IDs.
+
+* To change profile fields, go to your [team profile settings](https://artsy.slack.com/customize/profile) - this will support the big social networks (that are the defaults in Slack), I'd love to make this a bit more generic. 
