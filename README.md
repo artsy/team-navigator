@@ -74,7 +74,7 @@ To run the full test suite and linter use `yarn test`.
 
 ### Scripts
 
-We have some daily scripts:
+We have some daily scripts that happen automatically:
 
 * `scripts/daily_notifications.js` sends a slack DM to a manager that their reportee's workaversary is next week.
 
