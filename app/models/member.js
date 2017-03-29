@@ -38,7 +38,17 @@ export const member = model('member', {
   })),
   timeZone: string(),
   timeZoneOffset: number(),
-  timeZoneLabel: string()
+  timeZoneLabel: string(),
+  slackProfile: object({
+    facebook: string(),
+    facebook_url: string(),
+    instagram: string(),
+    instagram_url: string(),
+    twitter: string(),
+    twitter_url: string(),
+    website: string(),
+    website_url: string()
+  })
 })
 
 export const teams = query('teams', array().items(string()),

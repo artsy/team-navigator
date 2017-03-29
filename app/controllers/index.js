@@ -80,6 +80,16 @@ export const initData = async (ctx) => {
         timeZone
         timeZoneOffset
         timeZoneLabel
+        slackProfile {
+          facebook
+          facebook_url
+          instagram
+          instagram_url
+          twitter
+          twitter_url
+          website
+          website_url
+        }
       }
     }`)
   )

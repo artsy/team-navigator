@@ -821,11 +821,11 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@2.9.6, bluebird@^2.9.3:
+bluebird@2.9.6:
   version "2.9.6"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.9.6.tgz#1fc3a6b1685267dc121b5ec89b32ce069d81ab7d"
 
-bluebird@^2.9.27:
+bluebird@^2.9.27, bluebird@^2.9.3:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
 
@@ -3927,9 +3927,9 @@ sinon@^1.17.6:
     samsam "1.1.2"
     util ">=0.10.3 <1"
 
-slack-api@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/slack-api/-/slack-api-0.1.12.tgz#6681b92edc039c449c72bca64ee31437dd0cc6d9"
+slack-api@orta/slack-api#team_profile:
+  version "0.1.11"
+  resolved "https://codeload.github.com/orta/slack-api/tar.gz/866911a20e1b6eb0d26874e6a92e6a6553f2096c"
   dependencies:
     bluebird "^2.9.3"
     error-factory "^0.1.4"

@@ -13,7 +13,8 @@ describe('Member', () => {
       ],
       member: fixture('member', {
         name: 'Orta',
-        reportsTo: 'Zeus'
+        reportsTo: 'Zeus',
+        slackProfile: {}
       })
     })
     Member.__set__('state', state)

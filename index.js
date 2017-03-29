@@ -40,20 +40,29 @@ app.keys = SESSION_KEYS.split(',')
 app.listen(PORT)
 console.log('Listening on ' + PORT)
 
+// Every 5 minute tasks
+import updateSlackPresence from './scripts/update_slack_presence'
+
 // Daily tasks
-import updatePresence from './scripts/update_presence'
+import updateUsersFromSlack from './scripts/update_users_from_slack'
 import staffNotifications from './scripts/daily_staff_notifications'
 import getArticles from './scripts/daily_articles_for_member'
 import githubRepos from './scripts/daily_github_history_for_member'
 
-const runDaily = (fn) => {
+const runOften = (fn, time) => {
   fn(db)
-  setInterval(() => { updatePresence(db) }, 5 * 60 * 1000)
+  setInterval(() => { fn(db) }, time)
 }
+
+const runDaily = (fn) => runOften(fn, 5 * 60 * 1000)
+const runEveryFiveMin = (fn) => runOften(fn, 5 * 60 * 1000)
 
 if (SLACK_AUTH_TOKEN) {
   console.log('Starting Slack presence updater.')
-  runDaily(updatePresence)
+  runEveryFiveMin(updateSlackPresence)
+
+  console.log('Starting Slack profile updater.')
+  runDaily(updateUsersFromSlack)
 
   // Scoped behind prod because devs shouldn't be triggering this
   if (NODE_ENV === 'production') {

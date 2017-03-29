@@ -56,6 +56,13 @@ view.styles({
     marginTop: 4,
     color: '#777'
   },
+  list: {
+    color: '#777',
+    margin: '8px 0'
+  },
+  grey: {
+    color: '#777'
+  },
   nav: {
     marginTop: 20,
     marginBottom: 20
@@ -88,6 +95,11 @@ view.styles({
     verticalAlign: 'top',
     marginLeft: 10
   },
+  section: {
+    paddingTop: '20px',
+    paddingBottom: '20px',
+    borderBottom: `1px solid ${grayRegular}`
+  },
   role: {
     marginTop: 20,
     lineHeight: 1.4,
@@ -99,9 +111,7 @@ view.styles({
   },
   feedback: {
     textDecoration: 'underline',
-    borderBottom: `1px solid ${grayRegular}`,
     display: 'block',
-    padding: '20px 0',
     color: purpleRegular
   },
   reporting: {
@@ -122,6 +132,7 @@ view.render(() => {
   const mailTo = `mailto:${member.email}artsymail.com`
   const github = `https://github.com/${member.githubHandle}`
   const reportsTo = member.reportsTo && find(state.get('allMembers'), { 'name': member.reportsTo })
+  const profile = member.slackProfile
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -141,11 +152,22 @@ view.render(() => {
         ]),
       ),
       p('.role', member.roleText),
-      div('.nav', [
-        member.startDate ? p('.location', `Joined: ${moment(member.startDate).fromNow()}`) : '',
-        member.timeZone ? p('.location', `Time Zone: ${member.timeZone}`) : ''
+      // Artsy Related
+      div('.section', [
+        member.startDate ? p('.list', `Joined: ${moment(member.startDate).fromNow()}`) : '',
+        member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : ''
       ]),
-      member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : '',
+      // Social Related
+       profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url
+         ? div('.section', [
+           profile.facebook_url ? p('.list', a('.grey', {href: profile.facebook_url}, `Facebook: ${profile.facebook}`)) : '',
+           profile.twitter ? p('.list', a('.grey', {href: profile.twitter_url}, `Twitter: @${profile.twitter}`)) : '',
+           profile.instagram ? p('.list', a('.grey', {href: profile.instagram_url}, `Instagram: @${profile.instagram}`)) : '',
+           profile.website ? p('.list', a('.grey', {href: profile.website_url}, `Site: ${profile.website}`)) : ''
+         ]) : '',
+      div('.section', [
+        member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : ''
+      ]),
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
       member.productTeamID ? a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam) : '',
