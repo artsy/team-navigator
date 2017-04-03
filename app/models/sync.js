@@ -8,14 +8,13 @@ const Slack = require('slack-api').promisify()
 
 const { SHEETS_URL, SLACK_AUTH_TOKEN } = process.env
 
-const converter = new Converter()
 const convert = (data) =>
-new Promise((resolve, reject) => {
-  converter.fromString(data, (err, json) => {
-    if (err) reject(err)
-    else resolve(json)
+  new Promise((resolve, reject) => {
+    new Converter().fromString(data, (err, json) => {
+      if (err) reject(err)
+      else resolve(json)
+    })
   })
-})
 
 const updateTeamRanks = (members) => {
   members.forEach(m => {
