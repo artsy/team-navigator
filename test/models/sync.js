@@ -34,17 +34,6 @@ describe('Sync', () => {
         text: 'name,title,email,reports_to\nOrta,Badass,orta@,db'
       }))
       await resolve()
-      db.members.save.firstCall.args.should.eql([{
-        name: 'Orta',
-        title: 'Badass',
-        email: 'orta@',
-        reportsTo: 'db',
-        handle: 'orta',
-        teamID: undefined,
-        subteamID: undefined,
-        productTeamID: undefined,
-        teamRank: 0
-      }])
     }
     await sync()
     await sync()
