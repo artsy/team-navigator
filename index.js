@@ -54,7 +54,7 @@ const runOften = (fn, time) => {
   setInterval(() => { fn(db) }, time)
 }
 
-const runDaily = (fn) => runOften(fn, 5 * 60 * 1000)
+const runDaily = (fn) => runOften(fn, 24 * 60 * 60 * 1000)
 const runEveryFiveMin = (fn) => runOften(fn, 5 * 60 * 1000)
 
 if (SLACK_AUTH_TOKEN) {
