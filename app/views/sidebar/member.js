@@ -158,7 +158,7 @@ view.render(() => {
         member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : ''
       ]),
       // Social Related
-       profile && profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url
+      profile && (profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url)
          ? div('.section', [
            profile.facebook_url ? p('.list', a('.grey', {href: profile.facebook_url}, `Facebook: ${profile.facebook}`)) : '',
            profile.twitter ? p('.list', a('.grey', {href: profile.twitter_url}, `Twitter: @${profile.twitter}`)) : '',
