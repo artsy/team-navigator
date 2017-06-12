@@ -13,7 +13,7 @@ export const resizeImg = async (ctx, next) => {
     ctx.body = readFileSync(localPath)
   } else {
     const writableStream = createWriteStream(localPath)
-    const resizer = sharp().resize(100)
+    const resizer = sharp().rotate().resize(100)
 
     // Allow passing directly to the response, but also write to a tmp file
     ctx.body = request.get(url).pipe(resizer).on('data', (data) => {
