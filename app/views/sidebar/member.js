@@ -154,8 +154,9 @@ view.render(() => {
       p('.role', member.roleText),
       // Artsy Related
       div('.section', [
+        member.introEmail ? p('.list', a('.grey', {href: member.introEmail}, 'Intro Email')) : '',
         member.startDate ? p('.list', `Joined: ${moment(member.startDate).fromNow()}`) : '',
-        member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : ''
+        member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : '',
       ]),
       // Social Related
       profile && (profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url)

@@ -52,6 +52,7 @@ export const initData = async (ctx) => {
         name
         namePronounciation
         email
+        introEmail
         title
         floor
         city
