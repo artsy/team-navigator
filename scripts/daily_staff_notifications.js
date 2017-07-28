@@ -26,6 +26,15 @@ export default async (db) => {
             await bot.postMessageToUser(manager.slackHandle, `It is ${member.name}'s workaversary: https://team.artsy.net/member/${member.handle} in a week :tada: - they joined on ${member.startDate}`)
           }
         }
+
+        const inADay = startDate.subtract(1, 'd').dayOfYear()
+        if (today === inADay) {
+          const manager = find(allMembers, (m) => m.name === member.reportsTo)
+          if (manager) {
+            console.log(`Sending ${manager.name} a message about ${member.name} starting on ${member.startDate}`)
+            await bot.postMessageToUser(manager.slackHandle, `It is ${member.name}'s workaversary: https://team.artsy.net/member/${member.handle} tomorrow :tada: - they joined on ${member.startDate}`)
+          }
+        }
       }
     })
 
