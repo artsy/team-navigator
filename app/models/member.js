@@ -48,7 +48,14 @@ export const member = model('member', {
     twitter_url: string(),
     website: string(),
     website_url: string()
-  })
+  }),
+  seat: object({
+    id: string(),
+    url: string(),
+    name: string(),
+    x: number(),
+    y: number()  
+  }),
 })
 
 export const teams = query('teams', array().items(string()),
