@@ -65,6 +65,9 @@ const didYouKnows = [
   { title: "Slack Profiles", message: "Team Nav gets a lot of it's data from Artsy's slack. So if you fill in your slack profile then that data will show up in Team Nav. For example your Twitter or Instagram handle will show up." },
   { title: "Someone is online?", message: "You can see a green dot on someone's profile if they're online." },
   { title: "Team Timezones", message: "Team Nav gets a lot of it's data from Artsy's slack. We get everyone's timezones from Slack too, which is pretty unreliable, but it's better than nothing. On any team you can see a link in the top right for their timezones." },
+  { title: "Who is new", message: "Wondering how long someone has been at the company? Check out the who is new page in the links to the side." },
+  { title: "Show me more", message: "Some users like developers or Artsy editorial have extra information in their profiles too." },
+  
 ]
 
 const knowView = (dyk) => div('', div('.h2', dyk.title), p('.p', dyk.message))
