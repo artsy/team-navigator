@@ -51,6 +51,7 @@ export const initData = async (ctx) => {
         handle
         name
         namePronounciation
+        nameAudioUrl
         email
         introEmail
         title
