@@ -1,6 +1,6 @@
 import veact from 'veact'
 import { state } from '../controllers'
-import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular } from './lib'
+import { type, smallMargin, sidebarWidth, mediumMargin, grayRegular, purpleRegular } from './lib'
 
 import Sidebar from './sidebar'
 import TopNav from './topnav'
@@ -21,7 +21,6 @@ view.render(() =>
 )
 
 export default view()
-
 
 import { groupBy, first, map, toPairs, sortBy, assign, orderBy } from 'lodash'
 
@@ -47,21 +46,41 @@ view.styles({
   "map-container": {
     position: "relative"
   },
+  location: {
+    position: "absolute",
+  },
+  "location-metadata": {
+    marginLeft: "-50%",
+    marginTop: "-10px",
+    float: "left",
+    textAlign: "center"
+  },
+  person: {
+    fontWeight: "bold",
+    marginBottom: "4px;"
+  },
 })
 
-const divisor = 4
 
 const title = () => 
   h2('.h1', state.get('title'))
 
-const floorItem = (seat) => 
-  div('.location', { style: {top: seat.y / divisor, left: seat.x / divisor, position: "absolute"}}, seat.occupier_name)
+const floorItem = (seat, highlight) => 
+  div('.location', { style: {top: seat.y, left: seat.x}}, 
+    a({href: `/seating/${seat.floor_id}/${seat.occupier_handle}`},
+      div('.location-metadata', 
+        div('.person', highlight ? { style: { color: purpleRegular }}: {}, seat.occupier_name,),
+        div('.seat', seat.id),
+      )
+    )
+  )
 
 const floorMap = () => {
+  const highlightMember = state.get('member')  
   return div('.map-container',
-    img('.map', { src: state.get("background") })
-    , ...state.get("seatings").map(floorItem)
+    img('.map', { src: state.get("background") }), 
+    ...state.get("seatings").map(s => floorItem(s, highlightMember && highlightMember.handle === s.occupier_handle))
   )
 }
 
-const seating = () =>  div('.container', title(), floorMap())
+const seating = () => div('.container', title(), floorMap())

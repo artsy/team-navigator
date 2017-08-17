@@ -58,7 +58,7 @@ view.styles({
 
 const userForName = name => find(state.get('allMembers'), { 'name': name })
 
-const showMember = (member, depth) => {
+export const showMember = (member, depth) => {
   const src = url.parse(member.headshot).pathname
   const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
   const style = { marginLeft: depth * 60, width: `calc(100% - ${depth * 60}px)` }

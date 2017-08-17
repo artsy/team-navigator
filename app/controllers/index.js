@@ -3,6 +3,7 @@ import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
 import Seating from '../views/seating'
+import {memberAppGraphQLValues} from "../models/member"
 
 import {
   filter,
@@ -28,6 +29,7 @@ export const state = tree({
   cities: [],
   members: [],
   allMembers: [],
+  floors: [],
   curFilter: '',
   member: null
 })
@@ -38,6 +40,7 @@ export const initData = async (ctx) => {
     highlightTeams,
     standoutSubTeams,
     cities,
+    floors,
     members
   } = await ctx.bootstrap(() =>
     api.query(`{
@@ -46,67 +49,18 @@ export const initData = async (ctx) => {
         name
         teams
       }
+      floors
       standoutSubTeams
       cities
       members {
-        _id
-        handle
-        name
-        namePronounciation
-        email
-        introEmail
-        title
-        floor
-        city
-        headshot
-        team
-        teamID
-        subteam
-        subteamID
-        productTeam
-        productTeamID
-        reportsTo
-        roleText
-        teamRank
-        startDate
-        slackHandle
-        slackID
-        slackPresence
-        githubHandle
-        githubHistory
-        feedbackFormUrl
-        writerAuthorId
-        articleHistory {
-          href
-          name
-        }
-        timeZone
-        timeZoneOffset
-        timeZoneLabel
-        slackProfile {
-          facebook
-          facebook_url
-          instagram
-          instagram_url
-          twitter
-          twitter_url
-          website
-          website_url
-        }
-        seat {
-          id
-          x
-          y
-          name
-          url
-          floor_id
-        }
+        ${memberAppGraphQLValues}
       }
     }`)
   )
   state.set({
     teams,
     cities,
+    floors,
     members,
     standoutSubTeams,
     highlightTeams,
@@ -239,35 +193,52 @@ export const showAllTeamTimezones = async (ctx) => {
   ctx.render({ body: Index })
 }
 
-export const showSeatings = async (ctx) => {
+const setupSeating = async (ctx) => {
   const {
     seatings,
+    members,
   } = await ctx.bootstrap(() =>
-    api.query(`
-    {
-      seatings(floor_id: "${ctx.params.floor_id}") {
-        id
-        x
-        y
-        name
-        url
-        floor_id
-        occupier_name
-        occupier_handle
-      }
-    }`)
+  api.query(`
+  {
+    seatings(floor_id: "${ctx.params.floor_id}") {
+      id
+      x
+      y
+      name
+      url
+      floor_id
+      occupier_name
+      occupier_handle
+    }
+    members(floor_id:"${ctx.params.floor_id}") {
+      ${memberAppGraphQLValues}
+    }
+  }`)
   )
-  
+
   if (seatings.length === 0) { return }
 
+  const member = ctx.params.user_handle && members.find(m => m.handle === ctx.params.user_handle)
   const seat = seatings[0]
   state.set({
     seatings,
+    members,
+    member,
     suppressSearch: true,
-    suppressSidebar: true,
+    showMembersSidebar: true,
     title: seat && seat.name,
     background: seat && seat.url
   })
+}
 
+export const showSeatings = async (ctx) => {
+ await setupSeating(ctx)
+   
   ctx.render({ body: Seating })  
+}
+
+export const showMemberSeatings = async (ctx) => {
+  await setupSeating(ctx)
+  
+ ctx.render({ body: Seating })  
 }

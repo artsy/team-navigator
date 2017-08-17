@@ -1,5 +1,6 @@
 import veact from 'veact'
 import Member from './member'
+import Members from './members'
 import Search from './search'
 import LocationsTeams from './locations-teams'
 import { state } from '../../controllers'
@@ -8,9 +9,10 @@ import { assign } from 'lodash'
 
 const view = veact()
 
-const { div, locationsteams, member, search, a } = view.els({
+const { div, locationsteams, member, members, search, a } = view.els({
   locationsteams: LocationsTeams,
   member: Member,
+  members: Members,
   search: Search
 })
 
@@ -47,7 +49,8 @@ view.render(() =>
     state.get('suppressSearch') ? '' : search(),
     (() => {
       if (state.get('member')) return member()
-      else if(!state.get('suppressSidebar')) return locationsteams()
+      else if(state.get('showMembersSidebar')) return members()
+      else return locationsteams()
     })())
 )
 

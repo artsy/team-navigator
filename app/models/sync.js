@@ -63,6 +63,7 @@ const updateTeamMembers =  async () => {
         occupier_name: member.name, 
         occupier_handle: member.handle 
       } })
+      member.floor_id = member.seat.floor_id
     }
 
     return member
