@@ -57,26 +57,26 @@ const runOften = (fn, time) => {
 const runDaily = (fn) => runOften(fn, 24 * 60 * 60 * 1000)
 const runEveryFiveMin = (fn) => runOften(fn, 5 * 60 * 1000)
 
-if (SLACK_AUTH_TOKEN) {
-  console.log('Starting Slack presence updater.')
-  runEveryFiveMin(updateSlackPresence)
+// if (SLACK_AUTH_TOKEN) {
+//   console.log('Starting Slack presence updater.')
+//   runEveryFiveMin(updateSlackPresence)
 
-  console.log('Starting Slack profile updater.')
-  runDaily(updateUsersFromSlack)
+//   console.log('Starting Slack profile updater.')
+//   runDaily(updateUsersFromSlack)
 
-  // Scoped behind prod because devs shouldn't be triggering this
-  if (NODE_ENV === 'production') {
-    console.log('Starting manager daily updates.')
-    runDaily(staffNotifications)
-  }
-}
+//   // Scoped behind prod because devs shouldn't be triggering this
+//   if (NODE_ENV === 'production') {
+//     console.log('Starting manager daily updates.')
+//     runDaily(staffNotifications)
+//   }
+// }
 
-if (GRAVITY_API_URL) {
-  console.log('Starting Article repo updates.')
-  runDaily(getArticles)
-}
+// if (GRAVITY_API_URL) {
+//   console.log('Starting Article repo updates.')
+//   runDaily(getArticles)
+// }
 
-if (GITHUB_ORG && GITHUB_ORG_LOOKUP_KEY) {
-  console.log('Starting GitHub repo updates.')
-  runDaily(githubRepos)
-}
+// if (GITHUB_ORG && GITHUB_ORG_LOOKUP_KEY) {
+//   console.log('Starting GitHub repo updates.')
+//   runDaily(githubRepos)
+// }
