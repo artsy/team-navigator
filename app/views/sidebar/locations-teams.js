@@ -24,6 +24,9 @@ view.styles({
 const extraLinks = [{
   name: 'Who is New?',
   href: '/who-is-new'
+}, {
+  name: 'Did you know?',
+  href: '/did-you-know'
 }]
 
 view.render(() => {

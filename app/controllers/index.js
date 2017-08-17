@@ -3,6 +3,7 @@ import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
 import Seating from '../views/seating'
+import DidYouKnow from '../views/did-you-know'
 import {memberAppGraphQLValues} from "../models/member"
 
 import {
@@ -79,6 +80,12 @@ export const indexByAge = async (ctx) => {
   state.set('format', 'seniority')
   ctx.render({ body: Index })
 }
+
+export const didYouKnow = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+  ctx.render({ body: DidYouKnow })
+}
+
 
 export const show = async (ctx) => {
   if (!state.get('allMembers').length) await initData(ctx)

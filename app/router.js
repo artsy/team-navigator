@@ -13,7 +13,8 @@ import {
   showAllTeamTimezones,
   byLocation,
   showSeatings,
-  showMemberSeatings
+  showMemberSeatings,
+  didYouKnow
 } from './controllers'
 import Head from './views/head'
 
@@ -37,6 +38,7 @@ router.use(render({
 
 router.get('/', index)
 router.get('/who-is-new', indexByAge)
+router.get('/did-you-know', didYouKnow)
 router.get('/team-timezones', showAllTeamTimezones)
 router.get('/location/:location', byLocation)
 router.get('/member/:handle', show)
