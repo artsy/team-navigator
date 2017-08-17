@@ -60,7 +60,7 @@ const updateTeamMembers =  async () => {
     member.seat = find(seats, s => s.id === member.seat)
     if (member.seat) {
        db.seatings.update({ _id: member.seat._id }, { $set: { 
-        occupier_name: member.name, 
+        occupier_name: member.handle,
         occupier_handle: member.handle 
       } })
       member.floor_id = member.seat.floor_id
