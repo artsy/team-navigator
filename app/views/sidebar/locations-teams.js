@@ -24,11 +24,15 @@ view.styles({
 const extraLinks = [{
   name: 'Who is New?',
   href: '/who-is-new'
+}, {
+  name: 'Did you know?',
+  href: '/did-you-know'
 }]
 
 view.render(() => {
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
+  const floors = state.get('floors')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
 
   return div(
@@ -61,6 +65,16 @@ view.render(() => {
           }
         }, team)
       ))),
+
+      h2('.h2', 'Floor Plans'),
+      ul('.ul', floors.map(floor =>
+        a({ href: `/seating/${teamNameToID(floor)}` },
+          li('.li', {
+            style: {
+              color: floor === teamNameToID(state.get('team')) ? purpleRegular : ''
+            }
+          }, floor)
+        ))),
 
     h2('.h2', 'Links'),
     ul('.ul', extraLinks.map(link =>

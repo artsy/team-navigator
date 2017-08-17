@@ -133,8 +133,8 @@ view.render(() => {
   const member = state.get('member')
   const src = url.parse(member.headshot).pathname
   const noDLhref = member.headshot.replace('?dl=1', '')
-  const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
-  const reportees = state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
+  const floorOrNothing = member.floor_id ? `, ${member.floor_id}` : ''
+  const reportees = state.get('allMembers') && state.get('allMembers').filter(reportee => reportee.reportsTo === member.name)
   const slackClickLink = `slack://user?team=${SLACK_TEAM_ID}&id=${member.slackID}`
   const calendarLink = `https://calendar.google.com/calendar/embed?src=${member.email}artsymail.com&ctz=America/New_York`
   const mailTo = `mailto:${member.email}artsymail.com`
@@ -190,7 +190,7 @@ view.render(() => {
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
       member.productTeamID ? a('.wrapper', { href: `/team/${member.productTeamID}`, style: { display: 'block' } }, member.productTeam) : '',
-      div(reportees.length
+      div(reportees && reportees.length
         ? div(
             h3('.h3', 'Reportees'),
               reportees.map(reportee =>
@@ -204,6 +204,12 @@ view.render(() => {
             h3('.h3', 'Reports to'),
             a('.wrapper', { href: `/member/${reportsTo.handle}` }, state.get('member').reportsTo)
           )
+        : ''
+      ),
+      div(member.seat 
+        ? div('.section', [
+          member.seat ? p('.list', a('.grey', {href: `/seating/${member.seat.floor_id}/${member.handle}` }, member.seat.name)) : '',
+        ])
         : ''
       ),
       div(member.githubHandle && member.githubHistory

@@ -17,7 +17,8 @@ export const member = model('member', {
   email: string(),
   city: string(),
   country: string(),
-  floor: string(),
+  floor: string(), 
+  floor_id: string(),  
   phone: string(),
   birthday: string(),
   startDate: string(),
@@ -49,7 +50,17 @@ export const member = model('member', {
     twitter_url: string(),
     website: string(),
     website_url: string()
-  })
+  }),
+  // TODO, this is wrong, there should be a way to to the existing model somehow
+  seat: object({
+    id: string(),
+    url: string(),
+    name: string(),
+    x: number(),
+    y: number(),
+    floor_id: string(),
+    status: string()
+  }),
 })
 
 export const teams = query('teams', array().items(string()),
@@ -91,3 +102,59 @@ export const standoutSubTeams = query('standoutSubTeams', array().items(string()
     await next()
   }
 )
+
+export const memberAppGraphQLValues = `
+_id
+handle
+name
+namePronounciation
+nameAudioUrl
+email
+introEmail
+title
+floor
+city
+headshot
+team
+teamID
+subteam
+subteamID
+productTeam
+productTeamID
+reportsTo
+roleText
+teamRank
+startDate
+slackHandle
+slackID
+slackPresence
+githubHandle
+githubHistory
+feedbackFormUrl
+writerAuthorId
+articleHistory {
+  href
+  name
+}
+timeZone
+timeZoneOffset
+timeZoneLabel
+slackProfile {
+  facebook
+  facebook_url
+  instagram
+  instagram_url
+  twitter
+  twitter_url
+  website
+  website_url
+}
+seat {
+  id
+  x
+  y
+  name
+  url
+  floor_id
+}
+`

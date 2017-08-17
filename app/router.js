@@ -11,7 +11,10 @@ import {
   showMemberTree,
   showTeamTimezones,
   showAllTeamTimezones,
-  byLocation
+  byLocation,
+  showSeatings,
+  showMemberSeatings,
+  didYouKnow
 } from './controllers'
 import Head from './views/head'
 
@@ -35,6 +38,7 @@ router.use(render({
 
 router.get('/', index)
 router.get('/who-is-new', indexByAge)
+router.get('/did-you-know', didYouKnow)
 router.get('/team-timezones', showAllTeamTimezones)
 router.get('/location/:location', byLocation)
 router.get('/member/:handle', show)
@@ -42,5 +46,8 @@ router.get('/member/:handle/reportees', showMemberTree)
 router.get('/team/:team', showTeam)
 router.get('/team/:team/tree', showTeamTree)
 router.get('/team/:team/timezones', showTeamTimezones)
+router.get('/seating/:floor_id', showSeatings)
+router.get('/seating/:floor_id/:user_handle', showMemberSeatings)
+
 router.get('/favicon.ico', (ctx) => ctx.redirect('http://artsy.net/favicon.ico'))
 export default router
