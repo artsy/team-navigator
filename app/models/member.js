@@ -49,12 +49,15 @@ export const member = model('member', {
     website: string(),
     website_url: string()
   }),
+  // TODO, this is wrong, there should be a way to to the existing model somehow
   seat: object({
     id: string(),
     url: string(),
     name: string(),
     x: number(),
-    y: number()  
+    y: number(),
+    floor_id: string(),
+    status: string()
   }),
 })
 

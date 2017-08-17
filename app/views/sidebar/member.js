@@ -188,6 +188,12 @@ view.render(() => {
           )
         : ''
       ),
+      div(member.seat 
+        ? div(member.seat, '.section', [
+          member.seat ? p('.list', a('.grey', {href: `/seating/${member.seat.floor_id}` }, member.seat.name)) : '',
+        ])
+        : ''
+      ),
       div(member.githubHandle && member.githubHistory
         ? div(
             h3('.h3', 'Recent GitHub Repos'),

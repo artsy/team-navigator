@@ -11,7 +11,8 @@ import {
   showMemberTree,
   showTeamTimezones,
   showAllTeamTimezones,
-  byLocation
+  byLocation,
+  showSeatings
 } from './controllers'
 import Head from './views/head'
 
@@ -42,5 +43,6 @@ router.get('/member/:handle/reportees', showMemberTree)
 router.get('/team/:team', showTeam)
 router.get('/team/:team/tree', showTeamTree)
 router.get('/team/:team/timezones', showTeamTimezones)
+router.get('/seating/:floor_id', showSeatings)
 router.get('/favicon.ico', (ctx) => ctx.redirect('http://artsy.net/favicon.ico'))
 export default router

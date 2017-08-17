@@ -43,7 +43,7 @@ const updateTeamMembers =  async () => {
 
   const members = parsed
   .map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
-  .map((member) => {
+  .map((member) =>  {
     // Use email prefix as a global handle for pretty URLs
     member.handle = member.email.replace('@', '')
 
@@ -56,7 +56,14 @@ const updateTeamMembers =  async () => {
     const slackMember = find(slackMembers, m => m.profile && m.profile.email && m.profile.email.startsWith(member.email))
     if (slackMember) { member.slackID = slackMember.id } else { console.error(`Could not find Slack ID for ${member.name}`) }
 
+    // Find a seat and update it if we need to
     member.seat = find(seats, s => s.id === member.seat)
+    if (member.seat) {
+       db.seatings.update({ _id: member.seat._id }, { $set: { 
+        occupier_name: member.name, 
+        occupier_handle: member.handle 
+      } })
+    }
 
     return member
   })
@@ -71,14 +78,15 @@ const updateTeamSeating = async () => {
   
   const res = await request.get(SEATING_URL)
   const parsed = await convert(res.text)
-  console.log(parsed)
+
   const seats = parsed.map(f => ({
     id: f.seat_id,
     url: f.floor_plan_url,
     name: f.floor_name,
-    floor_id: teamNameToID(f.floor_name),
+    floor_id: f.floor_name && teamNameToID(f.floor_name),
     x: f.x,
-    y: f.y
+    y: f.y,
+    status: f.status
   }))
 
   await Promise.all(seats.map((seat) => db.seatings.save(seat)))  

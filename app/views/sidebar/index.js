@@ -44,10 +44,10 @@ view.render(() =>
       a('.homeButton', { href: '/' }, 'Team Navigator'),
       a('.atlas', { href: 'http://atlas.artsy.net' }, 'Atlas')
     ),
-    search(),
+    state.get('suppressSearch') ? '' : search(),
     (() => {
       if (state.get('member')) return member()
-      else return locationsteams()
+      else if(!state.get('suppressSidebar')) return locationsteams()
     })())
 )
 

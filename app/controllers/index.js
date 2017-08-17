@@ -2,6 +2,8 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
+import Seating from '../views/seating'
+
 import {
   filter,
   find,
@@ -90,6 +92,14 @@ export const initData = async (ctx) => {
           twitter_url
           website
           website_url
+        }
+        seat {
+          id
+          x
+          y
+          name
+          url
+          floor_id
         }
       }
     }`)
@@ -227,4 +237,37 @@ export const showAllTeamTimezones = async (ctx) => {
 
   state.set('format', 'timezones')
   ctx.render({ body: Index })
+}
+
+export const showSeatings = async (ctx) => {
+  const {
+    seatings,
+  } = await ctx.bootstrap(() =>
+    api.query(`
+    {
+      seatings(floor_id: "${ctx.params.floor_id}") {
+        id
+        x
+        y
+        name
+        url
+        floor_id
+        occupier_name
+        occupier_handle
+      }
+    }`)
+  )
+  
+  if (seatings.length === 0) { return }
+
+  const seat = seatings[0]
+  state.set({
+    seatings,
+    suppressSearch: true,
+    suppressSidebar: true,
+    title: seat && seat.name,
+    background: seat && seat.url
+  })
+
+  ctx.render({ body: Seating })  
 }

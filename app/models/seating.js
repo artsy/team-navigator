@@ -5,5 +5,9 @@ export const seating = model('seating', {
   url: string(),
   name: string(),
   x: number(),
-  y: number()
+  y: number(),
+  floor_id: string(),
+  status: string(),
+  occupier_name: string(),
+  occupier_handle: string()
 })
