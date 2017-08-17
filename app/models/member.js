@@ -3,6 +3,7 @@ import { model, array, string, boolean, number, query, db, object } from 'joiql-
 export const member = model('member', {
   name: string(),
   namePronounciation: string(),
+  nameAudioUrl: string(),
   handle: string(),
   title: string(),
   team: string(),
@@ -107,6 +108,7 @@ _id
 handle
 name
 namePronounciation
+nameAudioUrl
 email
 introEmail
 title

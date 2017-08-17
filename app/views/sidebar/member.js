@@ -13,13 +13,14 @@ const calendar = readFileSync(path.join(__dirname, 'calendar.svg'))
 const chat = readFileSync(path.join(__dirname, 'chat.svg'))
 const activeChat = readFileSync(path.join(__dirname, 'active-chat.svg'))
 const githubCat = readFileSync(path.join(__dirname, 'github-cat.svg'))
+const audioIcon = readFileSync(path.join(__dirname, 'audio.svg'))
 
 const view = veact()
 const headshotSize = 100
 
 const { SLACK_TEAM_ID } = process.env
 
-const { div, h2, h3, nav, a, p } = view.els()
+const { div, h2, h3, nav, a, p, audio, source } = view.els()
 
 view.styles({
   h2: assign(
@@ -118,6 +119,13 @@ view.styles({
     display: 'block',
     marginTop: 6,
     color: '#777'
+  },
+  audio: {
+    cursor: 'pointer',
+    width: '8px',
+    height: '8px',
+    display: 'inline-block',
+    marginLeft: '8px'
   }
 })
 
@@ -133,6 +141,13 @@ view.render(() => {
   const github = `https://github.com/${member.githubHandle}`
   const reportsTo = member.reportsTo && find(state.get('allMembers'), { 'name': member.reportsTo })
   const profile = member.slackProfile
+  const playAudio = () => {
+    document.getElementById('audio').play()
+  }
+  const nameAudio = member.nameAudioUrl ? div('.audio',
+    div({ dangerouslySetInnerHTML: { __html: audioIcon }, onClick: playAudio }),
+    audio({id: 'audio'}, source({src: member.nameAudioUrl, type: 'audio/mp4'}))
+  ) : false
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
@@ -140,7 +155,10 @@ view.render(() => {
         div('.headshot', { style: { backgroundImage: `url(/img${src})` } }),
       ),
       div('.bio',
-        h2('.h2', member.name),
+        h2('.h2',
+          member.name,
+          nameAudio
+        ),
         member.namePronounciation ? p('.job', `Pronounced: ${member.namePronounciation}`) : '',
         p('.job', member.title),
         p('.location', `${member.city}${floorOrNothing}`),
