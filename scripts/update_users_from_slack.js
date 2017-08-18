@@ -32,6 +32,42 @@ export default async (db) => {
     const twitter = getDetailsForLabel('Twitter', profile.profile.fields) || {}
     const website = getDetailsForLabel('Website', profile.profile.fields) || {}
 
+    const title = getDetailsForLabel('Artsy Title', profile.profile.fields) || { value: ""}
+    const team = getDetailsForLabel('Artsy Team', profile.profile.fields) || { value: ""}
+    const subteam = getDetailsForLabel('Artsy Subteam', profile.profile.fields) || {value: ""}
+    if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam) {
+      console.log(`Updating: ${member.name}`)
+      
+      const titleField = find(profileFields, field => field.label === "Artsy Title").id
+      const teamField = find(profileFields, field => field.label === "Artsy Team").id
+      const subteamField = find(profileFields, field => field.label === "Artsy Subteam").id
+      
+      const fields = []
+      
+      const title = {}
+      title[titleField] = { value: member.title, alt: member.title }
+      fields.push(title)
+
+      if (member.team) {
+        const team = {}
+        team[teamField] = { value: member.team, alt: member.team }
+        fields.push(team)
+      }
+
+      if (member.subteam) {
+        const subteam = {}
+        subteam[subteamField] = { value: member.subteam, alt: member.subteam }
+        fields.push(subteam)
+      }
+
+      const params = { token: SLACK_AUTH_TOKEN, user: member.slackID, profile: { fields } }
+      console.log(params)
+      console.log(fields)
+      await Slack.users['profile.set'](params)
+
+      process.exit()
+    }
+
     await db.members.update({ _id: member._id }, { $set: {
       // Timezone comes in as an offset from UTC
       timeZone: slackMember.tz,
