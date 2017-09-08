@@ -11,6 +11,10 @@
     "dev": "concurrently 'yarn node' 'mongod'",
     "start": "npm run node ."
   },
+  "engines": {
+    "node": "8.1",
+    "yarn": "0.28"
+  },
   "standard": {
     "parser": "babel-eslint"
   },
