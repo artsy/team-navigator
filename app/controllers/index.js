@@ -4,7 +4,7 @@ import tree from 'universal-tree'
 import Index from '../views'
 import Seating from '../views/seating'
 import DidYouKnow from '../views/did-you-know'
-import {memberAppGraphQLValues} from "../models/member"
+import {memberAppGraphQLValues} from "./member_query"
 
 import {
   filter,
