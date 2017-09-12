@@ -1,6 +1,6 @@
 // Updates the user details of everyone inside the MongoDB via Slack's API
 
-import { find } from 'lodash'
+import { find, includes } from 'lodash'
 
 const Slack = require('slack-api').promisify()
 
@@ -31,6 +31,45 @@ export default async (db) => {
     const instagram = getDetailsForLabel('Instagram', profile.profile.fields) || {}
     const twitter = getDetailsForLabel('Twitter', profile.profile.fields) || {}
     const website = getDetailsForLabel('Website', profile.profile.fields) || {}
+
+    const title = getDetailsForLabel('Artsy Title', profile.profile.fields) || { value: "[]"}
+    const team = getDetailsForLabel('Artsy Team', profile.profile.fields) || { value: ""}
+    const subteam = getDetailsForLabel('Artsy Subteam', profile.profile.fields) || {value: ""}
+
+    // https://artsy.slack.com/customize/profile
+    if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam) {
+      console.log(`Updating: ${member.name}`)
+      
+      const titleField = find(profileFields, field => field.label === "Artsy Title").id
+      const teamField = find(profileFields, field => field.label === "Artsy Team").id
+      const subteamField = find(profileFields, field => field.label === "Artsy Subteam").id
+      const teamNavField = find(profileFields, field => field.label === "Team Nav Page").id
+      
+      const fields = {}
+      fields[titleField] = { value: member.title, alt: member.title }
+
+      const url = process.env.APP_URL + "/member/" + member.handle
+      if(!includes(url, "localhost")) {
+        fields[teamNavField] = { value: url, alt: url }
+      }
+
+      if (member.team) {
+        fields[teamField] = { value: member.team, alt: member.team }
+      }
+
+      if (member.subteam) {
+        fields[subteamField] = { value: member.subteam, alt: member.subteam }
+      }
+
+      const profile = JSON.stringify({ fields }, null, '')
+      const params = { token: SLACK_AUTH_TOKEN, user: member.slackID, profile }
+
+      try {
+        await Slack.users['profile.set'](params)
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
     await db.members.update({ _id: member._id }, { $set: {
       // Timezone comes in as an offset from UTC

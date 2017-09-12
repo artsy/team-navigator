@@ -3927,9 +3927,9 @@ sinon@^1.17.6:
     samsam "1.1.2"
     util ">=0.10.3 <1"
 
-slack-api@orta/slack-api#team_profile:
+slack-api@orta/slack-api#f2ee635:
   version "0.1.11"
-  resolved "https://codeload.github.com/orta/slack-api/tar.gz/866911a20e1b6eb0d26874e6a92e6a6553f2096c"
+  resolved "https://codeload.github.com/orta/slack-api/tar.gz/f2ee635"
   dependencies:
     bluebird "^2.9.3"
     error-factory "^0.1.4"
