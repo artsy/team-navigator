@@ -66,15 +66,16 @@ view.render(() => {
         }, team)
       ))),
 
-      h2('.h2', 'Floor Plans'),
-      ul('.ul', floors.map(floor =>
-        a({ href: `/seating/${teamNameToID(floor)}` },
-          li('.li', {
-            style: {
-              color: floor === teamNameToID(state.get('team')) ? purpleRegular : ''
-            }
-          }, floor)
-        ))),
+      // Temporarily disabled, see slack
+      // h2('.h2', 'Floor Plans'),
+      // ul('.ul', floors.map(floor =>
+      //   a({ href: `/seating/${teamNameToID(floor)}` },
+      //     li('.li', {
+      //       style: {
+      //         color: floor === teamNameToID(state.get('team')) ? purpleRegular : ''
+      //       }
+      //     }, floor)
+      //   ))),
 
     h2('.h2', 'Links'),
     ul('.ul', extraLinks.map(link =>
