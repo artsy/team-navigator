@@ -9,7 +9,8 @@ const {
   GRAVITY_ID,
   GRAVITY_SECRET,
   MONGODB_URI,
-  INTERNAL_REQUESTS_HEADER_SECRET
+  INTERNAL_REQUESTS_HEADER_SECRET,
+  EXCEPTION_USER_IDS
 } = process.env
 
 export function validArtsyEmail (email) {
@@ -20,10 +21,14 @@ export function isUserAdmin (user) {
   return user.type === 'Admin' || user.roles.indexOf('admin') !== -1
 }
 
+export function isOnExceptionList (user) {
+  return user && EXCEPTION_USER_IDS && EXCEPTION_USER_IDS.includes(user.id)
+}
+
 export function authenticateWithUser (ctx) {
   return ctx && ctx.isAuthenticated() &&
        validArtsyEmail(ctx.state.user.email) &&
-       isUserAdmin(ctx.state.user)
+       isUserAdmin(ctx.state.user) || isOnExceptionList(ctx.state.user)
 }
 
 export function isNodeFetchSelf (ctx) {

@@ -206,12 +206,13 @@ view.render(() => {
           )
         : ''
       ),
-      div(member.seat 
-        ? div('.section', [
-          member.seat ? p('.list', a('.grey', {href: `/seating/${member.seat.floor_id}/${member.handle}` }, member.seat.name)) : '',
-        ])
-        : ''
-      ),
+      // Temporarily disabled
+      // div(member.seat 
+      //   ? div('.section', [
+      //     member.seat ? p('.list', a('.grey', {href: `/seating/${member.seat.floor_id}/${member.handle}` }, member.seat.name)) : '',
+      //   ])
+      //   : ''
+      // ),
       div(member.githubHandle && member.githubHistory
         ? div(
             h3('.h3', 'Recent GitHub Repos'),
