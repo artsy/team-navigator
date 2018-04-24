@@ -18,7 +18,7 @@ export default async (db) => {
     allMembers.forEach(async member => {
       const startDate = moment(member.startDate)
       if (startDate) {
-        const inAWeek = startDate.subtract(7, 'd').dayOfYear()
+        const inAWeek = moment(member.startDate).subtract(7, 'd').dayOfYear()
         if (today === inAWeek) {
           const manager = find(allMembers, (m) => m.name === member.reportsTo)
           if (manager) {
@@ -27,7 +27,7 @@ export default async (db) => {
           }
         }
 
-        const inADay = startDate.subtract(1, 'd').dayOfYear()
+        const inADay = moment(member.startDate).subtract(1, 'd').dayOfYear()
         if (today === inADay) {
           const manager = find(allMembers, (m) => m.name === member.reportsTo)
           if (manager) {
