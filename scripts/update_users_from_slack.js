@@ -35,9 +35,13 @@ export default async (db) => {
     const title = getDetailsForLabel('Artsy Title', profile.profile.fields) || { value: "[]"}
     const team = getDetailsForLabel('Artsy Team', profile.profile.fields) || { value: ""}
     const subteam = getDetailsForLabel('Artsy Subteam', profile.profile.fields) || {value: ""}
-    
+
+    const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+    const location = `${member.city}${floorOrNothing}`
+    const currentLocation = getDetailsForLabel('Location', profile.profile.fields) || {value: ""}
+
     // https://artsy.slack.com/customize/profile
-    if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam) {
+    if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam || currentLocation.value !== location) {
       console.log(`Updating: ${member.name}`)
       
       const titleField = find(profileFields, field => field.label === "Artsy Title").id
