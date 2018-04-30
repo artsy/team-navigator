@@ -34,8 +34,7 @@ export default async (db) => {
 
     const title = getDetailsForLabel('Artsy Title', profile.profile.fields) || { value: "[]"}
     const team = getDetailsForLabel('Artsy Team', profile.profile.fields) || { value: ""}
-    const subteam = getDetailsForLabel('Artsy Subteam', profile.profile.fields) || {value: ""}
-
+  
     // https://artsy.slack.com/customize/profile
     if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam) {
       console.log(`Updating: ${member.name}`)
@@ -44,7 +43,8 @@ export default async (db) => {
       const teamField = find(profileFields, field => field.label === "Artsy Team").id
       const subteamField = find(profileFields, field => field.label === "Artsy Subteam").id
       const teamNavField = find(profileFields, field => field.label === "Team Nav Page").id
-      
+      const locationField = find(profileFields, field => field.label === "Location").id
+
       const fields = {}
       fields[titleField] = { value: member.title, alt: member.title }
 
@@ -59,6 +59,12 @@ export default async (db) => {
 
       if (member.subteam) {
         fields[subteamField] = { value: member.subteam, alt: member.subteam }
+      }
+
+      if (member.floor) {
+        const floorOrNothing = member.floor ? `, Fl. ${member.floor}` : ''
+        const location = `${member.city}${floorOrNothing}`
+        fields[locationField] = { value: location, alt: location }
       }
 
       const profile = JSON.stringify({ fields }, null, '')
