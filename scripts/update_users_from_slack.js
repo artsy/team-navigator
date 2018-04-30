@@ -34,7 +34,8 @@ export default async (db) => {
 
     const title = getDetailsForLabel('Artsy Title', profile.profile.fields) || { value: "[]"}
     const team = getDetailsForLabel('Artsy Team', profile.profile.fields) || { value: ""}
-  
+    const subteam = getDetailsForLabel('Artsy Subteam', profile.profile.fields) || {value: ""}
+    
     // https://artsy.slack.com/customize/profile
     if (title.value !== member.title || team.value !== member.team || subteam.value !== member.subteam) {
       console.log(`Updating: ${member.name}`)
