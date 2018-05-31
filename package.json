@@ -12,8 +12,8 @@
     "start": "npm run node ."
   },
   "engines": {
-    "node": "8.1",
-    "yarn": "0.28"
+    "node": "8.*",
+    "yarn": "1.*"
   },
   "standard": {
     "parser": "babel-eslint"
