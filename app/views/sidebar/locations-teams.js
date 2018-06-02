@@ -1,11 +1,11 @@
 import veact from 'veact'
 import { state } from '../../controllers'
 import { type, mediumMargin, purpleRegular, teamNameToID } from '../lib'
-import { assign, sortBy, filter } from 'lodash'
+import { assign, sortBy, filter, groupBy } from 'lodash'
 
 const view = veact()
 
-const { div, h2, ul, li, a } = view.els()
+const { div, h2, ul, li, a, span } = view.els()
 
 view.styles({
   h2: assign(
@@ -18,6 +18,9 @@ view.styles({
   },
   li: {
     cursor: 'pointer'
+  },
+  count: {
+    color: '#a0a0a0'
   }
 })
 
@@ -35,14 +38,18 @@ view.render(() => {
   const floors = state.get('floors')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
 
+  const cityBreakdown = groupBy(state.get('allMembers'), ({ city }) => city);
+
   return div(
     h2('.h2', 'Locations'),
-    ul('.ul', sortBy(state.get('cities')).map(city =>
+    ul('.ul', sortBy(Object.keys(cityBreakdown)).map(city =>
       li('.li',
         a({
           href: `/location/${city}`,
           style: { color: city === state.get('curFilter') ? purpleRegular : '' }
-        }, city))),
+        }, city),
+        span('.count', ` (${cityBreakdown[city].length})`)
+      )),
 
     div(highlights ? div(
       h2('.h2', highlights.name),
