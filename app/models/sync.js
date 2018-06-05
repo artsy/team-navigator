@@ -23,6 +23,10 @@ const updateTeamRanks = (members) => {
 }
 
 const getNumberOfManagers = (members, member, depth) => {
+  if (depth > 10) {
+    console.log(`[Sync] Looped too many times for ${JSON.stringify(member)} returning null`)
+    return null
+  }
   if (!getManager(members, member)) { return depth }
   return getNumberOfManagers(members, getManager(members, member), depth + 1)
 }
@@ -30,18 +34,24 @@ const getNumberOfManagers = (members, member, depth) => {
 const getManager = (members, member) => find(members, (m) => m.name === member.reportsTo)
 
 const updateTeamMembers =  async () => {
+  console.log("[Sync] Starting")
+  console.log("[Sync] Removing all users")
   // Remove old entries
   await db.members.remove()
 
   const seats = await db.seatings.find().toArray()
   
+  console.log("[Sync] Grabbing slack users")
   const response = await Slack.users.list({ token: SLACK_AUTH_TOKEN })
   const slackMembers = response.members
 
+  console.log("[Sync] Grabbing CSV from Google Sheets")
   const res = await request.get(SHEETS_URL)
   const parsed = await convert(res.text)
 
+  console.log("[Sync] Setting up members")
   const members = parsed
+  .filter(obj => !!obj.name)
   .map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
   .map((member) =>  {
     // Use email prefix as a global handle for pretty URLs
@@ -69,8 +79,10 @@ const updateTeamMembers =  async () => {
     return member
   })
 
+  console.log("[Sync] Updating Team Ranks")
   updateTeamRanks(members)
 
+  console.log("[Sync] Saving")
   await Promise.all(members.map((member) => db.members.save(member)))
 }
 
