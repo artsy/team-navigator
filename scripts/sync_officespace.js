@@ -4,6 +4,13 @@
 
 import request from "superagent"
 
+import _ from 'lodash'
+
+const isSubset = (aSubset, aSuperset) => (
+    _.every(aSubset, (val, key) => _.isEqual(val, aSuperset[key]))
+)
+
+
 export const runner = async db => {
   // Gets all employees in officespace right now
   const getAllEmployees = async handle => {
@@ -31,7 +38,7 @@ export const runner = async db => {
       client_employee_id: member.handle,
       first_name: member.name.split(" ")[0],
       last_name: member.name.split(" ")[1],
-      email: member.email + "@artsymail.com",
+      email: member.email + "artsymail.com",
       department: member.team,
       title: member.title,
       photo: member.headshot,
@@ -41,8 +48,9 @@ export const runner = async db => {
     const officeSpacer = officeSpacers.find(e => e.client_employee_id === member.handle)
     
     if (officeSpacer) {
-      if (officeSpacer.title !== member.title || officeSpacer.department !== member.team) {
+      if (!isSubset(employeeFromMember, officeSpacer)) {
         // Update if some data has changed
+        console.log("Updating " + member.handle)
         return request
           .put(url + "/" + officeSpacer.id)
           .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
@@ -53,6 +61,7 @@ export const runner = async db => {
         console.log("Skipping " + member.handle)
       }
     } else {
+      console.log("Creating " + member.handle)
       // Create an employee
       return request
         .post(url)
@@ -93,7 +102,7 @@ export default runner
 // Uncomment these to run this file solo
 
 // import { connect } from "joiql-mongo"
-//
+
 // const db = connect(
 //   process.env.MONGODB_URI,
 //   { authMechanism: "ScramSHA1" }
