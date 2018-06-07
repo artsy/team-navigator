@@ -5,7 +5,7 @@ import envify from 'envify'
 import brfs from 'brfs-babel'
 import path from 'path'
 
-const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN, SESSION_KEYS, NODE_ENV, GRAVITY_API_URL, GITHUB_ORG_LOOKUP_KEY, GITHUB_ORG } = process.env
+const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN, SESSION_KEYS, NODE_ENV, GRAVITY_API_URL, GITHUB_ORG_LOOKUP_KEY, GITHUB_ORG, OFFICESPACE_API_KEY } = process.env
 
 // Bundle together client and server app for hot reloading, and—
 // to be implemented—production ready asset bundle serving
@@ -48,6 +48,7 @@ import updateUsersFromSlack from './scripts/update_users_from_slack'
 import staffNotifications from './scripts/daily_staff_notifications'
 import getArticles from './scripts/daily_articles_for_member'
 import githubRepos from './scripts/daily_github_history_for_member'
+import syncOfficeSpace from './scripts/sync_officespace'
 
 const runOften = (fn, time) => {
   fn(db)
@@ -79,4 +80,9 @@ if (GRAVITY_API_URL) {
 if (GITHUB_ORG && GITHUB_ORG_LOOKUP_KEY) {
   console.log('Starting GitHub repo updates.')
   runDaily(githubRepos)
+}
+
+if (OFFICESPACE_API_KEY) {
+  console.log('Starting officespace sync.')
+  runDaily(syncOfficeSpace)
 }
