@@ -6,6 +6,7 @@ import {
   indexByAge,
   state,
   show,
+  showOrg,
   showTeam,
   showTeamTree,
   showMemberTree,
@@ -43,6 +44,7 @@ router.get('/team-timezones', showAllTeamTimezones)
 router.get('/location/:location', byLocation)
 router.get('/member/:handle', show)
 router.get('/member/:handle/reportees', showMemberTree)
+router.get('/org/:org', showOrg)
 router.get('/team/:team', showTeam)
 router.get('/team/:team/tree', showTeamTree)
 router.get('/team/:team/timezones', showTeamTimezones)

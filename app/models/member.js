@@ -6,6 +6,7 @@ export const member = model('member', {
   nameAudioUrl: string(),
   handle: string(),
   title: string(),
+  org: string(),
   team: string(),
   teamID: string(),
   subteam: string(),
