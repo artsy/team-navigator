@@ -161,7 +161,7 @@ export const showOrg = async (ctx) => {
   state.set('org', org)
   state.set('members', orgMembers)
 
-  state.set('title', `Org ${org}`)
+  state.set('title', `Members of ${org}`)
   ctx.render({ body: Index })
 }
 
