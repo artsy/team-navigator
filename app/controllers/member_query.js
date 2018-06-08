@@ -10,6 +10,7 @@ title
 floor
 city
 headshot
+org
 team
 teamID
 subteam
@@ -52,4 +53,4 @@ seat {
   url
   floor_id
 }
-`
+`;

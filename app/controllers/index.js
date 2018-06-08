@@ -14,6 +14,7 @@ import {
   uniq,
   flatten
 } from 'lodash'
+import { teamNameToID } from '../views/lib';
 
 // As we're making real API calls through node, we need to allow it to get
 // through auth
@@ -149,6 +150,19 @@ const setupForTeam = teamID => {
     { title: 'Reporting Structure', href: `/team/${teamID}/tree` },
     { title: 'Timezones', href: `/team/${teamID}/timezones` }
   ])
+}
+
+export const showOrg = async (ctx) => {
+  if (!state.get('allMembers').length) await initData(ctx)
+
+  const orgId = ctx.params.org;
+  const org = state.get('allMembers').find(member => teamNameToID(member.org) === orgId).org
+  const orgMembers = state.get('allMembers').filter(member => member.org === org)
+  state.set('org', org)
+  state.set('members', orgMembers)
+
+  state.set('title', `Members of ${org}`)
+  ctx.render({ body: Index })
 }
 
 export const showTeam = async (ctx) => {
