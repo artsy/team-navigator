@@ -37,7 +37,7 @@ view.render(() => {
   const standouts = state.get('standoutSubTeams')
   const floors = state.get('floors')
   const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
-  const orgs = Array.from(new Set(state.get('allMembers').map(member => member.org).filter(org => !!org)))
+  const orgs = Array.from(new Set(state.get('allMembers').map(member => member.org).filter(org => !!org))).sort()
 
   const cityBreakdown = groupBy(state.get('allMembers'), ({ city }) => city);
 
