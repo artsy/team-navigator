@@ -36,10 +36,12 @@ view.render(() => {
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
   const floors = state.get('floors')
-  const team = filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))
-  const orgs = Array.from(new Set(state.get('allMembers').map(member => member.org).filter(org => !!org))).sort()
+  const team = Array.from(new Set(filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))))
 
+  const orgBreakdown = groupBy(state.get('allMembers'), ({ org }) => org)
   const cityBreakdown = groupBy(state.get('allMembers'), ({ city }) => city);
+
+  const teamSize = team => state.get('allMembers').filter(member => member.team === team).length
 
   return div(
     h2('.h2', 'Locations'),
@@ -52,38 +54,41 @@ view.render(() => {
         span('.count', ` (${cityBreakdown[city].length})`)
       )),
 
-    div(orgs.length > 0 ? div (
+    div(Object.keys(orgBreakdown).length > 0 ? div (
       h2('.h2', 'Organizations'),
-      ul('.ul', orgs.map(org =>
-        a({ href: `/org/${teamNameToID(org)}` },
-          li('.li', {
+      ul('.ul', sortBy(Object.keys(orgBreakdown)).map(org =>
+        li('.li', 
+          a({ href: `/org/${teamNameToID(org)}`,
             style: {
               color: org === state.get('org') ? purpleRegular : ''
             }
-          }, org)
+          }, org),
+          span('.count', ` (${orgBreakdown[org].length})`)
       )))
     ): ''),
 
     div(highlights ? div(
       h2('.h2', highlights.name),
       ul('.ul', sortBy(highlights.teams).map(team =>
-        a({ href: `/team/${teamNameToID(team)}` },
-          li('.li', {
+          li('.li', 
+        a({ href: `/team/${teamNameToID(team)}`,
             style: {
               color: team === teamNameToID(state.get('team')) ? purpleRegular : ''
             }
-          }, team)
+          }, team),
+          span('.count', ` (${teamSize(team)})`)
         ))),
     ) : ''),
 
     h2('.h2', 'Teams'),
-    ul('.ul', team.map(team =>
-      a({ href: `/team/${teamNameToID(team)}` },
-        li('.li', {
+    ul('.ul', team.filter(t => t).map(team =>
+        li('.li',
+          a({ href: `/team/${teamNameToID(team)}`,
           style: {
             color: team === teamNameToID(state.get('team')) ? purpleRegular : ''
           }
-        }, team)
+        }, team),
+          span('.count', ` (${teamSize(team)})`)
       ))),
 
       // Temporarily disabled, see slack
