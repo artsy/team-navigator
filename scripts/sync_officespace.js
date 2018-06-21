@@ -7,7 +7,15 @@ import request from "superagent"
 import _ from 'lodash'
 
 const isSubset = (aSubset, aSuperset) => (
-    _.every(aSubset, (val, key) => _.isEqual(val, aSuperset[key]))
+    _.every(aSubset, (val, key) => {
+      const isEqual =  _.isEqual(val, aSuperset[key])
+      if(!isEqual){
+        
+        console.log(key, "does not match")
+        console.log(val, aSuperset[key])
+      }
+      return isEqual
+    })
 )
 
 
@@ -22,7 +30,6 @@ export const runner = async db => {
         .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
         .set("Content-Type", "application/json; charset=utf-8")
 
-      console.log(response.body)
       return response.body.response
     } catch (error) {
       return []
@@ -41,7 +48,6 @@ export const runner = async db => {
       email: member.email + "artsymail.com",
       department: member.team,
       title: member.title,
-      photo: member.headshot,
       bio: member.title
     }
 
@@ -49,6 +55,7 @@ export const runner = async db => {
     
     if (officeSpacer) {
       if (!isSubset(employeeFromMember, officeSpacer)) {
+
         // Update if some data has changed
         console.log("Updating " + member.handle)
         return request
@@ -73,8 +80,6 @@ export const runner = async db => {
 
   // Runs a lookup against against all members
   const run = async () => {
-    console.log("Starting officespace sync")
-
     const allMembers = await db.members.find().toArray()
     const allOfficeSpaceEmployees = await getAllEmployees()
     for (const member of allMembers) {
