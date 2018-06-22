@@ -6,7 +6,7 @@ import { teamNameToID } from '../views/lib'
 
 const Slack = require('slack-api').promisify()
 
-const { SHEETS_URL, SEATING_URL, SLACK_AUTH_TOKEN } = process.env
+const { SHEETS_URL, SEATING_URL, LINKS_URL, MESSAGES_URL, SLACK_AUTH_TOKEN } = process.env
 
 const convert = (data) =>
   new Promise((resolve, reject) => {
@@ -105,8 +105,48 @@ const updateTeamSeating = async () => {
   await Promise.all(seats.map((seat) => db.seatings.save(seat)))  
 }
 
+const updateMessages = async () => {
+  if (!MESSAGES_URL) {
+    return
+  }
+
+  await db.messages.remove()
+  
+  const res = await request.get(MESSAGES_URL)
+  const parsed = await convert(res.text)
+
+  const messages = parsed.map(m => ({
+    id: m.message,
+    message: m.message,
+    tags: m.tags,
+  }))
+
+  await Promise.all(messages.map((m) => db.messages.save(m)))
+}
+
+const updateLinks = async () => {
+  if (!LINKS_URL) {
+    return
+  }
+
+  await db.links.remove()
+  
+  const res = await request.get(LINKS_URL)
+  const parsed = await convert(res.text)
+
+  const links = parsed.map(l => ({
+    id: l.link,
+    href: l.href,
+    tags: l.tags,
+  }))
+
+  await Promise.all(links.map((l) => db.links.save(l)))
+}
+
 export default mutation('sync', string(), async (ctx) => {
   await updateTeamSeating()
   await updateTeamMembers()
+  await updateMessages()
+  await updateLinks()
   ctx.res.sync = 'success'
 })
