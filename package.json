@@ -5,7 +5,6 @@
   "scripts": {
     "node": "node -r dotenv/config -r babel-core/register .",
     "mocha": "NODE_ENV=test mocha -r dotenv/config -r babel-core/register -r should",
-    "lint": "standard",
     "mongo": "mongo",
     "test": "yarn lint && yarn mocha test/*",
     "dev": "concurrently 'yarn node' 'mongod'",
@@ -14,9 +13,6 @@
   "engines": {
     "node": "8.*",
     "yarn": "1.*"
-  },
-  "standard": {
-    "parser": "babel-eslint"
   },
   "babel": {
     "presets": [
@@ -35,6 +31,7 @@
     ]
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.0.0-beta.51",
     "babel": "^6.5.2",
     "babel-core": "^6.13.0",
     "babel-eslint": "^6.1.2",
@@ -44,7 +41,6 @@
     "babelify": "^7.3.0",
     "brfs-babel": "^1.0.0",
     "cheerio": "^0.22.0",
-    "concurrently": "^2.1.0",
     "csvtojson": "1.0.2",
     "dotenv": "^2.0.0",
     "envify": "^3.4.0",
@@ -67,7 +63,9 @@
     "passport-oauth2": "^1.4.0",
     "promised-mongo": "git://github.com/tjyrkinen/promised-mongo.git#dist",
     "react": "^15.3.1",
+    "react-app-rewired": "^2.0.0",
     "react-dom": "^15.3.1",
+    "react-scripts": "^2.0.0-next.3e165448",
     "sharp": "^0.16.0",
     "slack-api": "orta/slack-api#f2ee635",
     "slackbots": "^1.0.2",
@@ -79,11 +77,43 @@
     "veact": "0.0.5"
   },
   "devDependencies": {
+    "@types/jest": "^23.1.1",
     "@types/koa": "^2.0.37",
+    "@types/react": "^16.4.1",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router-dom": "^4.2.7",
     "babel-plugin-rewire": "^1.0.0",
+    "concurrently": "^3.5.1",
+    "graphql-cli": "^2.16.2",
     "mocha": "^3.0.2",
+    "prettier": "^1.13.5",
+    "react-app-rewire-typescript-babel-preset": "^2.2.0",
     "should": "^11.1.0",
     "sinon": "^1.17.6",
-    "standard": "^8.1.0"
+    "standard": "^8.1.0",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": false,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "proseWrap": "always"
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">0.25%",
+      "not op_mini all",
+      "ie 11"
+    ]
   }
 }
