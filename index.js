@@ -5,7 +5,7 @@ import envify from 'envify'
 import brfs from 'brfs-babel'
 import path from 'path'
 
-const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN, SESSION_KEYS, NODE_ENV, GRAVITY_API_URL, GITHUB_ORG_LOOKUP_KEY, GITHUB_ORG, OFFICESPACE_API_KEY } = process.env
+const { MONGODB_URI, PORT, SLACK_AUTH_TOKEN, SESSION_KEYS, NODE_ENV, GRAVITY_API_URL, GITHUB_ORG_LOOKUP_KEY, GITHUB_ORG, OFFICESPACE_API_KEY, NO_SYNCING } = process.env
 
 // Bundle together client and server app for hot reloading, and—
 // to be implemented—production ready asset bundle serving
@@ -34,6 +34,18 @@ const app = module.exports = hotglue({
   }
 })
 
+// import route from "koa-route"
+// import staticRoute from "koa-static"
+// import fs from "fs"
+// import mount from "koa-mount"
+
+// app.use(mount("/v3/static/*", staticRoute(path.resolve('build'))))
+// app.use(
+//   route.get("/v3/*", ctx => {
+//     ctx.body = fs.readFileSync(path.resolve(path.join("build", "index.html")), "utf8")
+//   }, {defer: true})
+// )
+
 // Connect to Mongo and run app
 const db = connect(MONGODB_URI, { authMechanism: 'ScramSHA1' })
 app.keys = SESSION_KEYS.split(',')
@@ -58,31 +70,33 @@ const runOften = (fn, time) => {
 const runDaily = (fn) => runOften(fn, 24 * 60 * 60 * 1000)
 const runEveryFiveMin = (fn) => runOften(fn, 5 * 60 * 1000)
 
-if (SLACK_AUTH_TOKEN) {
-  console.log('Starting Slack presence updater.')
-  runEveryFiveMin(updateSlackPresence)
+if (!NO_SYNCING) {
+  if (SLACK_AUTH_TOKEN) {
+    console.log('Starting Slack presence updater.')
+    runEveryFiveMin(updateSlackPresence)
 
-  console.log('Starting Slack profile updater.')
-  runDaily(updateUsersFromSlack)
+    console.log('Starting Slack profile updater.')
+    runDaily(updateUsersFromSlack)
 
-  // Scoped behind prod because devs shouldn't be triggering this
-  if (NODE_ENV === 'production') {
-    console.log('Starting manager daily updates.')
-    runDaily(staffNotifications)
+    // Scoped behind prod because devs shouldn't be triggering this
+    if (NODE_ENV === 'production') {
+      console.log('Starting manager daily updates.')
+      runDaily(staffNotifications)
+    }
   }
-}
 
-if (GRAVITY_API_URL) {
-  console.log('Starting Article repo updates.')
-  runDaily(getArticles)
-}
+  if (GRAVITY_API_URL) {
+    console.log('Starting Article repo updates.')
+    runDaily(getArticles)
+  }
 
-if (GITHUB_ORG && GITHUB_ORG_LOOKUP_KEY) {
-  console.log('Starting GitHub repo updates.')
-  runDaily(githubRepos)
-}
+  if (GITHUB_ORG && GITHUB_ORG_LOOKUP_KEY) {
+    console.log('Starting GitHub repo updates.')
+    runDaily(githubRepos)
+  }
 
-if (OFFICESPACE_API_KEY) {
-  console.log('Starting officespace sync.')
-  runDaily(syncOfficeSpace)
+  if (OFFICESPACE_API_KEY) {
+    console.log('Starting officespace sync.')
+    runDaily(syncOfficeSpace)
+  }
 }

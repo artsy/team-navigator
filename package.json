@@ -3,13 +3,16 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "node": "node -r dotenv/config -r babel-core/register .",
+    "v2": "node -r dotenv/config -r babel-core/register .",
+    "v3": "PORT=3001 react-app-rewired start",
     "mocha": "NODE_ENV=test mocha -r dotenv/config -r babel-core/register -r should",
     "mongo": "mongo",
     "test": "yarn lint && yarn mocha test/*",
-    "dev": "concurrently 'yarn node' 'mongod'",
-    "start": "npm run node ."
+    "dev": "concurrently 'yarn v2' 'yarn v3'",
+    "build": "react-app-rewired build",
+    "start": ""
   },
+  "homepage": "/v3",
   "engines": {
     "node": "8.*",
     "yarn": "1.*"
@@ -53,8 +56,9 @@
     "koa-generic-session-mongo": "^0.3.1",
     "koa-mount": "next",
     "koa-passport": "rkusa/koa-passport#v2.x",
-    "koa-route": "^2.4.2",
+    "koa-route": "^3.2.0",
     "koa-sslify": "2.1.0",
+    "koa-static": "^5.0.0",
     "lodash": "^4.15.0",
     "lokka": "^1.7.0",
     "lokka-transport-http": "^1.4.0",
