@@ -5,8 +5,7 @@
 ### Meta
 * __State:__ production
 * __Production:__ [team.artsy.net](https://team.artsy.net/)
-* __CI:__ [Semaphore](https://semaphoreci.com/artsy-it/team-navigator)
-* __Point People:__ [@craigspaeth](https://github.com/craigspaeth), [@orta](https://github.com/orta)
+* __Point People:__ [@orta](https://github.com/orta), [@zephraph](https://github.com/zephraph)
 
 ### What is this?
 
@@ -27,7 +26,7 @@ And individual people pages have all sorts of useful info
 ```
 git clone git@github.com:your-github-username/team-navigator.git
 ```
-- Install MongoDB
+- Install MongoDB (or use the MongoDB app)
 ```
 brew install mongodb
 ```
@@ -57,6 +56,14 @@ mutation {
   sync
 }
 ```
+
+### V3
+
+There is some initial work on a V3 inside the app, v3 is a create-react-app using TypeScript that is deployed into team nav.
+
+It is accessible in `/v3/` in the routing schema. To work on it use `yarn v3`, or `yarn dev` will load the CRA dev server in port 3001.
+
+In v2 the koa app uses assets created by running `yarn build`.
 
 ### Spreadsheet format
 
