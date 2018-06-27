@@ -79,9 +79,14 @@ app.use(bodyParser())
 app.use(passport.initialize())
 app.use(passport.session())
 
+router.get('/logout', (ctx) => {
+  ctx.logout()
+  ctx.redirect(GRAVITY_API_URL + '/users/sign_out')
+})
+
 router.get('/login', passport.authenticate('artsy', {
   successRedirect: '/',
-  failureRedirect: '/failure'
+  failureRedirect: '/logout'
 }))
 
 router.get('/auth/artsy/callback', passport.authenticate('artsy', {
@@ -92,10 +97,6 @@ router.get('/auth/artsy/callback', passport.authenticate('artsy', {
   res.redirect('/')
 })
 
-router.get('/logout', (ctx) => {
-  ctx.logout()
-  ctx.redirect(GRAVITY_API_URL + '/users/sign_out')
-})
 
 app.use(router.routes())
 app.use(authenticateOrLogin)

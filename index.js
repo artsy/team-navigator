@@ -34,18 +34,6 @@ const app = module.exports = hotglue({
   }
 })
 
-// import route from "koa-route"
-// import staticRoute from "koa-static"
-// import fs from "fs"
-// import mount from "koa-mount"
-
-// app.use(mount("/v3/static/*", staticRoute(path.resolve('build'))))
-// app.use(
-//   route.get("/v3/*", ctx => {
-//     ctx.body = fs.readFileSync(path.resolve(path.join("build", "index.html")), "utf8")
-//   }, {defer: true})
-// )
-
 // Connect to Mongo and run app
 const db = connect(MONGODB_URI, { authMechanism: 'ScramSHA1' })
 app.keys = SESSION_KEYS.split(',')
