@@ -10,7 +10,7 @@
     "test": "yarn lint && yarn mocha test/*",
     "dev": "concurrently 'yarn v2' 'yarn v3'",
     "build": "react-app-rewired build",
-    "start": "npm run v2"
+    "start": "node -r babel-core/register ."
   },
   "homepage": "/v3",
   "engines": {
