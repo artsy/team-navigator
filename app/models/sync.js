@@ -45,7 +45,7 @@ const updateTeamMembers =  async () => {
   const response = await Slack.users.list({ token: SLACK_AUTH_TOKEN })
   const slackMembers = response.members
 
-  console.log("[Sync] Grabbing CSV from Google Sheets")
+  console.log(`[Sync] Grabbing CSV from Google Sheets at ${SHEETS_URL}`)
   const res = await request.get(SHEETS_URL)
   const parsed = await convert(res.text)
 
