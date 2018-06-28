@@ -84,6 +84,7 @@ const updateTeamMembers =  async () => {
 
   console.log("[Sync] Saving")
   await Promise.all(members.map((member) => db.members.save(member)))
+  console.log(`[Sync] Saved ${members.length} members`)
 }
 
 const updateTeamSeating = async () => {
