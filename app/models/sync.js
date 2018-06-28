@@ -49,9 +49,11 @@ const updateTeamMembers =  async () => {
   const res = await request.get(SHEETS_URL)
   const parsed = await convert(res.text)
 
-  console.log("[Sync] Setting up members")
-  const members = parsed
-  .filter(obj => !!obj.name)
+  const peeps = parsed.filter(obj => !!obj.name)
+  console.log(`[Sync] Setting up ${peeps.length} members`)
+  console.log(`[Sync] First item: ${JSON.stringify(peeps[0])}`)
+
+  const members = peeps
   .map((obj) => mapKeys(obj, (v, k) => camelCase(k)))
   .map((member) =>  {
     // Use email prefix as a global handle for pretty URLs
