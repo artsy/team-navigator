@@ -141,6 +141,7 @@ const updateLinks = async () => {
     id: l.link,
     href: l.href,
     tags: l.tags,
+    time: l.time
   }))
 
   await Promise.all(links.map((l) => db.links.save(l)))
