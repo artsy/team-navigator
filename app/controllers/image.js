@@ -8,7 +8,8 @@ export const resizeImg = async (ctx, next) => {
   ctx.set('Content-Type', 'image/jpeg')
   const url = `https://dropbox.com/${ctx.url.replace('img', '')}?raw=1`
   const localPath = join(tmpdir(), basename(ctx.url))
-
+  console.log(localPath)
+  
   if (existsSync(localPath)) {
     ctx.body = readFileSync(localPath)
   } else {

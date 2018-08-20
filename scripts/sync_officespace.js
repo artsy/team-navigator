@@ -3,8 +3,9 @@
 // Hooks up all artsy members to officespace users
 
 import request from "superagent"
-
+import fs from "fs"
 import _ from 'lodash'
+import url from 'url'
 
 const isSubset = (aSubset, aSuperset) => (
     _.every(aSubset, (val, key) => {
@@ -38,7 +39,7 @@ export const runner = async db => {
 
   // Update a User in the db
   const updateUser = officeSpacers => async member => {
-    const url = "https://artsy.officespacesoftware.com/api/1/employees"
+    const rootURL = "https://artsy.officespacesoftware.com/api/1/employees"
     const id = member.email
 
     const employeeFromMember = {
@@ -55,11 +56,19 @@ export const runner = async db => {
     
     if (officeSpacer) {
       if (!isSubset(employeeFromMember, officeSpacer)) {
+        const src = url.parse(member.headshot).pathname
+        // const url = `https://dropbox.com/${ctx.url.replace('img', '')}?raw=1`
+        const localPath = join(tmpdir(), "asdas", ) //basename(ctx.url)
+        
+        if (fs.existsSync(localPath)) {
+          console.log("Updating " + member.handle + " + image")
+          employeeFromMember.imageData = fs.readFileSync(localPath, "utf8").toString('base64')
+        } else {
+          console.log("Updating " + member.handle)
+        }
 
-        // Update if some data has changed
-        console.log("Updating " + member.handle)
         return request
-          .put(url + "/" + officeSpacer.id)
+          .put(rootURL + "/" + officeSpacer.id)
           .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
           .set("Content-Type", "application/json; charset=utf-8")
           .send({ record: employeeFromMember })
@@ -71,7 +80,7 @@ export const runner = async db => {
       console.log("Creating " + member.handle)
       // Create an employee
       return request
-        .post(url)
+        .post(rootURL)
         .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
         .set("Content-Type", "application/json; charset=utf-8")
         .send({ record: employeeFromMember })
