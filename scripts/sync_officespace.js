@@ -4,21 +4,20 @@
 
 import request from "superagent"
 import fs from "fs"
-import _ from 'lodash'
-import url from 'url'
+import _ from "lodash"
+import url from "url"
+import { join, basename } from "path"
+import { tmpdir } from "os"
 
-const isSubset = (aSubset, aSuperset) => (
-    _.every(aSubset, (val, key) => {
-      const isEqual =  _.isEqual(val, aSuperset[key])
-      if(!isEqual){
-        
-        console.log(key, "does not match")
-        console.log(val, aSuperset[key])
-      }
-      return isEqual
-    })
-)
-
+const isSubset = (aSubset, aSuperset) =>
+  _.every(aSubset, (val, key) => {
+    const isEqual = _.isEqual(val, aSuperset[key])
+    if (!isEqual) {
+      console.log(key, "does not match")
+      console.log(val, aSuperset[key])
+    }
+    return isEqual
+  })
 
 export const runner = async db => {
   // Gets all employees in officespace right now
@@ -49,20 +48,21 @@ export const runner = async db => {
       email: member.email + "artsymail.com",
       department: member.team,
       title: member.title,
-      bio: member.title
+      bio: member.title,
     }
 
     const officeSpacer = officeSpacers.find(e => e.client_employee_id === member.handle)
-    
+
     if (officeSpacer) {
       if (!isSubset(employeeFromMember, officeSpacer)) {
+        // Get the local cached thumbnail
         const src = url.parse(member.headshot).pathname
-        // const url = `https://dropbox.com/${ctx.url.replace('img', '')}?raw=1`
-        const localPath = join(tmpdir(), "asdas", ) //basename(ctx.url)
-        
+        const localPath = join(tmpdir(), basename(src))
+
         if (fs.existsSync(localPath)) {
+          // employeeFromMember.imageData = fs.readFileSync(localPath, "utf8").toString("base64")
+          employeeFromMember.imageData = fs.readFileSync(localPath).toString("base64")
           console.log("Updating " + member.handle + " + image")
-          employeeFromMember.imageData = fs.readFileSync(localPath, "utf8").toString('base64')
         } else {
           console.log("Updating " + member.handle)
         }
@@ -95,6 +95,7 @@ export const runner = async db => {
       try {
         await updateUser(allOfficeSpaceEmployees)(member)
       } catch (error) {
+        console.log("Error updating " + member.email)
         console.error(error)
       }
     }

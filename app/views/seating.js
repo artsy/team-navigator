@@ -7,7 +7,7 @@ import TopNav from './topnav'
 
 const view = veact()
 
-const { div, sidebar, topnav, a, span, h2, img } = view.els({
+const { div, sidebar, topnav, a, span, h2, img, iframe } = view.els({
   sidebar: Sidebar,
   topnav: TopNav,
 })
@@ -65,21 +65,13 @@ view.styles({
 const title = () => 
   h2('.h1', state.get('title'))
 
-const floorItem = (seat, highlight) => 
-  div('.location', { style: {top: seat.y, left: seat.x}}, 
-    a({href: `/seating/${seat.floor_id}/${seat.occupier_handle}`},
-      div('.location-metadata', 
-        div('.person', highlight ? { style: { color: purpleRegular }}: {}, seat.occupier_name,),
-        div('.seat', seat.id),
-      )
-    )
-  )
+
+// NOT Used ATM
 
 const floorMap = () => {
   const highlightMember = state.get('member')  
   return div('.map-container',
-    img('.map', { src: state.get("background") }), 
-    ...state.get("seatings").map(s => floorItem(s, highlightMember && highlightMember.handle === s.occupier_handle))
+    iframe({src: "https://artsy.officespacesoftware.com/visual-directory/floors/6" })
   )
 }
 

@@ -8,13 +8,12 @@ export const resizeImg = async (ctx, next) => {
   ctx.set('Content-Type', 'image/jpeg')
   const url = `https://dropbox.com/${ctx.url.replace('img', '')}?raw=1`
   const localPath = join(tmpdir(), basename(ctx.url))
-  console.log(localPath)
   
   if (existsSync(localPath)) {
     ctx.body = readFileSync(localPath)
   } else {
     const writableStream = createWriteStream(localPath)
-    const resizer = sharp().rotate().resize(100)
+    const resizer = sharp().rotate().resize(200)
 
     // Allow passing directly to the response, but also write to a tmp file
     ctx.body = request.get(url).pipe(resizer).on('data', (data) => {

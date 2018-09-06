@@ -32,10 +32,17 @@ const extraLinks = [{
   href: '/did-you-know'
 }]
 
+
+const floorPlans = [
+  { name: "NYC 24th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/4"},
+  { name: "NYC 25th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/6"},
+  { name: "NYC 26th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/7"},
+  { name: "NYC 27th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/8"},
+]
+
 view.render(() => {
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
-  const floors = state.get('floors')
   const team = Array.from(new Set(filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))))
 
   const orgBreakdown = groupBy(state.get('allMembers'), ({ org }) => org)
@@ -91,16 +98,15 @@ view.render(() => {
           span('.count', ` (${teamSize(team)})`)
       ))),
 
-      // Temporarily disabled, see slack
-      // h2('.h2', 'Floor Plans'),
-      // ul('.ul', floors.map(floor =>
-      //   a({ href: `/seating/${teamNameToID(floor)}` },
-      //     li('.li', {
-      //       style: {
-      //         color: floor === teamNameToID(state.get('team')) ? purpleRegular : ''
-      //       }
-      //     }, floor)
-      //   ))),
+      h2('.h2', 'Floor Plans'),
+      ul('.ul', floorPlans.map(floor =>
+        a({ href: floor.url },
+          li('.li', {
+            style: {
+              color: floor === teamNameToID(state.get('floor')) ? purpleRegular : ''
+            }
+          }, floor.name)
+        ))),
 
     h2('.h2', 'Links'),
     ul('.ul', extraLinks.map(link =>
