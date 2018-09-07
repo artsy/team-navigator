@@ -24,20 +24,23 @@ view.styles({
   }
 })
 
-const extraLinks = [{
-  name: 'Who is New?',
-  href: '/who-is-new'
-}, {
-  name: 'Did you know?',
-  href: '/did-you-know'
-}]
-
-
-const floorPlans = [
-  { name: "NYC 24th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/4"},
-  { name: "NYC 25th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/6"},
-  { name: "NYC 26th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/7"},
-  { name: "NYC 27th", url: "https://artsy.officespacesoftware.com/visual-directory/floors/8"},
+const extraLinks = [
+  {
+    name: "NYC OfficeSpace", 
+    url: "https://artsy.officespacesoftware.com/visual-directory/floors/4"
+  }, { 
+    name: "LDN OfficeSpace", 
+    url: "https://artsy.officespacesoftware.com/visual-directory/floors/11"
+  }, {
+    name: 'Atlas',
+    href: 'https://sites.google.com/a/artsymail.com/intranet/'
+  }, {
+    name: 'Who is New?',
+    href: '/who-is-new'
+  }, {
+    name: 'Did you know?',
+    href: '/did-you-know'
+  }
 ]
 
 view.render(() => {
@@ -51,6 +54,13 @@ view.render(() => {
   const teamSize = team => state.get('allMembers').filter(member => member.team === team).length
 
   return div(
+    h2('.h2', 'Links'),
+    ul('.ul', extraLinks.map(link =>
+      a({ href: link.href },
+        li('.li', link.name)
+      )))))
+
+
     h2('.h2', 'Locations'),
     ul('.ul', sortBy(Object.keys(cityBreakdown)).map(city =>
       li('.li',
@@ -97,22 +107,6 @@ view.render(() => {
         }, team),
           span('.count', ` (${teamSize(team)})`)
       ))),
-
-      h2('.h2', 'Floor Plans'),
-      ul('.ul', floorPlans.map(floor =>
-        a({ href: floor.url },
-          li('.li', {
-            style: {
-              color: floor === teamNameToID(state.get('floor')) ? purpleRegular : ''
-            }
-          }, floor.name)
-        ))),
-
-    h2('.h2', 'Links'),
-    ul('.ul', extraLinks.map(link =>
-      a({ href: link.href },
-        li('.li', link.name)
-      )))))
 })
 
 export default view()
