@@ -26,14 +26,14 @@ view.styles({
 
 const extraLinks = [
   {
-    name: "NYC OfficeSpace", 
-    url: "https://artsy.officespacesoftware.com/visual-directory/floors/4"
-  }, { 
-    name: "LDN OfficeSpace", 
-    url: "https://artsy.officespacesoftware.com/visual-directory/floors/11"
-  }, {
     name: 'Atlas',
     href: 'https://sites.google.com/a/artsymail.com/intranet/'
+  }, { 
+    name: "NYC OfficeSpace", 
+    href: "https://artsy.officespacesoftware.com/visual-directory/floors/12"
+  }, {
+    name: "LDN OfficeSpace", 
+    href: "https://artsy.officespacesoftware.com/visual-directory/floors/11"
   }, {
     name: 'Who is New?',
     href: '/who-is-new'
