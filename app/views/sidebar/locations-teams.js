@@ -58,7 +58,8 @@ view.render(() => {
     ul('.ul', extraLinks.map(link =>
       a({ href: link.href },
         li('.li', link.name)
-      )))))
+      ))
+    ),
 
 
     h2('.h2', 'Locations'),
@@ -107,6 +108,7 @@ view.render(() => {
         }, team),
           span('.count', ` (${teamSize(team)})`)
       ))),
+    ))
 })
 
 export default view()
