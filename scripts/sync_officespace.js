@@ -1,23 +1,24 @@
 // node -r dotenv/config -r babel-core/register scripts/sync_officespace.js
 
 // Hooks up all artsy members to officespace users
+// https://artsy.officespacesoftware.com/api/docs
 
 import request from "superagent"
+import fs from "fs"
+import _ from "lodash"
+import url from "url"
+import { join, basename } from "path"
+import { tmpdir } from "os"
 
-import _ from 'lodash'
-
-const isSubset = (aSubset, aSuperset) => (
-    _.every(aSubset, (val, key) => {
-      const isEqual =  _.isEqual(val, aSuperset[key])
-      if(!isEqual){
-        
-        console.log(key, "does not match")
-        console.log(val, aSuperset[key])
-      }
-      return isEqual
-    })
-)
-
+const isSubset = (aSubset, aSuperset) =>
+  _.every(aSubset, (val, key) => {
+    const isEqual = _.isEqual(val, aSuperset[key])
+    if (!isEqual) {
+      console.log(key, "does not match")
+      console.log(val, aSuperset[key])
+    }
+    return isEqual
+  })
 
 export const runner = async db => {
   // Gets all employees in officespace right now
@@ -38,7 +39,7 @@ export const runner = async db => {
 
   // Update a User in the db
   const updateUser = officeSpacers => async member => {
-    const url = "https://artsy.officespacesoftware.com/api/1/employees"
+    const rootURL = "https://artsy.officespacesoftware.com/api/1/employees"
     const id = member.email
 
     const employeeFromMember = {
@@ -48,18 +49,26 @@ export const runner = async db => {
       email: member.email + "artsymail.com",
       department: member.team,
       title: member.title,
-      bio: member.title
+      bio: member.title,
     }
 
     const officeSpacer = officeSpacers.find(e => e.client_employee_id === member.handle)
-    
     if (officeSpacer) {
-      if (!isSubset(employeeFromMember, officeSpacer)) {
+      if (!officeSpacer.image_fingerprint|| !isSubset(employeeFromMember, officeSpacer)) {
+        // Get the local cached thumbnail
+        const src = url.parse(member.headshot).pathname
+        const localPath = join(tmpdir(), basename(src))
 
-        // Update if some data has changed
-        console.log("Updating " + member.handle)
+        if (fs.existsSync(localPath)) {
+          // employeeFromMember.imageData = fs.readFileSync(localPath, "utf8").toString("base64")
+          employeeFromMember.imageData = fs.readFileSync(localPath).toString("base64")
+          console.log("Updating " + member.handle + " + image")
+        } else {
+          console.log("Updating " + member.handle)
+        }
+
         return request
-          .put(url + "/" + officeSpacer.id)
+          .put(rootURL + "/" + officeSpacer.id)
           .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
           .set("Content-Type", "application/json; charset=utf-8")
           .send({ record: employeeFromMember })
@@ -71,7 +80,7 @@ export const runner = async db => {
       console.log("Creating " + member.handle)
       // Create an employee
       return request
-        .post(url)
+        .post(rootURL)
         .set("AUTHORIZATION", `Token token=${process.env.OFFICESPACE_API_KEY}`)
         .set("Content-Type", "application/json; charset=utf-8")
         .send({ record: employeeFromMember })
@@ -86,6 +95,7 @@ export const runner = async db => {
       try {
         await updateUser(allOfficeSpaceEmployees)(member)
       } catch (error) {
+        console.log("Error updating " + member.email)
         console.error(error)
       }
     }

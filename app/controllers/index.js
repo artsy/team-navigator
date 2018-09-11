@@ -51,7 +51,7 @@ export const initData = async (ctx) => {
         name
         teams
       }
-      floors
+
       standoutSubTeams
       cities
       members {
@@ -62,7 +62,6 @@ export const initData = async (ctx) => {
   state.set({
     teams,
     cities,
-    floors,
     members,
     standoutSubTeams,
     highlightTeams,
@@ -215,41 +214,7 @@ export const showAllTeamTimezones = async (ctx) => {
 }
 
 const setupSeating = async (ctx) => {
-  const {
-    seatings,
-    members,
-  } = await ctx.bootstrap(() =>
-  api.query(`
-  {
-    seatings(floor_id: "${ctx.params.floor_id}") {
-      id
-      x
-      y
-      name
-      url
-      floor_id
-      occupier_name
-      occupier_handle
-    }
-    members(floor_id:"${ctx.params.floor_id}") {
-      ${memberAppGraphQLValues}
-    }
-  }`)
-  )
-
-  if (seatings.length === 0) { return }
-
-  const member = ctx.params.user_handle && members.find(m => m.handle === ctx.params.user_handle)
-  const seat = seatings[0]
-  state.set({
-    seatings,
-    members,
-    member,
-    suppressSearch: true,
-    showMembersSidebar: true,
-    title: seat && seat.name,
-    background: seat && seat.url
-  })
+  await initData(ctx)
 }
 
 export const showSeatings = async (ctx) => {

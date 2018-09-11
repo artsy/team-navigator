@@ -24,18 +24,28 @@ view.styles({
   }
 })
 
-const extraLinks = [{
-  name: 'Who is New?',
-  href: '/who-is-new'
-}, {
-  name: 'Did you know?',
-  href: '/did-you-know'
-}]
+const extraLinks = [
+  {
+    name: 'Atlas',
+    href: 'https://sites.google.com/a/artsymail.com/intranet/'
+  }, { 
+    name: "NYC OfficeSpace", 
+    href: "https://artsy.officespacesoftware.com/visual-directory/floors/12"
+  }, {
+    name: "LDN OfficeSpace", 
+    href: "https://artsy.officespacesoftware.com/visual-directory/floors/11"
+  }, {
+    name: 'Who is New?',
+    href: '/who-is-new'
+  }, {
+    name: 'Did you know?',
+    href: '/did-you-know'
+  }
+]
 
 view.render(() => {
   const highlights = state.get('highlightTeams')
   const standouts = state.get('standoutSubTeams')
-  const floors = state.get('floors')
   const team = Array.from(new Set(filter(sortBy([...standouts, ...state.get('teams')]), team => !highlights.teams.includes(team))))
 
   const orgBreakdown = groupBy(state.get('allMembers'), ({ org }) => org)
@@ -44,6 +54,14 @@ view.render(() => {
   const teamSize = team => state.get('allMembers').filter(member => member.team === team).length
 
   return div(
+    h2('.h2', 'Links'),
+    ul('.ul', extraLinks.map(link =>
+      a({ href: link.href },
+        li('.li', link.name)
+      ))
+    ),
+
+
     h2('.h2', 'Locations'),
     ul('.ul', sortBy(Object.keys(cityBreakdown)).map(city =>
       li('.li',
@@ -90,23 +108,7 @@ view.render(() => {
         }, team),
           span('.count', ` (${teamSize(team)})`)
       ))),
-
-      // Temporarily disabled, see slack
-      // h2('.h2', 'Floor Plans'),
-      // ul('.ul', floors.map(floor =>
-      //   a({ href: `/seating/${teamNameToID(floor)}` },
-      //     li('.li', {
-      //       style: {
-      //         color: floor === teamNameToID(state.get('team')) ? purpleRegular : ''
-      //       }
-      //     }, floor)
-      //   ))),
-
-    h2('.h2', 'Links'),
-    ul('.ul', extraLinks.map(link =>
-      a({ href: link.href },
-        li('.li', link.name)
-      )))))
+    ))
 })
 
 export default view()
