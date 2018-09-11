@@ -1,6 +1,7 @@
 // node -r dotenv/config -r babel-core/register scripts/sync_officespace.js
 
 // Hooks up all artsy members to officespace users
+// https://artsy.officespacesoftware.com/api/docs
 
 import request from "superagent"
 import fs from "fs"
@@ -52,9 +53,8 @@ export const runner = async db => {
     }
 
     const officeSpacer = officeSpacers.find(e => e.client_employee_id === member.handle)
-
     if (officeSpacer) {
-      if (!isSubset(employeeFromMember, officeSpacer)) {
+      if (!officeSpacer.image_fingerprint|| !isSubset(employeeFromMember, officeSpacer)) {
         // Get the local cached thumbnail
         const src = url.parse(member.headshot).pathname
         const localPath = join(tmpdir(), basename(src))
