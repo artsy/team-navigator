@@ -33,7 +33,7 @@ brew install mongodb
 - Install [NVM](https://github.com/creationix/nvm), [Node](https://nodejs.org/en/), and npm modules.
 ```
 brew install nvm
-nvm install 6
+nvm install 8
 yarn install
 ```
 - Copy over a .env file and replace all sensitive config, e.g. `SHEETS_URL=REPLACE`,
