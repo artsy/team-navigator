@@ -88,7 +88,7 @@ To run the full test suite and linter use `yarn test`.
 
 We have some daily scripts that happen automatically:
 
-* `scripts/daily_notifications.js` sends a slack DM to a manager that their reportee's workaversary is next week.
+* `scripts/daily_notifications.js` sends a slack DM to a manager that their reportee's work-aversary is next week.
 
 * `scripts/daily_github_history_for_member.js` pulls GitHub repos for anyone with a GitHub handle inside your org.
 
