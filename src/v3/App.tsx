@@ -25,10 +25,17 @@ const query = `
 
 class ReloaderApp extends React.Component<{}, { data: any }> {
   componentDidMount() {
-    // Reload after an hour, by using the browsers refresh
-    const oneHour = 1000 * 5
-    setInterval(() => this.getJSONData(), oneHour)
+    // Setup
     this.getJSONData()
+
+    // Reload react every 10 seconds
+    const tenSecs = 1000 * 10
+    setInterval(() => this.getJSONData(), tenSecs)
+
+    // Reload the window every hour, so we can update team nav v3
+    // without going into all the dashboards
+    const oneHour = 1000 * 60 * 60
+    setInterval(() => window.location.reload(), oneHour)
   }
 
   getJSONData() {
@@ -78,7 +85,7 @@ class App extends React.Component<{ data: any }> {
       >
         <link rel="stylesheet" type="text/css" href="https://webfonts.artsy.net/unica-webfonts.css" />
 
-        <div style={{ width: 490, borderRight: "1px black solid", padding: 35 }}>
+        <div style={{ width: 400, flexShrink: 0.1, borderRight: "1px black solid", padding: 35 }}>
           <svg width="127px" height="47px" viewBox="0 0 127 47" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <title>Group 2</title>
             <desc>Created with Sketch.</desc>
@@ -106,11 +113,11 @@ class App extends React.Component<{ data: any }> {
           </svg>
         </div>
 
-        <div style={{ flex: 1, color: "white", padding: 40 }}>
+        <div style={{ flex: 1, color: "white", padding: 40, position: "relative" }}>
           <p
             style={{
               position: "absolute",
-              left: 269,
+              left: -222,
               top: -40,
               fontSize: 30,
               paddingRight: 50,
@@ -118,7 +125,7 @@ class App extends React.Component<{ data: any }> {
               color: "black",
               backgroundColor: "white",
               textAlign: "right",
-              width: 270,
+              width: 200,
               paddingTop: 40,
               paddingBottom: 25,
             }}
@@ -140,7 +147,7 @@ class App extends React.Component<{ data: any }> {
           <p
           style={{
             position: "absolute",
-            left: 269,
+            left: -292,
             fontSize: 30,
             paddingRight: 50,
             marginBottom: 0,
@@ -153,7 +160,7 @@ class App extends React.Component<{ data: any }> {
             paddingBottom: 25,
           }}
         >
-          No. {(forSale.count -2).toLocaleString()}
+          No. {(forSale.count -1).toLocaleString()}
           <span style={{ fontSize: 50, position: "relative", top: 6, left: 30 }}>•</span>
         </p>
         <div style={{ marginTop: 16, height: "450px" }}>
@@ -171,7 +178,7 @@ class App extends React.Component<{ data: any }> {
         <p
         style={{
           position: "absolute",
-          left: 269,
+          left: -292,
           fontSize: 30,
           paddingRight: 50,
           marginBottom: 0,
@@ -184,7 +191,7 @@ class App extends React.Component<{ data: any }> {
           paddingBottom: 25,
         }}
       >
-        No. {(forSale.count -1).toLocaleString()}
+        No. {(forSale.count -2).toLocaleString()}
         <span style={{ fontSize: 50, position: "relative", top: 6, left: 30 }}>•</span>
       </p>
       <div style={{ marginTop: 16, height: "450px" }}>
