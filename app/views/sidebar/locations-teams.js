@@ -2,10 +2,15 @@ import veact from 'veact'
 import { state } from '../../controllers'
 import { type, mediumMargin, purpleRegular, teamNameToID } from '../lib'
 import { assign, sortBy, filter, groupBy } from 'lodash'
+import { readFileSync } from 'fs'
+import path from 'path'
 
 const view = veact()
 
 const { div, h2, ul, li, a, span } = view.els()
+
+const externalLinkIcon = span({ dangerouslySetInnerHTML: { __html: readFileSync(path.join(__dirname, 'external-link.svg')) } })
+const extenalLinkProperties = { target: '_blank', rel: 'noopener' }
 
 view.styles({
   h2: assign(
@@ -56,8 +61,8 @@ view.render(() => {
   return div(
     h2('.h2', 'Links'),
     ul('.ul', extraLinks.map(link =>
-      a({ href: link.href },
-        li('.li', link.name)
+      a(assign({ href: link.href }, extenalLinkProperties),
+        li('.li', link.name, link.href.startsWith("/") ? '' : externalLinkIcon)
       ))
     ),
 
