@@ -20,7 +20,10 @@ const headshotSize = 100
 
 const { SLACK_TEAM_ID } = process.env
 
-const { div, h2, h3, nav, a, p, audio, source } = view.els()
+const { div, span, h2, h3, nav, a, p, audio, source } = view.els()
+
+const externalLinkIcon = span({ dangerouslySetInnerHTML: { __html: readFileSync(path.join(__dirname, 'external-link.svg')) } })
+const extenalLinkProperties = { target: '_blank', rel: 'noopener' }
 
 view.styles({
   h2: assign(
@@ -151,7 +154,7 @@ view.render(() => {
 
   return div(
       a('.backButton', { href: '/' }, 'Back'),
-      a('.headshotLink', {href: noDLhref},
+      a('.headshotLink', assign({ href: noDLhref }, extenalLinkProperties),
         div('.headshot', { style: { backgroundImage: `url(/img${src})` } }),
       ),
       div('.bio',
@@ -165,27 +168,27 @@ view.render(() => {
         nav('.nav', [
           a('.navItemChat', { href: slackClickLink, dangerouslySetInnerHTML: { __html: member.slackPresence ? activeChat : chat } }),
           a('.navItem', { href: mailTo, dangerouslySetInnerHTML: { __html: email } }),
-          a('.navItem', { href: calendarLink, dangerouslySetInnerHTML: { __html: calendar } }),
-          member.githubHandle ? a('.navItem', { href: github, dangerouslySetInnerHTML: { __html: githubCat } }) : ''
+          a('.navItem', assign({ href: calendarLink, dangerouslySetInnerHTML: { __html: calendar } }, extenalLinkProperties)),
+          member.githubHandle ? a('.navItem', assign({ href: github, dangerouslySetInnerHTML: { __html: githubCat } }, extenalLinkProperties)) : ''
         ]),
       ),
       p('.role', member.roleText),
       // Artsy Related
       div('.section', [
-        member.introEmail ? p('.list', a('.grey', {href: member.introEmail}, 'Intro Email')) : '',
+        member.introEmail ? p('.list', a('.grey', assign({ href: member.introEmail }, extenalLinkProperties), 'Intro Email', externalLinkIcon)) : '',
         member.startDate ? p('.list', `Joined: ${moment(member.startDate).fromNow()}`) : '',
         member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : '',
       ]),
       // Social Related
       profile && (profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url)
          ? div('.section', [
-           profile.facebook_url ? p('.list', a('.grey', {href: profile.facebook_url}, `Facebook: ${profile.facebook}`)) : '',
-           profile.twitter ? p('.list', a('.grey', {href: profile.twitter_url}, `Twitter: @${profile.twitter}`)) : '',
-           profile.instagram ? p('.list', a('.grey', {href: profile.instagram_url}, `Instagram: @${profile.instagram}`)) : '',
-           profile.website ? p('.list', a('.grey', {href: profile.website_url}, `Site: ${profile.website}`)) : ''
+           profile.facebook_url ? p('.list', a('.grey', assign({ href: profile.facebook_url }, extenalLinkProperties), `Facebook: ${profile.facebook}`, externalLinkIcon)) : '',
+           profile.twitter ? p('.list', a('.grey', assign({ href: profile.twitter_url }, extenalLinkProperties), `Twitter: @${profile.twitter}`, externalLinkIcon)) : '',
+           profile.instagram ? p('.list', a('.grey', assign({ href: profile.instagram_url }, extenalLinkProperties), `Instagram: @${profile.instagram}`, externalLinkIcon)) : '',
+           profile.website ? p('.list', a('.grey', assign({ href: profile.website_url }, extenalLinkProperties), `Site ${profile.website}`,  externalLinkIcon)) : ''
          ]) : '',
       div('.section', [
-        member.feedbackFormUrl ? a('.feedback', { href: member.feedbackFormUrl }, `Click to give ${member.name} feedback`) : ''
+        member.feedbackFormUrl ? a('.feedback', assign({ href: member.feedbackFormUrl }, extenalLinkProperties), `Click to give ${member.name} feedback`, externalLinkIcon) : ''
       ]),
       h3('.h3', 'Teams'),
       a('.wrapper', { href: `/team/${member.teamID}`, style: { display: 'block' } }, member.team),
@@ -217,7 +220,8 @@ view.render(() => {
         ? div(
             h3('.h3', 'Recent GitHub Repos'),
               member.githubHistory.map(repo =>
-                a('.wrapper', { href: `https://github.com/${repo}`, style: { display: 'block' } }, repo))
+                a('.wrapper', assign({ href: `https://github.com/${repo}`, style: { display: 'block' } }, extenalLinkProperties), repo, externalLinkIcon)
+              )
           )
         : ''
       ),
@@ -225,7 +229,8 @@ view.render(() => {
         ? div(
             h3('.h3', 'Recent Published Articles'),
               member.articleHistory.map(article =>
-                a('.wrapper', { href: `https://artsy.net/${article.href}`, style: { display: 'block' } }, article.name))
+                a('.wrapper', assign({ href: `https://artsy.net/${article.href}`, style: { display: 'block' } }, extenalLinkProperties), article.name, externalLinkIcon)
+              )
           )
         : ''
       )

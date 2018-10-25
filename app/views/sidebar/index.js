@@ -6,15 +6,20 @@ import LocationsTeams from './locations-teams'
 import { state } from '../../controllers'
 import { mediumMargin, sidebarWidth, type } from '../lib'
 import { assign } from 'lodash'
+import { readFileSync } from 'fs'
+import path from 'path'
 
 const view = veact()
 
-const { div, locationsteams, member, members, search, a } = view.els({
+const { div, span, a, locationsteams, member, members, search } = view.els({
   locationsteams: LocationsTeams,
   member: Member,
   members: Members,
   search: Search
 })
+
+const externalLinkIcon = span({ dangerouslySetInnerHTML: { __html: readFileSync(path.join(__dirname, 'external-link.svg')) } })
+const extenalLinkProperties = { target: '_blank', rel: 'noopener' }
 
 view.styles({
   containerMobile: {
@@ -44,7 +49,7 @@ view.render(() =>
   div(state.get('isMobile') ? '.containerMobile' : '.container',
     div('.headline',
       a('.homeButton', { href: '/' }, 'Team Navigator'),
-      a('.atlas', { href: 'http://atlas.artsy.net' }, 'Atlas')
+      a('.atlas', assign({ href: 'http://atlas.artsy.net' }, extenalLinkProperties), 'Atlas', externalLinkIcon)
     ),
     state.get('suppressSearch') ? '' : search(),
     (() => {
