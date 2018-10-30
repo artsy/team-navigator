@@ -31,11 +31,6 @@ class ReloaderApp extends React.Component<{}, { data: any }> {
     // Reload react every 10 seconds
     const tenSecs = 1000 * 10
     setInterval(() => this.getJSONData(), tenSecs)
-
-    // Reload the window every hour, so we can update team nav v3
-    // without going into all the dashboards
-    const oneHour = 1000 * 60 * 60
-    setInterval(() => window.location.reload(), oneHour)
   }
 
   getJSONData() {
