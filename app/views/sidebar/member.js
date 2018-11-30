@@ -40,6 +40,10 @@ view.styles({
       fontWeight: 'bold'
     }
   ),
+  p: {
+    fontSize: "14px",
+    lineHeight: "24px"
+  },
   backButton: assign(
     type('avantgarde', 'body'),
     borderedButton(),
@@ -233,7 +237,13 @@ view.render(() => {
               )
           )
         : ''
-      )
+      ),
+      div([
+        h3('.h3', 'Something missing or incorrect?'),
+        p('.p', [
+          a(assign({ href: `https://artsy.hivyapp.com/catalog?initialItemId=IfRG9X35cn`, style: { display: 'block' } }, extenalLinkProperties), "Request an update via Hivy", externalLinkIcon)
+        ])
+      ])
 
     )
 }
