@@ -98,8 +98,8 @@ class App extends React.Component<{ data: any }> {
 
         <div style={{ padding: 40, display: "flex", flexDirection: "row", justifyContent: "space-evenly", width: "90%" }}>
           <div id="BN" style={{marginRight: 20 }}>
-            <h2 style={{color: "black", borderRadius: 0, borderColor: "black", borderStyle: "solid", padding: "5px"}}> Buy Now </h2>
-            <div style={{ display: "flex", flexDirection: "column", flexShrink: 0.1, borderRight: "1px black solid", paddingRight: 30 }}>
+            <h2 style={{color: "black", padding: "5px"}}> Buy Now </h2>
+            <div style={{ display: "flex", flexDirection: "column", paddingRight: 30 }}>
             {
               bnWorks.slice(0, 3).map( (item, index) => {
                 return(
@@ -124,7 +124,7 @@ class App extends React.Component<{ data: any }> {
           </div>
 
           <div id="MO" style={{marginLeft: 10}}>
-            <h2 style={{color: "black", borderRadius: 0, borderColor: "black", borderStyle: "solid", padding: "5px"}}> Make Offer </h2>
+            <h2 style={{color: "black", padding: "5px"}}> Make Offer </h2>
             <div style={{ flex: 1, color: "white", padding: 10, position: "relative", flexDirection: "column" }}>
             {
               moWorks.slice(0, 3).map( (item, index) => {
