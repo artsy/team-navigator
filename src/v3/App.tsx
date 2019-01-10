@@ -97,19 +97,19 @@ class App extends React.Component<{ data: any }> {
         <link rel="stylesheet" type="text/css" href="https://webfonts.artsy.net/unica-webfonts.css" />
 
         <div style={{ padding: 40, display: "flex", flexDirection: "row", justifyContent: "space-evenly", width: "90%" }}>
-          <div id="BN" style={{marginRight: 20 }}>
+          <div id="BN" style={{marginRight: 20, maxWidth: "50%" }}>
             <h2 style={{color: "black", padding: "5px"}}> Buy Now </h2>
             <div style={{ display: "flex", flexDirection: "column", paddingRight: 30 }}>
             {
               bnWorks.slice(0, 3).map( (item, index) => {
                 return(
                   <div style={{color: "black", display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 80}}>
-                    <p>
+                    <p style={{marginRight: 10 }}>
                       No. {(forSale.count - index).toLocaleString() }
                       <span style={{ fontSize: 50, position: "relative", top: 11, left: 4 }}>•</span>
                     </p>
-                    <div style={{ marginTop: 16, height: "450px" }}>
-                      <img src={item.image.url} style={{ display: "block", width: "auto", height: "100%" }} />
+                    <div style={{ marginTop: 16, height: "450px", marginLeft: "auto", marginRight: "auto" }}>
+                      <img src={item.image.url} style={{ display: "block", width: "auto", height: "auto", maxHeight: "100%" }} />
                       <h2 style={{ marginTop: 20, padding: 0, lineHeight: "25px", fontSize: 20, color: "black" }}>
                         {item.artist_names}
                         <br />
@@ -123,19 +123,19 @@ class App extends React.Component<{ data: any }> {
             </div>
           </div>
 
-          <div id="MO" style={{marginLeft: 10}}>
+          <div id="MO" style={{marginLeft: 10, maxWidth: "50%"}}>
             <h2 style={{color: "black", padding: "5px"}}> Make Offer </h2>
             <div style={{ flex: 1, color: "white", padding: 10, position: "relative", flexDirection: "column" }}>
             {
               moWorks.slice(0, 3).map( (item, index) => {
                 return(
                   <div style={{color: "black", display: "flex", flexDirection: "row", justifyContent: "space-between", marginBottom: 80}}>
-                    <p>
+                    <p style={{marginRight: 10 }}>
                       No. {(forMO.count - index).toLocaleString() }
                       <span style={{ fontSize: 50, position: "relative", top: 11, left: 4 }}>•</span>
                     </p>
-                    <div style={{ marginTop: 16, height: "450px" }}>
-                      <img src={item.image.url} style={{ display: "block", width: "auto", height: "100%" }} />
+                    <div style={{ marginTop: 16, height: "450px", marginLeft: "auto", marginRight: "auto" }}>
+                      <img src={item.image.url} style={{ display: "block", width: "auto", height: "auto", maxHeight: "100%" }} />
                       <h2 style={{ marginTop: 20, padding: 0, lineHeight: "25px", fontSize: 20, color: "black" }}>
                         {item.artist_names}
                         <br />
