@@ -9,6 +9,16 @@ const artsyLogo = readFileSync(path.join(__dirname, './artsy-logo.svg'))
 const view = veact()
 
 const { div, a, input } = view.els()
+const filteredNumOfEmployees = () => {
+  let seen = new Set();
+  for (var member of state.get('allMembers')) {
+    if (member.title.includes('Contributor to The Art Genome Project')) {
+      continue;
+    }
+    seen.add(member.email);
+  }
+  return seen.size;
+}
 
 view.styles({
   searchWrapper: {
@@ -40,7 +50,7 @@ view.render(() =>
   div('.searchWrapper',
     a('.navItem', { href: `/`, dangerouslySetInnerHTML: { __html: artsyLogo } }),
     input('.input', {
-      placeholder: `Search ${state.get('allMembers').length} team members`,
+      placeholder: `Search ${filteredNumOfEmployees()} team members`,
       onChange: (e) => searchMembers(e.target.value)
     })
   )
