@@ -161,6 +161,7 @@ export const showOrg = async (ctx) => {
   state.set('members', orgMembers)
 
   state.set('title', `Members of ${org}`)
+  state.set('format', 'subteams')
   ctx.render({ body: Index })
 }
 
