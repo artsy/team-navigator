@@ -13,7 +13,6 @@ const filteredNumOfEmployees = () => {
   let seen = new Set();
   for (var member of state.get('allMembers')) {
     if (member.title.includes('Contributor to The Art Genome Project')) {
-      console.log(member.name, member.title);
       continue;
     }
     seen.add(member.email);
