@@ -241,7 +241,7 @@ view.render(() => {
       div([
         h3('.h3', 'Something missing or incorrect?'),
         p('.p', [
-          a(assign({ href: `https://artsy.hivyapp.com/catalog?initialItemId=IfRG9X35cn`, style: { display: 'block' } }, extenalLinkProperties), "Request an update via Hivy", externalLinkIcon)
+          a(assign({ href: `https://dashboard.managedbyq.com/tasks/artsy/catalog?initialItemId=IfRG9X35cn`, style: { display: 'block' } }, extenalLinkProperties), "Request an update via Managed by Q ", externalLinkIcon)
         ])
       ])
 
