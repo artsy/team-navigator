@@ -17,8 +17,8 @@ export function validArtsyEmail (email) {
   return /@artsymail.com$/.test(email) || /@artsy.net$/.test(email)
 }
 
-export function isUserAdmin (user) {
-  return user.type === 'Admin' || user.roles.indexOf('admin') !== -1
+export function isUserAuthorized (user) {
+  return user.roles.indexOf('team') !== -1
 }
 
 export function isOnExceptionList (user) {
@@ -28,7 +28,7 @@ export function isOnExceptionList (user) {
 export function authenticateWithUser (ctx) {
   return ctx && ctx.isAuthenticated() &&
        validArtsyEmail(ctx.state.user.email) &&
-       isUserAdmin(ctx.state.user) || isOnExceptionList(ctx.state.user)
+       isUserAuthorized(ctx.state.user) || isOnExceptionList(ctx.state.user)
 }
 
 export function isNodeFetchSelf (ctx) {
