@@ -73,7 +73,7 @@ If the example is out of date, that's fine, go look at the member model and conv
 
 ## Optional ENV vars
 
-`EXCEPTION_USER_IDS` - lets you add non-artsy admins to the app, by adding their user IDs to the environment
+`EXCEPTION_USER_IDS` - lets you add non-artsy users to the app, by adding their user IDs to the environment
 `NO_SYNCING` - skips the syncing of data on startup
 
 ### Testing
