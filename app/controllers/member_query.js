@@ -11,6 +11,7 @@ floor
 city
 headshot
 org
+preferredPronouns
 team
 teamID
 subteam
