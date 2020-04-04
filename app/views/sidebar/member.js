@@ -182,6 +182,7 @@ view.render(() => {
         member.introEmail ? p('.list', a('.grey', assign({ href: member.introEmail }, extenalLinkProperties), 'Intro Email', externalLinkIcon)) : '',
         member.startDate ? p('.list', `Joined: ${moment(member.startDate).fromNow()}`) : '',
         member.timeZone ? p('.list', `Time Zone: ${member.timeZone}`) : '',
+        member.preferredPronouns ? p('.list', `Pronouns: ${member.preferredPronouns}`) : '',
       ]),
       // Social Related
       profile && (profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.website_url)

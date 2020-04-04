@@ -29,6 +29,7 @@ export const member = model('member', {
   personalBio: string(),
   feedbackFormUrl: string(),
   notes: string(),
+  preferredPronouns: string(),
   slackHandle: string(),
   slackID: string(),
   slackPresence: boolean(),
